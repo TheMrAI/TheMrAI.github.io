@@ -34,6 +34,13 @@ theme: minima
 plugins:
   - jekyll-feed
 
+minima:
+  skin: dark
+
+header_pages:
+  - about.md
+  - random.md
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
