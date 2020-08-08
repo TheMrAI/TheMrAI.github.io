@@ -1,6 +1,6 @@
 ---
 layout: page
-title: Kadane
+title: Kadane`s algorithm
 ---
 
 For a given one-dimensional input array of numbers, Kadane's algorithm will
@@ -24,6 +24,26 @@ the next maximum positive sum cannot contain the current or the previous
 elements, because by summing them up, the value would turn negative. Thus
 if a sub-array with a total positive sum bigger than what we have already
 seen exists, it must start from the next element.
+
+### Examples
+
+#### General input
+
+```text
+Input: [1, 3, 4, -2, -1, -5, 11, -7, 6, -2, 4]
+Output: 12
+```
+
+By -5 the sum reached zero, biggest sum can only be after, starting with 11. 
+
+#### Only negative values
+
+```text
+Input: [-1, -2, -3, -4, -5]
+Output: 0
+```
+
+Maximum positive sum cannot be negative, so the returned value is 0.
 
 ### Illustration
 
