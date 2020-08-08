@@ -30,7 +30,7 @@ seen exists, it must start from the next element.
 #### General input
 
 ```text
-Input: [1, 3, 4, -2, -1, -5, 11, -7, 6, -2, 4]
+Input: [1, 3, 4, -2, -1, -7, 11, -7, 6, -2, 4]
 Output: 12
 ```
 
