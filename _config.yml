@@ -29,17 +29,18 @@ github_username: TheMrAI
 
 author: Davo
 
+#minima:
+#  - skin: dark
+
+header_pages:
+  - algorithms/algorithms.md
+  - data_structures/data_structures.md
+  - about.md
+
 # Build settings
 theme: minima
 plugins:
   - jekyll-feed
-
-minima:
-  skin: dark
-
-header_pages:
-  - about.md
-  - random.md
 
 # Exclude from processing.
 # The following items will not be processed, by default.
