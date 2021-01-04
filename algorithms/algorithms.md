@@ -3,6 +3,10 @@ layout: page
 title: Algorithms
 ---
 
+# Designing
+
+- [Dynamic Programming](dynamic_programming.md)
+
 # Searching
 # Sorting
 # Miscellaneous
