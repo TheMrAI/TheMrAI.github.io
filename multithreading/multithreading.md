@@ -57,3 +57,11 @@ little more verbose than usually necessary. [Bjarne Stroustrup](https://www.stro
 puts this principle as "Don't be (too) clever ... "clever code" is hard to write,
 easy to get wrong, harder to maintain, and often no faster than simpler
 alternatives because it can be hard to optimize."
+
+## Topics
+
+- [Memory model](memory_model.md)
+
+## Acknowledgments
+
+Most of everything in this section is based on the wonderful book: [C++ Concurrency in Action 2nd Edition - Anthony Williams](https://www.amazon.com/C-Concurrency-Action-Anthony-Williams/dp/1617294691/ref=sr_1_2?dchild=1&qid=1609941541&refinements=p_27%3AAnthony+Williams&s=books&sr=1-2&text=Anthony+Williams). The de-facto book to learn multithreading from.
