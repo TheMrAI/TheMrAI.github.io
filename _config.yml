@@ -35,6 +35,7 @@ author: Davo
 header_pages:
   - algorithms/algorithms.md
   - data_structures/data_structures.md
+  - multithreading/multithreading.md
   - about.md
 
 # Build settings
