@@ -34,19 +34,41 @@ anything can happen. The program can crash, enter into an invalid state etc.
 
 **[Conflicting operation](https://isocpp.org/files/papers/N4860.pdf#subsubsection.6.9.2.1)** -
 Two expression evaluations conflict if one of them modifies a
-memory location (6.7.1) and the other one reads or modifies the same memory
-location.
+memory location and the other one reads or modifies the same memory
+location simultaneously.
 
-**[Data race](https://en.cppreference.com/w/cpp/language/memory_model#Threads_and_data_races)** - 
+**[Data race](https://en.cppreference.com/w/cpp/language/memory_model#Threads_and_data_races)** -
+When two or more threads can execute conflicting operations, it is called a data
+race. In the presence of a data race the behavior of the program is undefined.
 
-Atomic operation
+**Atomic operation** - An indivisible operation. The modification either fully
+takes effect or not at all.
 
-Happens before
+**[Sequenced before](https://isocpp.org/files/papers/N4860.pdf#subsection.6.9.1)** -
+Sequenced before is an asymmetric, transitive, pair-wise
+relation between evaluations executed by a single thread (6.9.2), which induces a
+partial order among those evaluations. Given any two evaluations **A** and **B**
+if **A** is sequenced before **B**, then the execution of **A** shall precede the
+execution of **B**. If **A** is not sequenced before **B** and **B** is not
+sequenced before **A**, then **A** and **B** are unsequenced.
 
-Inter thread happens before
+**Synchronizes-with** - __Atomic__ write operation **A** is said to
+synchronize-with __atomic__ read operation **B** if operations **A**, **B** and
+every __atomic__ read-modify-write operation between **A** and **B** are suitably
+tagged.
 
-Synchronizes with
+**Inter thread happens before** - Between threads operation **A** happens before
+operation **B** if **A** synchronizes-with **B**.
+
+**Happens before** - Operation **A** is said to happen before operation **B** if
+
+- **A** is sequenced before **B**
+- **A** inter-thread happens before **B**
 
 Release sequence
+
+There is a **Strongly happens before** relationship as well and it comes into play
+only when using __memory_order_consume__. The use of __memory_order_consume__ is
+discouraged by the standard since C++17 and for that reason we won't examine it.
 
 ## Memory orders
