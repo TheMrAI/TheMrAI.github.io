@@ -11,7 +11,7 @@ to us all to have a cursory understanding on what complexity lies under the hood
 so we don't make carelessly very costly mistakes.
 
 This page will collect all the necessary definitions in order of their use and then
-explore what this means in action. The notes put forward here are not meant to
+explore what they mean in action. The notes put forward here are not meant to
 substitute a detailed description of the topic, but to rather serve as a quick
 reference to those already familiar with the concepts. For detailed explanations
 please refer to [C++ Concurrency in Action 2nd Edition - Anthony Williams](https://www.amazon.com/C-Concurrency-Action-Anthony-Williams/dp/1617294691/ref=sr_1_2?dchild=1&qid=1609941541&refinements=p_27%3AAnthony+Williams&s=books&sr=1-2&text=Anthony+Williams), the newest version of the standard [C++20](https://isocpp.org/files/papers/N4860.pdf) or [cppreference.com](https://en.cppreference.com/w/).
@@ -35,7 +35,7 @@ type or a maximal sequence of adjacent bit-fields all having nonzero width.
 An object takes up one or more memory locations.
 
 **[Undefined behavior](https://en.cppreference.com/w/cpp/language/ub)** - Behavior
-for which the C++ standard does not impose any requirements. In other words,
+for which the C++ standard does not impose any requirements on. In other words,
 anything can happen. The program can crash, enter into an invalid state etc.
 
 **[Conflicting operation](https://isocpp.org/files/papers/N4860.pdf#subsubsection.6.9.2.1)** -
@@ -77,6 +77,54 @@ object __M__ is a maximal contiguous sub-sequence of side effects in the
 modification order of __M__, where the first operation is **A**, and every
 subsequent operation is an atomic read-modify-write operation.
 
+There is a **Strongly happens before** relationship as well and it comes into play
+only when using __memory_order_consume__. The use of __memory_order_consume__ is
+discouraged by the standard since C++17 and for that reason we won't examine it. It
+is exempt from the above definitions as well as from the following descriptions.
+Please refer to [memory_order_consume](https://en.cppreference.com/w/cpp/atomic/memory_order) on what __memory_order_consume__ is with it's added complexities like
+**Dependency-ordered before**.
+
+To put everything together it is vital to understand what memory orderings are
+available and what do they mean. Each atomic operation according to it's type can
+be tagged with a memory ordering type.
+
+## Memory orders
+
+Memory orderings specify how the memory is accessed for an atomic operation for
+the object the operation is affecting and for objects around the atomic
+operation. The effects of this mind bending sentence with the above definitions is
+what makes multithreading work in C++. To understand why, first let's take a look
+on the memory ordering tags, the building blocks of higher level interactions.
+
+The memory ordering tags are:
+
+- memory_order_seq_cst
+- memory_order_relaxed
+- memory_order_acquire
+- memory_order_release
+- memory_order_acq_rel
+
+These can be used to "suitably tag" appropriate types of atomic operations. The
+below table shows which type of operation can receive which type of tag.
+
+> Untagged operations have **memory_order_seq_cst** by default.
+
+|Type|Tags|
+|-----|----|
+|store| memory_order_seq_cst, memory_order_release, memory_order_relaxed |
+|load| memory_order_seq_cst, memory_order_acquire, memory_order_relaxed |
+|read-modify-write| memory_order_seq_cst, memory_order_acquire, memory_order_release, memory_order_acq_rel, memory_order_relaxed |
+
+### [Sequentially consistent ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Sequentially-consistent_ordering)
+
+
+
+### [Relaxed ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Relaxed_ordering)
+
+### [Release-Acquire ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering)
+
+
+
 The above definitions are not easy to comprehend and given their interconnected
 nature either the whole thing is absorbed at once or confusion ensues. You might
 have noticed that the definitions although specify a lot of things they still leave
@@ -93,12 +141,3 @@ sequence headed by **A**.
 - 10 Atomic read-modify-write operations shall always read the last value (in the
 modification order) written before the write associated with the read-modify-write
 operation.
-
-There is a **Strongly happens before** relationship as well and it comes into play
-only when using __memory_order_consume__. The use of __memory_order_consume__ is
-discouraged by the standard since C++17 and for that reason we won't examine it. It
-is exempt from the above definitions as well as from the following descriptions.
-Please refer to [memory_order_consume](https://en.cppreference.com/w/cpp/atomic/memory_order) on what __memory_order_consume__ is with it's added complexities like
-**Dependency-ordered before**.
-
-## Memory orders
