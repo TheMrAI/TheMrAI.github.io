@@ -95,18 +95,9 @@ object __M__ is a maximal contiguous sub-sequence of side effects in the
 modification order of __M__, where the first operation is **A**, and every
 subsequent operation is an atomic read-modify-write operation.
 
-To put everything together it is vital to understand what memory orderings are
-available and what do they mean. Each atomic operation according to it's type can
-be tagged with a memory ordering type.
-
-## Synchronizes with
-
-## Release sequence
-
 ## Modification order
 
 From the standard [6.9.2.1.4](https://isocpp.org/files/papers/N4860.pdf#subsection.6.9.2):
-
 "All modifications to a particular atomic object **M** occur in some particular
 total order, called the modification order of **M**. [Note: There is a separate
 order for each atomic object. There is no requirement that these can be combined
@@ -114,20 +105,77 @@ into a single total order for all objects. In general this will be impossible
 since different threads may observe modifications to different objects in
 inconsistent orders.— end note"
 
-That is a dense paragraph. To be able to formulate an idea how this can even happen
-one has to remember how a modern computer works. For our inspection it is enough to
-focus on the memory and the CPU.
+That is a dense paragraph. First of all it only specifies a total modification
+order for atomic objects only! Non atomic objects have no total modification order
+in a multithreaded environment. Secondly, it does not specify a total global order
+across all atomic object modifications. This can be enforced by only using the
+default memory ordering for all atomic operations: [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering).
 
+What is a total modification order for an atomic object and what does it mean to
+have one across all atomic objects?
 
+To be able to formulate what any of this means one has to remember how a
+modern computer works. For our inspection it is enough to focus on the memory and
+the CPU.
 
-All programs consist on a set of instructions and operate on a set of data. Both
+![Image for cpu, memory and caches]()
+
+All programs consist of a set of instructions and operate on a set of data. Both
 the instruction set and the data lives on the hard drive (nowadays SSD) at first.
 When used, for quicker access, they get loaded into the working memory the RAM. To
 execute the instructions and to manipulate the data, the necessary information is
 loaded into the cache lines of the CPU. The CPU does it's thing and writes the
 results back into the cache line, which then at some point will be copied back into
 the RAM. That is rather simple if you have only one core with it's own cache. But
-nowadays we have many and some caches are shared some are not. Considering having
-two cores with their separate cache lines working on the same data **M** without
-properly synchronizing on it. **M** has the value 3 for example. Thread A writes the value 3 into **M** while Thread B reads
-it and
+nowadays we have many and some caches are shared some are not.
+
+### No total modification order
+
+What does no total modification order really mean? A simple example where two
+threads modify the same non atomic variable demonstrates just that.
+Both threads are only incrementing the same value by one in a loop. As a final
+value we would like to see a 100, but that is not quite what we will get.
+
+Code:
+```c++
+code example here
+```
+
+Outputs:
+```bash
+result here
+```
+
+What we see is that the result will be unspecified, because we are executing
+conflicting operations, causing a data race, which is undefined behavior.
+
+Following the CPU cache lines, train of thought something like below is happening:
+
+![Image for the example]()
+
+### Total modification order
+
+Using the exact same example as before, but substituting the non atomic object for
+an atomic one we will see that the result will always be a 100. There is a total
+modification order for the atomic variable on which both threads have agreed upon.
+This changes from execution to execution, but the results after each modification
+are well defined and consequently the final result is as well.
+
+Code:
+```c++
+code example here
+```
+
+Outputs:
+```bash
+result here
+```
+
+### Total modification order across all atomic operations
+
+This can only happen if all atomic operations are using [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering) ordering. If there is any that
+are not, than there will be no total modification order.
+
+## Synchronizes with and happens before
+
+## Release sequence
