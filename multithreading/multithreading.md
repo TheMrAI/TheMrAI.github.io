@@ -36,6 +36,7 @@ use case perfectly.
 2. Read the documentation or write it for the tools you are using/making!
 3. Implement while exercising utmost humility regarding your knowledge and level
 of skill.
+4. Always measure!
 
 Rule 1 saves you and for your colleagues as well an exorbitant amount of time.
 An implementation ready made and documented is much, much less likely to be faulty
@@ -50,17 +51,32 @@ example the standard does not guarantee any atomic type except for
 lock free implementation, without checking it in the code is folly.
 
 Rule 3 is to preserve our sanity. If you decide to stretch the limits of your and
-everybody elses cognitive abilities coming after you then it is for the benefits of
-all, that includes you too, to write the code in the simplest most straightforward
-way possible. No need for fancy shorthands and tricky constructs, instead be a
-little more verbose than usually necessary. [Bjarne Stroustrup](https://www.stroustrup.com/quotes.html)
+everybody elses cognitive abilities coming after you, then it is for the benefits
+of all, that includes you too, to write the code in the simplest most
+straightforward way possible. No need for fancy shorthands and tricky constructs,
+instead be a little more verbose than usually necessary. [Bjarne Stroustrup](https://www.stroustrup.com/quotes.html)
 puts this principle as "Don't be (too) clever ... "clever code" is hard to write,
 easy to get wrong, harder to maintain, and often no faster than simpler
 alternatives because it can be hard to optimize."
 
+Rule 4 does not just apply to multithreading, but for C++ coding in general.
+However, it is even more important to measure multithreaded code as single threaded
+one. Why? Well, first of you would like to have minimal complexity for the
+implementation/maintenance costs described in Rule 3. If then, it turns out that
+the introduction of multithreading did not bring about the sought after performance
+gains it might be better to just get rid of it altogether. Secondly, you want to
+know exactly how your code performs before and after each code change. You don't
+want to introduce unnecessary bottlenecks into your already complicated code.
+
 ## Topics
 
-- [Memory model](memory_model.md)
+The topics are ordered so that lower level concepts appear first and then ones that
+build upon what has been written previously. In this sense the links below could be
+used as a road-map to get to know the field or just as a reference to find what has
+been forgotten.
+
+- [Basic definitions](definitions.md)
+- [Memory orders](memory_orders.md)
 
 ## Acknowledgments
 
