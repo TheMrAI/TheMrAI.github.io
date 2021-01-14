@@ -74,7 +74,10 @@ relation between evaluations executed by a single thread (6.9.2), which induces 
 partial order among those evaluations. Given any two evaluations **A** and **B**
 if **A** is sequenced before **B**, then the execution of **A** shall precede the
 execution of **B**. If **A** is not sequenced before **B** and **B** is not
-sequenced before **A**, then **A** and **B** are unsequenced.
+sequenced before **A**, then **A** and **B** are unsequenced. An expression **X**
+is said to be sequenced before an expression **Y** if every value computation
+and every side effect associated with the expression **X** is sequenced before
+every value computation and every side effect associated with the expression **Y**.
 
 **Synchronizes-with** - __Atomic write__ operation **A** is said to
 synchronize-with __atomic read__ operation **B** if operations **A**, **B** and
@@ -176,6 +179,71 @@ result here
 This can only happen if all atomic operations are using [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering) ordering. If there is any that
 are not, than there will be no total modification order.
 
-## Synchronizes with and happens before
+## Sequenced-before, Happens-before and Synchronizes-with
+
+### Sequenced-before
+
+[Sequenced-before](https://en.cppreference.com/w/cpp/language/eval_order) is a
+complicated topic with a great number of nuances. It defines
+how expressions, sub-expressions and operands get evaluated in what order.
+For example:
+
+```c++
+int x;  // A
+x = 10; // B
+++x;    // C
+```
+
+Expression **A** is sequenced before **B** and that is sequenced before **C**. On
+the other hand it, the evaluation of functions arguments for example is not
+sequenced. For example:
+
+```c++
+#include <cstdio>
+
+int print_a()
+{
+    return std::puts("a");
+}
+
+int print_b()
+{
+    return std::puts("b");
+}
+
+int main()
+{
+    return print_a() + print_b();
+}
+```
+
+The output on stdout could be "a b" or "b a". It is not specified which argument of
+the + operator is evaluated first. In this case __print_a__ and __print_b__ are
+unsequenced.
+
+For our purposes it is not necessary to know the exactly how the sequencing
+rules work, but it is important to have a tangible example for grasping the
+concept and knowing that details exist that we have conveniently ignored.
+
+With sequenced-before cleared up we can quickly understand what happens-before and
+synchronizes-with mean.
+
+### Happens-before and synchronizes-with
+
+In a single threaded sense happens-before is the same as sequenced-before. If
+operation **A** is sequenced before operation **B** then operation **A** also
+happens-before operation **B**. Simple enough. The multithreaded interaction is
+just as simple but another condition must be satisfied for the inter-thread
+happens-before to take effect. That condition is the synchronizes-with. By having
+a synchronizes-with interaction between two atomic operations, being executed in
+two threads, is like having a bridge connecting the two. This could be
+conceptualized as if there were no threads at all, but the set of instructions
+took effect as if they happened in some sequence after each other like in the
+simple single threaded example.
+
+![Image to show the difference between multithreaded and single]()
+
+Whenever happens-before is mentioned it both means inter-thread happens-before and
+single thread happens-before (sequenced-before).
 
 ## Release sequence
