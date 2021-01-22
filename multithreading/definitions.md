@@ -10,7 +10,7 @@ standard is the foundation of all the multithreading support available to us tod
 Understanding it is crucial even if one does not wish to write low level
 structures for special use cases. At the very least it should be a humble lesson
 to us all to have a cursory understanding on what complexity lies under the hood,
-so we don't make carelessly very costly mistakes.
+so we do not make carelessly very costly mistakes.
 
 This page will collect all the necessary definitions in order of their use and then
 explore what they mean in action. The notes put forward here are not meant to
@@ -43,9 +43,12 @@ when reasoning about multithreaded code.
 **[Object](https://en.cppreference.com/w/cpp/language/object)** - A C++ object has
 size, alignment requirement, storage duration, lifetime, type, value and
 optionally a name. It is a region of storage that can be manipulated by a C++
-program. A variable of type **int** is an object just like compound objects as a
-**struct** made up of multiple variables with type **int** is an object.
-An object takes up one or more memory locations.
+program. For example any variable of integral type, like an **int** is an object just like any compound objects such as a **struct** made up of multiple integral types of other compound objects are considered an object.
+For this reason an object takes up one or more memory locations.
+
+This definition of object is not to be confused with that of object oriented
+programming. The later is a concept for bundling data and functionality together
+while the former is about the data itself.
 
 **[Memory location](https://en.cppreference.com/w/cpp/language/memory_model#Memory_location)** - A memory location is either an object of scalar
 type (arithmetic type, pointer, enumeration or std::nullptr) or a maximal sequence
@@ -96,7 +99,7 @@ Operation **A** is said to happen before operation **B** if
 **[Release sequence](https://isocpp.org/files/papers/N4860.pdf#subsection.6.9.1)** - A release sequence headed by a release operation **A** on an atomic
 object __M__ is a maximal contiguous sub-sequence of side effects in the
 modification order of __M__, where the first operation is **A**, and every
-subsequent operation is an atomic read-modify-write operation.
+subsequent operation is an **atomic read-modify-write** operation.
 
 ## Modification order
 
@@ -111,8 +114,8 @@ inconsistent orders.— end note"
 That is a dense paragraph. First of all it only specifies a total modification
 order for atomic objects only! Non atomic objects have no total modification order
 in a multithreaded environment. Secondly, it does not specify a total global order
-across all atomic object modifications. This can be enforced by only using the
-default memory ordering for all atomic operations: [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering).
+across all atomic object modifications. On the other hand this can be enforced by
+only using the default memory ordering for all atomic operations: [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering).
 
 What is a total modification order for an atomic object and what does it mean to
 have one across all atomic objects?
@@ -152,7 +155,7 @@ result here
 What we see is that the result will be unspecified, because we are executing
 conflicting operations, causing a data race, which is undefined behavior.
 
-Following the CPU cache lines, train of thought something like below is happening:
+Following the CPU cache lines train of thought something like below is happening:
 
 ![Image for the example]()
 
@@ -179,6 +182,9 @@ result here
 This can only happen if all atomic operations are using [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering) ordering. If there is any that
 are not, than there will be no total modification order.
 
+[Note: A rather anemic paragraph. Not sure if the concept should be explored here in
+detail or in other sections.]
+
 ## Sequenced-before, Happens-before and Synchronizes-with
 
 ### Sequenced-before
@@ -195,7 +201,7 @@ x = 10; // B
 ```
 
 Expression **A** is sequenced before **B** and that is sequenced before **C**. On
-the other hand it, the evaluation of functions arguments for example is not
+the other hand, the evaluation of functions arguments for example is not
 sequenced. For example:
 
 ```c++
@@ -221,7 +227,7 @@ The output on stdout could be "a b" or "b a". It is not specified which argument
 the + operator is evaluated first. In this case __print_a__ and __print_b__ are
 unsequenced.
 
-For our purposes it is not necessary to know the exactly how the sequencing
+For our purposes it is not necessary to know exactly how the sequencing
 rules work, but it is important to have a tangible example for grasping the
 concept and knowing that details exist that we have conveniently ignored.
 
@@ -230,12 +236,12 @@ synchronizes-with mean.
 
 ### Happens-before and synchronizes-with
 
-In a single threaded sense happens-before is the same as sequenced-before. If
+In a single threaded sense, happens-before is the same as sequenced-before. If
 operation **A** is sequenced before operation **B** then operation **A** also
 happens-before operation **B**. Simple enough. The multithreaded interaction is
 just as simple but another condition must be satisfied for the inter-thread
 happens-before to take effect. That condition is the synchronizes-with. By having
-a synchronizes-with interaction between two atomic operations, being executed in
+a synchronizes-with interaction between two atomic operations being executed in
 two threads, is like having a bridge connecting the two. This could be
 conceptualized as if there were no threads at all, but the set of instructions
 took effect as if they happened in some sequence after each other like in the
@@ -247,3 +253,20 @@ Whenever happens-before is mentioned it both means inter-thread happens-before a
 single thread happens-before (sequenced-before).
 
 ## Release sequence
+
+The above definitions are not easy to comprehend and given their interconnected
+nature either the whole thing is absorbed at once or confusion ensues. You might
+have noticed that the definitions although specify a lot of things they still leave
+some questions lingering behind. What is the point of a release sequence? Why would
+a suitably tagged pair of atomic operations **A**, **B** on object **M**
+synchronize whit each other if between them there can be any number of
+read-modify-write operations? The answers in this case are clearly specified by the
+standard in the below two rules both from section [31.4](https://isocpp.org/files/papers/N4860.pdf#section.31.4):
+
+- 2 An atomic operation **A** that performs a release operation on an atomic
+object **M** synchronizes with an atomic operation **B** that performs an acquire
+operation on **M** and takes its value from any side effect in the release
+sequence headed by **A**.
+- 10 Atomic read-modify-write operations shall always read the last value (in the
+modification order) written before the write associated with the read-modify-write
+operation.

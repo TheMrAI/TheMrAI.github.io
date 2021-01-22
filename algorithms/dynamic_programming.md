@@ -4,12 +4,12 @@
 
 The origin of the term dynamic programming is an interesting one. Two legends are
 in circulation. One from the author [Richard Bellman](https://en.wikipedia.org/wiki/Richard_E._Bellman) 
-stating that it designed the mathematical background of
+stating that it was designed to hide the mathematical background of
 his work from his employer at the time. Choosing dynamic as it has no negative
 connotations and to refer to the time varying, multistage nature of the problems.
 Programming was chosen because it didn't contain the word mathematics and it
 sounded better than planning.
-The other legend refers to an attempt to one up the previously existing methods
+The other legend refers to an attempt to one up the previously existing method
 named linear programming.
 
 ## Applicability
@@ -57,8 +57,8 @@ already having an optimal solution to your original problem.
 
 ### Overlapping subproblems
 
-Subproblems are considered overlapping when the solution for them share a common
-set of subproblems among them.
+Subproblems are considered overlapping when the solution for them shares a common
+set of subproblems.
 
 The implication of this requirement is that the set of distinct subproblems
 is small compared to the total set of subproblems that would need to be visited
@@ -85,7 +85,7 @@ while considering the result of all **subproblems X<sub>i</sub>** for any of whi
 I do not know the answers for."
 
 In other words we can define how an optimal solution will look like from the
-top-down. The solution on the top level relies on the solutions of the
+top-down. The solution on the top level relies on the solutions for the
 subproblems having the same basic format on lower levels.
 
 ### 2. Reformat the recursive algorithm to use dynamic programming

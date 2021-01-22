@@ -7,10 +7,10 @@ title: Multithreading
 
 Multithreading in C++ quite honestly is nothing less than black magic. To anybody
 being unfamiliar with the types of magic in general, black magic simply means that
-one gets the most power, but the price is great. To properly utilize multithreading
-in C++ one has to fully understand the memory model, the physical hardware and all
-the implications that may come with them. None of them are easy tasks, even
-separately and surely they aren't combined.
+one gets the most power, but the price for it is also the great. To properly utilize
+multithreading in C++ one has to fully understand the memory model, the physical
+hardware and all the implications that may come with them. None of these are easy
+tasks, even separately and surely, they aren't combined.
 
 The likelihood of making a tiny mistake, that can non the less cause undefined
 behaviors at the exact moments one least expects them, is very high. These
@@ -39,8 +39,8 @@ of skill.
 4. Always measure!
 
 Rule 1 saves you and for your colleagues as well an exorbitant amount of time.
-An implementation ready made and documented is much, much less likely to be faulty
-than anything that could be written in it's place.
+An implementation ready made, tested and documented is much, much less likely to be
+faulty than anything that could be written in it's place.
 
 Rule 2 is to read the documentation! No, no really! It's is okay you remember it,
 still just open the documentation and double check it before any bug is introduced
@@ -51,7 +51,7 @@ example the standard does not guarantee any atomic type except for
 lock free implementation, without checking it in the code is folly.
 
 Rule 3 is to preserve our sanity. If you decide to stretch the limits of your and
-everybody elses cognitive abilities coming after you, then it is for the benefits
+everybody elses cognitive abilities coming after you, then it is for the benefit
 of all, that includes you too, to write the code in the simplest most
 straightforward way possible. No need for fancy shorthands and tricky constructs,
 instead be a little more verbose than usually necessary. [Bjarne Stroustrup](https://www.stroustrup.com/quotes.html)
@@ -60,8 +60,8 @@ easy to get wrong, harder to maintain, and often no faster than simpler
 alternatives because it can be hard to optimize."
 
 Rule 4 does not just apply to multithreading, but for C++ coding in general.
-However, it is even more important to measure multithreaded code as single threaded
-one. Why? Well, first of you would like to have minimal complexity for the
+However, it is even more important to measure multithreaded code than single threaded
+one. Why? Well, first of all you would like to have minimal complexity for the
 implementation/maintenance costs described in Rule 3. If then, it turns out that
 the introduction of multithreading did not bring about the sought after performance
 gains it might be better to just get rid of it altogether. Secondly, you want to

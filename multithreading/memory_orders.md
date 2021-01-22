@@ -7,9 +7,9 @@ title: Memory orders
 
 Memory orderings specify how the memory is accessed for an atomic operation for
 the object the operation is affecting and for objects around the atomic
-operation. The effects of this mind bending sentence with the above definitions is
-what makes multithreading work in C++. To understand why, first let's take a look
-on the memory ordering tags, the building blocks of higher level interactions.
+operation. The effects of this mind bending sentence with the prior [definitions](definitions.md) is what makes multithreading work in C++. To understand why, first
+let's take a look on the memory ordering tags, the building blocks of higher level
+interactions.
 
 The memory ordering tags are:
 
@@ -47,26 +47,9 @@ each other the processor has to execute costly operations synchronizing the
 variables affected by the relevant happens-before relationships. On top of this
 sequential consistency is only guaranteed if all operations are tagged with
 memory_order_seq_cst on a given modification order. When this stops being the case
-a previously sequentially consistent atomic operation can be thought of a
-memory_order_release (on a store) or memory_order_acquire (on a load).
+a previously sequentially consistent atomic operation will be denoted to that of a
+pair of memory_order_release (on a store) and memory_order_acquire (on a load).
 
 ### [Relaxed ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Relaxed_ordering)
 
 ### [Release-Acquire ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering)
-
-The above definitions are not easy to comprehend and given their interconnected
-nature either the whole thing is absorbed at once or confusion ensues. You might
-have noticed that the definitions although specify a lot of things they still leave
-some questions lingering behind. What is the point of a release sequence? Why would
-a suitably tagged pair of atomic operations **A**, **B** on object **M**
-synchronize whit each other if between them there can be any number of
-read-modify-write operations? The answers in this case are clearly specified by the
-standard in the below two rules both from section [31.4](https://isocpp.org/files/papers/N4860.pdf#section.31.4):
-
-- 2 An atomic operation **A** that performs a release operation on an atomic
-object **M** synchronizes with an atomic operation **B** that performs an acquire
-operation on **M** and takes its value from any side effect in the release
-sequence headed by **A**.
-- 10 Atomic read-modify-write operations shall always read the last value (in the
-modification order) written before the write associated with the read-modify-write
-operation.
