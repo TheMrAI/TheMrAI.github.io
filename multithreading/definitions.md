@@ -130,30 +130,39 @@ All programs consist of a set of instructions and operate on a set of data. Both
 the instruction set and the data lives on the hard drive (nowadays SSD) at first.
 When used, for quicker access, they get loaded into the working memory the RAM. To
 execute the instructions and to manipulate the data, the necessary information is
-loaded into the cache lines of the CPU. The CPU does it's thing and writes the
-results back into the cache line, which then at some point will be copied back into
-the RAM. That is rather simple if you have only one core with it's own cache. But
-nowadays we have many and some caches are shared some are not.
+loaded into the cache lines of the CPU. The CPU does it's calculations and writes
+the results back into the cache line, which then at some point will be copied back
+into the RAM. That is rather simple if you have only one core with it's own cache.
+But nowadays we have many and some caches are shared some are not.
 
 ### No total modification order
 
 What does no total modification order really mean? A simple example where two
 threads modify the same non atomic variable demonstrates just that.
 Both threads are only incrementing the same value by one in a loop. As a final
-value we would like to see a 100, but that is not quite what we will get.
+value we would like to see a 10'000, but that is not quite what we will get.
 
 Code:
 ```c++
-code example here
 ```
 
 Outputs:
 ```bash
-result here
+5000
+9128
+6975
+7736
+5000
 ```
 
 What we see is that the result will be unspecified, because we are executing
-conflicting operations, causing a data race, which is undefined behavior.
+conflicting operations, causing a data race, which is undefined behavior. Anything
+between 5'000 to 10'000 (including) can become the output. We do not know and we
+can never know.
+
+Even more alarming is that the faulty values before are not that common. It can
+easily happen that running the program will not produce any issues. This is in
+essence why multithreading is dangerous.
 
 Following the CPU cache lines train of thought something like below is happening:
 
@@ -176,14 +185,6 @@ Outputs:
 ```bash
 result here
 ```
-
-### Total modification order across all atomic operations
-
-This can only happen if all atomic operations are using [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering) ordering. If there is any that
-are not, than there will be no total modification order.
-
-[Note: A rather anemic paragraph. Not sure if the concept should be explored here in
-detail or in other sections.]
 
 ## Sequenced-before, Happens-before and Synchronizes-with
 

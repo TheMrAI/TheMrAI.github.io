@@ -50,6 +50,14 @@ memory_order_seq_cst on a given modification order. When this stops being the ca
 a previously sequentially consistent atomic operation will be denoted to that of a
 pair of memory_order_release (on a store) and memory_order_acquire (on a load).
 
+### Total modification order across all atomic operations
+
+This can only happen if all atomic operations are using [memory_order_seq_cst](memory_orders.md#sequentially-consistent-ordering) ordering. If there is any that
+are not, than there will be no total modification order.
+
+[Note: A rather anemic paragraph. Not sure if the concept should be explored here in
+detail or in other sections.]
+
 ### [Relaxed ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Relaxed_ordering)
 
 ### [Release-Acquire ordering](https://en.cppreference.com/w/cpp/atomic/memory_order#Release-Acquire_ordering)
