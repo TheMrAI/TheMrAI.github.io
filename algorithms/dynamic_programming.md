@@ -4,7 +4,7 @@
 
 The origin of the term dynamic programming is an interesting one. Two legends are
 in circulation. One from the author [Richard Bellman](https://en.wikipedia.org/wiki/Richard_E._Bellman) 
-stating that it designed the mathematical background of
+stating that it was designed to hide the mathematical background of
 his work from his employer at the time. Choosing dynamic as it has no negative
 connotations and to refer to the time varying, multistage nature of the problems.
 Programming was chosen because it didn't contain the word mathematics and it
@@ -132,6 +132,9 @@ provide the solution itself. The solution most commonly is the chain of choices
 made while calculating the optimal values. These could be characters chosen in the
 __Longest Common Subsequence__ problem, optimal piece sizes in the __Rod Cutting
 Problem__ or any other piece of information that describes an optimal solution.
+
+To best demonstrate the process please check out the example solution for the
+textbook problem of [Longest Common Subsequence](longest_common_subsequence.md).
 
 ## Acknowledgements
 
