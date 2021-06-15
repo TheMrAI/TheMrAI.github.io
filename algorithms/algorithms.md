@@ -3,11 +3,14 @@ layout: page
 title: Algorithms
 ---
 
-# Designing
+## Designing
 
 - [Dynamic Programming](dynamic_programming.md)
 
-# Searching
-# Sorting
-# Miscellaneous
+## Searching
+
+## Sorting
+
+## Miscellaneous
+
 - [Kadane](kadane.md) - Find maximal sub-array in a sequence. 
