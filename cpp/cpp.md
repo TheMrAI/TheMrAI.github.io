@@ -275,13 +275,64 @@ return
 
 ### All about ownership
 
-Raw pointer
+Since C++11 there are two big families of pointers in C++. One is called **raw pointer/non-owning pointer** the other
+is **owning pointer**. They represents completely different things.
 
-Owning pointer
+A **raw pointer** is called as such, because it does not represent ownership of the resource it is pointing to.
+It is just simply pointing to it. For this reason in a modern C++ code when a function returns a raw pointer
+it should be assumed by the calling party that the memory location pointed to by the pointer has it's
+lifetime handled by some other code.
 
-- std::unique_ptr
-- std::shared_ptr
-- std::weak_ptr
+```cpp
+Resource resource;
+auto* a_pointer = resource.give_me_pointer();
+// working with a_pointer
+// don't have to call delete/delete[] on a_pointer
+```
+
+An owning pointer on the other hand explicitly states that it has ownership of the memory location it is pointing to and
+guarantees that upon it's destruction it will free that memory location.
+
+There are 3 types of owning pointers in C++:
+
+- [std::unique_ptr](https://en.cppreference.com/w/cpp/memory/unique_ptr)
+- [std::shared_ptr](https://en.cppreference.com/w/cpp/memory/shared_ptr)
+- [std::weak_ptr](https://en.cppreference.com/w/cpp/memory/weak_ptr)
+
+**std::unique_ptr** is the replacement for the old **new-delete/new[]-delete[]** pairs and represents singular ownership.
+Only the constructed instance is responsible for owning the resource and nobody else. On it's construction it takes ownership,
+on it's destruction it releases the memory location. That is all. No need to handle exceptions and freeing the memory by hand or
+making sure in general that on all code paths the resource is released.
+In fact from C++14 one should not even have to write down the **new** keyword at all as the handy **make_unique** function was
+created as a replacement.
+
+```cpp
+auto owned_resource = std::make_unique<int>(3); // equivalent to, but much safer
+auto owned_resource = std::unique_ptr<int>(new int(3));
+```
+
+To support this idea further a **unique_ptr** cannot be copied only moved! A copy could not be reasonable defined. Which object
+would hold the responsibility of freeing the resource after the copy? Because of this fatal flaw was the **auto_ptr** deprecated in
+C++11 and subsequently removed in C++17.
+
+**std::shared_ptr** and **std::weak_ptr** represent shared ownership of a resource, but in a slightly different way.
+**std::shared_ptr**s own a single resource together. Upon the creation of the first **std::shared_ptr** instance the resource gets allocated, but
+it will only get destroyed when the final **std::shared_ptr** pointing to it is destroyed as well.
+
+```cpp
+auto user_one = std::make_shared<int>(3);
+auto user_two{user_one};
+auto user_three = user_one; // all share the same 3
+```
+
+**std::weak_ptr** is a little bit different. It shares the ownership, but it will not interfere in the lifetime of the shared resource until it
+is upgraded to a **std::shared_ptr**. Until this upgrade occurs the caller cannot access the resource pointed to by the **std::weak_ptr**. As the
+**std::weak_ptr** hasn't yet declared participation in the ownership, it cannot know the resource still exists and it will not provide access to it.
+This slight modification to the behavior is necessary to being able to properly define the lifetime of objects when they are in a circular dependency.
+
+> As a result of the above the following can be considered as semantical errors in a code:
+- passing **std::unique_ptr**, **std::shared_ptr** or **std::weak_ptr** as lvalue references to any scope
+The compiler does allow it, but it is like saying "Here I will give you an apple, now it is yours, but it will stay in my pocket."
 
 ### Iterators
 
