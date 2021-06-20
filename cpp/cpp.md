@@ -158,6 +158,110 @@ Vector v: 3 3
 Vector v: 1 2 3 
 ```
 
+### Implicit/explicit type deduction
+
+### Const correctness
+
+Until C++11 a constant variable, meant a variable for which the compiler would not allow
+any non-const operations.
+
+```cpp
+const int dont_change = 5;
+dont_change = 3; // <-- compiler error
+```
+
+This safety check is the same for functions taking const arguments.
+
+```cpp
+void change(int& value)
+{
+    value = 3; // OK
+}
+
+void change_const_ref(int const& value)
+{
+    value = 3; // <-- compiler error
+}
+
+void change_const_value(int const value)
+{
+    value = 3; // <-- compiler error
+}
+
+void change_value(int value)
+{
+    value = 3; // OK
+}
+```
+
+Not surprisingly **change** and **change_value** are the only two that will compile. The rest will not as the
+compiler is protecting us.
+
+> As a side-note, from the compilers perspective two functions with the same name taking arguments as values and
+only differing in their constness are exactly the same, which will result in compiler issues stating function redefinition.
+```cpp
+void change(int value){};
+void change(int const value){};
+```
+The compiler says: `error: redefinition of 'void change(int)'`
+
+This work similarly for member variables.
+```cpp
+class changer
+{
+public:
+    void change_value_marked_const() const
+    {
+        value = 3; // <-- Compiler error, trying to modify member variable in a scope marked as const
+    }
+    void change_value()
+    {
+        value = 3; // OK
+    }
+private:
+    int value{0};
+};
+```
+
+All as expected. There is a caveat, however! No variable marked as **const** is actually constant, only the compiler issues errors, for our convenience,
+but this does not mean they cannot be changed. The only thing one has to do is cast their constness away.
+
+Functions:
+```cpp
+void change(int const& value)
+{
+    auto& non_const_value = const_cast<int&>(value);
+    non_const_value = 3; // <-- It isn't const any more and it changes
+};
+```
+Member variables:
+```cpp
+class changer
+{
+public:
+    void change_value_marked_const() const
+    {
+        const_cast<int&>(this->value) = 3; // <-- Happily changes this->value to 3 in a const member function
+    }
+
+    int get_value() const
+    {
+        return value;
+    }
+private:
+    int value{0};
+};
+```
+
+**const** keyword is really important in reducing the number of programming errors, but as it can be seen
+it does not mean constant variables. Moreover after the above demonstrations one should be extra suspicions
+whenever they see a **const_cast**.
+
+After **C++11** a new keyword **constexpr** was introduced. By [definiton](https://en.cppreference.com/w/cpp/language/constexpr)
+a **constexpr** marked expression can be evaluated at compile time.
+This will actually make anything marked with it constant. You will not change these values, regardless of what hack you may employ.
+Not from inside the code at least.
+
 ### Move semantics
 
 &&
@@ -165,9 +269,15 @@ std::swap
 
 The rule of five
 
+return
+
 ### Lambda functions
 
 ### All about ownership
+
+Raw pointer
+
+Owning pointer
 
 - std::unique_ptr
 - std::shared_ptr
@@ -176,3 +286,13 @@ The rule of five
 ### Iterators
 
 ### The STL
+
+#### Algorithms
+
+#### Containers
+
+#### Chrono
+
+#### Filesystem
+
+#### Threads
