@@ -24,6 +24,10 @@ does that fit into the whole.
 and examine exactly what was generated.
 - [Quick C++ Benchmark](https://www.quick-bench.com/): Compare the speed of two simple implementations. Don't
 assume one way is faster than the other.
+- [Fluent C++](https://www.fluentcpp.com/): An extremely good blog about C++ features, techniques and in general
+explanations.
+- [Cᐩᐩ Weekly With Jason Turner](https://www.youtube.com/user/lefticus1): A C++ Youtube channel with weekly informative
+videos on new compiler features and tips.
 
 ## Features
 
@@ -273,6 +277,74 @@ return
 
 ### Lambda functions
 
+[Lambda functions](https://en.cppreference.com/w/cpp/language/lambda) are perhaps the most important of features in the C++11 standard.
+They allow the user the specification of arbitrary functions and the ability to store and hand over those in a strongly typed manner.
+They are described as [closures](https://en.wikipedia.org/wiki/Closure_(computer_programming)) in the documentation, which is somewhat misleading.
+They do capture variables from the scope they are constructed in, but in typical C++ manner, whether those values will still exist by the time
+the closure is executed is solely the implementers responsibility.
+
+The format of a lambda function is deceptively simple. It consists of a capture block **[]**, a list of parameters **()** and the body of the
+function **{}**.
+```cpp
+[](){};
+```
+
+The capture block is where variables can be captured from the enclosing scope, the list of parameters should be thought of as function arguments
+and the body will be the function itself.
+There is really no need to specify the lambda's return type, but it can be done by a trailing return type.
+
+```cpp
+int limit{5};
+auto smaller_than = [&limit](int const& rhs) -> bool {
+    return rhs < limit;
+};
+
+std::vector<int> input{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+input.erase(std::remove_if(input.begin(), input.end(), smaller_than), input.end());
+```
+
+The above example demonstrates their power. First we define what is our predicate, in this case we are looking for values smaller than five. Then
+**std::remove_if** is called, which removes the values from the vector in exactly big O of N, by moving invalid values to the back, then returns the
+iterator pointing to the first value that has satisfied the criteria. To completely eradicate the objects in the vector a final **erase** is called
+which executes in big O of N.
+In that line of code, the vector is cleared from unimportant values in big O of N time. We couldn't really write much of anything that was either
+faster of shorter to scribble down.
+
+Without dwelling much in the details of why and how they do what they do, it is enough to know that they enable all programmers to use the STL algorithms
+in convenient manner. When writing C++ code, every line you don't have to write is a win for you, your team, your company in terms of time. Which is
+a humongous plus for a language where writing anything down is very cumbersome.
+
+The overwhelming majority of STL algorithms (perhaps all of them, but saying this is easier and definitely correct) expect one type of callable or other
+to do their work.
+- [std::transform](https://en.cppreference.com/w/cpp/algorithm/transform): Applying a Unnary operator to all elements and putting the results into another range.
+
+```cpp
+std::string s("hello");
+std::transform(s.begin(), s.end(), s.begin(),
+                [](unsigned char c) -> unsigned char { return std::toupper(c); });
+```
+
+- [std::find_if](https://en.cppreference.com/w/cpp/algorithm/find): Find an element satisfying the given Unary predicate.
+
+```cpp
+std::vector<int> v{1, 2, 3, 4};
+auto is_even = [](int i){ return i%2 == 0; };
+
+auto result3 = std::find_if(begin(v), end(v), is_even);
+```
+
+- [std::sort](https://en.cppreference.com/w/cpp/algorithm/sort): Sorting a range of elements according to the given comparator.
+
+```cpp
+std::array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+struct customLess {
+  bool operator()(int a, int b) const { return a < b; }
+};
+std::sort(s.begin(), s.end(), customLess);
+```
+
+More on them at: [Think of Function Objects as Functions Rather Than Objects](https://www.fluentcpp.com/2017/10/20/think-function-objects-functions-rather-objects/)
+
 ### All about ownership
 
 Since C++11 there are two big families of pointers in C++. One is called **raw pointer/non-owning pointer** the other
@@ -330,8 +402,8 @@ is upgraded to a **std::shared_ptr**. Until this upgrade occurs the caller canno
 **std::weak_ptr** hasn't yet declared participation in the ownership, it cannot know the resource still exists and it will not provide access to it.
 This slight modification to the behavior is necessary to being able to properly define the lifetime of objects when they are in a circular dependency.
 
-> As a result of the above the following can be considered as semantical errors in a code:
-- passing **std::unique_ptr**, **std::shared_ptr** or **std::weak_ptr** as lvalue references to any scope
+> As a result of the above the following can be considered as a semantical error in code:
+- passing **std::shared_ptr** as an lvalue reference to any scope
 The compiler does allow it, but it is like saying "Here I will give you an apple, now it is yours, but it will stay in my pocket."
 
 ### Iterators
