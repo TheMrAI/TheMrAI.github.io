@@ -266,14 +266,165 @@ a **constexpr** marked expression can be evaluated at compile time.
 This will actually make anything marked with it constant. You will not change these values, regardless of what hack you may employ.
 Not from inside the code at least.
 
+### References
+
+There are a surprising amount of [references](https://en.cppreference.com/w/cpp/language/reference).
+lvalue, rvalue, xvalue, prvalue, glvalue
+
 ### Move semantics
 
-&&
-std::swap
+Move semanthics were added in C++11 and provide a convenient way of defining how resources should be moved from one object to
+the other, instead of being copied. Moving resources differs from copying in the sense that the object moved from hands over
+the ownership to the moved to object. In other words the lifetime of those objects gets transferred, not necessarily the objects
+themselves.
 
-The rule of five
+This idea can easily be demonstrated by a class maintaining an array allocated on the heap.
 
-return
+```cpp
+template<typename T>
+class BigResourceOwner
+{
+public:
+    BigResourceOwner(size_t size = 0) : array_of_data_{nullptr}, size_{0}
+    {
+        array_of_data_ = new T[size];
+        size_ = size;
+    }
+
+    // BigResourceOwner(BigResourceOwner& rhs) = delete;
+    BigResourceOwner(BigResourceOwner const& rhs)
+    {
+        array_of_data_ = new T[rhs.size_];
+        size_ = rhs.size_;
+        for(size_t i = 0; i < size_; ++i)
+        {
+            array_of_data_[i] = rhs[i];
+        }
+    }
+
+    // BigResourceOwner& operator=(BigResourceOwner const& rhs) = delete;
+    BigResourceOwner& operator=(BigResourceOwner const& rhs)
+    {
+        if(array_of_data_ != nullptr)
+        {
+            delete[] array_of_data_;
+        }
+        size_ = 0;
+        array_of_data_ = new T[rhs.size_];
+        size_ = rhs.size_;
+        for(size_t i = 0; i < size_; ++i)
+        {
+            array_of_data_[i] = rhs[i];
+        }
+        return *this;
+    }
+
+    ~BigResourceOwner()
+    {
+        if(array_of_data_ != nullptr)
+        {
+            delete[] array_of_data_;
+        }
+    }
+
+    T const* get_data() const
+    {
+        return array_of_data_;
+    }
+    size_t get_size() const
+    {
+        return size_;
+    }
+private:
+    T* array_of_data_;
+    size_t size_;
+};
+```
+
+The class is not very useful, but aside from that it demonstrates some points clearly. It allocates a predefined size of memory
+to store **T** type elements in. Depending on the type of **T** this can be a very costly operation, which we may not wish to pay.
+This is the exact reason the move operator was introduced. By defining it appropriately we can elegantly sidestep the cost of
+allocating new memory and then copying all the elements into it. Instead the moved to class can just take ownership from the moved from
+one.
+
+```cpp
+template<typename T>
+class BigResourceOwner
+{
+public:
+    BigResourceOwner(size_t size = 0) : array_of_data_{nullptr}, size_{0}
+    {
+        array_of_data_ = new T[size];
+        size_ = size;
+    }
+
+    // BigResourceOwner(BigResourceOwner& rhs) = delete;
+    BigResourceOwner(BigResourceOwner const& rhs)
+    {
+        array_of_data_ = new T[rhs.size_];
+        size_ = rhs.size_;
+        for(size_t i = 0; i < size_; ++i)
+        {
+            array_of_data_[i] = rhs[i];
+        }
+    }
+
+    // BigResourceOwner(BigResourceOwner&& rhs) = delete;
+    BigResourceOwner(BigResourceOwner&& rhs) noexcept
+    {
+        std::swap(array_of_data_, rhs.array_of_data_);
+        std::swap(size_, rhs.size_);
+    }
+
+    // BigResourceOwner& operator=(BigResourceOwner const& rhs) = delete;
+    BigResourceOwner& operator=(BigResourceOwner const& rhs)
+    {
+        if(array_of_data_ != nullptr)
+        {
+            delete[] array_of_data_;
+        }
+        size_ = 0;
+        array_of_data_ = new T[rhs.size_];
+        size_ = rhs.size_;
+        for(size_t i = 0; i < size_; ++i)
+        {
+            array_of_data_[i] = rhs[i];
+        }
+        return *this;
+    }
+
+    // BigResourceOwner& operator=(BigResourceOwner&& rhs) = delete;
+    BigResourceOwner& operator=(BigResourceOwner&& rhs) noexcept
+    {
+        std::swap(array_of_data_, rhs.array_of_data_);
+        std::swap(size_, rhs.size_);
+    }
+
+    ~BigResourceOwner()
+    {
+        if(array_of_data_ != nullptr)
+        {
+            delete[] array_of_data_;
+        }
+    }
+
+    T const* get_data() const
+    {
+        return array_of_data_;
+    }
+    size_t get_size() const
+    {
+        return size_;
+    }
+private:
+    T* array_of_data_;
+    size_t size_;
+};
+```
+
+#### The rule of five
+
+#### Copy elision
 
 ### Lambda functions
 
@@ -316,6 +467,7 @@ a humongous plus for a language where writing anything down is very cumbersome.
 
 The overwhelming majority of STL algorithms (perhaps all of them, but saying this is easier and definitely correct) expect one type of callable or other
 to do their work.
+
 - [std::transform](https://en.cppreference.com/w/cpp/algorithm/transform): Applying a Unnary operator to all elements and putting the results into another range.
 
 ```cpp
@@ -344,6 +496,41 @@ std::sort(s.begin(), s.end(), customLess);
 ```
 
 More on them at: [Think of Function Objects as Functions Rather Than Objects](https://www.fluentcpp.com/2017/10/20/think-function-objects-functions-rather-objects/)
+
+Behind the curtains a lambda function isn't really anything special, but a structure implemented with a constructor and a functions call operator.
+The following example demonstrates what a lambda function really is and how much code it saves from the implementer/reader.
+
+```cpp
+auto execute(std::function<int(int)> method){
+    return method(3);
+}
+
+int main()
+{  
+    int local_x = 5;
+    auto add_x = [local_x](int number)
+    {
+        return number + local_x;
+    };
+    std::cout << execute(add_x);
+
+    struct add_x_functor
+    {
+    public:
+        add_x_functor(int x): x{x}
+        {} 
+        
+        int operator()(int number){
+            return number + x;
+        }
+    private:
+        int x;
+    };
+    auto functor_instance = add_x_functor(local_x);
+    std::cout << execute(functor_instance);
+    return 0;
+}
+```
 
 ### All about ownership
 
