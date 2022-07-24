@@ -1,4 +1,7 @@
-# Dynamic programming
+---
+layout: page
+title: Dynamic programming
+---
 
 ## Name
 
