@@ -1,4 +1,7 @@
-# Longest Common Subsequence
+---
+layout: page
+title: Longest Common Subsequence
+---
 
 The textbook example (literally) problem is the Longest Common Subsequence. Found
 in **Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E.
