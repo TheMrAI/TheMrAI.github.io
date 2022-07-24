@@ -1,0 +1,109 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge,chrome=1"><title>Longest Common Subsequence | MrAI</title><meta name=viewport content="width=device-width,minimum-scale=1"><meta name=description content="The textbook example (literally) problem is the Longest Common Subsequence. Found in Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein Chapter 15.4. Perhaps not the most difficult problem, but one that illustrates the usefulness of dynamic programming very effectively.
+Problem statement Given two sequences of characters, X=[x₁, x₂, x₃, &mldr;, xₙ] and Y=[y₁, y₂, y₃, &mldr;, yₘ], find the longest common subsequence (later LCS) Z=[z₁, z₂, z₃, &mldr;, zₖ] where n, m, k >= 1 and n, m, k ∈ ℕ."><meta name=generator content="Hugo 0.101.0"><meta name=robots content="noindex, nofollow"><link rel=stylesheet href=/ananke/css/main.min.css><meta property="og:title" content="Longest Common Subsequence"><meta property="og:description" content="The textbook example (literally) problem is the Longest Common Subsequence. Found in Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein Chapter 15.4. Perhaps not the most difficult problem, but one that illustrates the usefulness of dynamic programming very effectively.
+Problem statement Given two sequences of characters, X=[x₁, x₂, x₃, &mldr;, xₙ] and Y=[y₁, y₂, y₃, &mldr;, yₘ], find the longest common subsequence (later LCS) Z=[z₁, z₂, z₃, &mldr;, zₖ] where n, m, k >= 1 and n, m, k ∈ ℕ."><meta property="og:type" content="article"><meta property="og:url" content="https://themrai.github.io/algorithms/longest_common_subsequence/"><meta property="article:section" content="algorithms"><meta itemprop=name content="Longest Common Subsequence"><meta itemprop=description content="The textbook example (literally) problem is the Longest Common Subsequence. Found in Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein Chapter 15.4. Perhaps not the most difficult problem, but one that illustrates the usefulness of dynamic programming very effectively.
+Problem statement Given two sequences of characters, X=[x₁, x₂, x₃, &mldr;, xₙ] and Y=[y₁, y₂, y₃, &mldr;, yₘ], find the longest common subsequence (later LCS) Z=[z₁, z₂, z₃, &mldr;, zₖ] where n, m, k >= 1 and n, m, k ∈ ℕ."><meta itemprop=wordCount content="1342"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="Longest Common Subsequence"><meta name=twitter:description content="The textbook example (literally) problem is the Longest Common Subsequence. Found in Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E. Leiserson, Ronald L. Rivest, Clifford Stein Chapter 15.4. Perhaps not the most difficult problem, but one that illustrates the usefulness of dynamic programming very effectively.
+Problem statement Given two sequences of characters, X=[x₁, x₂, x₃, &mldr;, xₙ] and Y=[y₁, y₂, y₃, &mldr;, yₘ], find the longest common subsequence (later LCS) Z=[z₁, z₂, z₃, &mldr;, zₖ] where n, m, k >= 1 and n, m, k ∈ ℕ."></head><body class="ma0 avenir bg-near-white"><header><div class=bg-black><nav class="pv3 ph3 ph4-ns" role=navigation><div class="flex-l justify-between items-center center"><a href=/ class="f3 fw2 hover-white no-underline white-90 dib">MrAI</a><div class="flex-l items-center"><div class=ananke-socials></div></div></div></nav></div></header><main class=pb7 role=main><article class="flex-l flex-wrap justify-between mw8 center ph3"><header class="mt4 w-100"><aside class="instapaper_ignoref b helvetica tracked"></aside><div id=sharing class="mt3 ananke-socials"></div><h1 class="f1 athelas mt3 mb1">Longest Common Subsequence</h1></header><div class="nested-copy-line-height lh-copy serif f4 nested-links mid-gray pr4-l w-two-thirds-l"><p>The textbook example (literally) problem is the Longest Common Subsequence. Found
+in <strong>Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E.
+Leiserson, Ronald L. Rivest, Clifford Stein</strong> Chapter 15.4. Perhaps not the most
+difficult problem, but one that illustrates the usefulness of dynamic programming
+very effectively.</p><h2 id=problem-statement>Problem statement</h2><p>Given two sequences of characters, X=[x₁, x₂, x₃, &mldr;, xₙ] and Y=[y₁, y₂, y₃, &mldr;,
+yₘ], find the longest common subsequence (later LCS) Z=[z₁, z₂, z₃, &mldr;, zₖ]
+where n, m, k >= 1 and n, m, k ∈ ℕ.</p><p><strong>Subsequence</strong>: Given a sequence X=[x₁, x₂, x₃, &mldr;, xₙ], another sequence
+Z=[z₁, z₂, z₃, &mldr;, zₖ] is a subsequence of X if there exists a strictly increasing
+sequence of indexes [i₁, i₂, i₃, &mldr;, iₗ] such that for all k=1, 2, &mldr;, l
+X[iₖ] = Zₖ.</p><p>Example:
+X = &ldquo;abcpotcd&rdquo;
+Y = &ldquo;decpote&rdquo;
+then the longes common subsequence will be: Z = &ldquo;cpot&rdquo;.</p><h2 id=recursive-solution>Recursive solution</h2><p>We have two sequences as inputs <strong>X</strong> and <strong>Y</strong> and we wish to find the longest
+sequence of characters that follow each other and are subsequences for both inputs.
+For input sequences <strong>X</strong> and <strong>Y</strong> suppose that we have indexes <strong>i</strong> and <strong>j</strong>,
+where <strong>i</strong> indexes <strong>X</strong> and <strong>j</strong> indexes <strong>Y</strong>. Let <strong>Xi</strong> and
+<strong>Yj</strong> denote the prefix for each sequence until (including) the
+indicated index. The solution we are looking for can be rephrased now as the
+longest common sequence for <strong>Xn</strong> and <strong>Ym</strong>.</p><p>With this phrasing we can define a recursive solution.</p><p>The longest common subsequence for prefixes <strong>Xn</strong> and <strong>Ym</strong>
+(the whole sequences) can only be one of the following:</p><ul><li>if X[n] equals Y[n], then LCS(Xn-1, Ym-1) + <strong>1</strong></li><li>if X[n] does not equal Y[n], then either LCS(Xn-1, Ym) or
+LCS(Xn, Ym-1), which one is bigger, in case they are equal
+either one is fine</li></ul><p>In other words either <strong>X</strong> matches on the last character with the last character
+of <strong>Y</strong> in which case we increase the previously found value by one or choose the
+longer LCS between prefix pairs of LCS(Xn-1, Ym) and
+LCS(Xn, Ym-1).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>LCS(X, i, Y, j):
+</span></span><span style=display:flex><span>    if i == 0 or j == 0
+</span></span><span style=display:flex><span>        return 0
+</span></span><span style=display:flex><span>    if X[i] == Y[j]
+</span></span><span style=display:flex><span>        return LCS(X, i-1, Y, j-1) + 1
+</span></span><span style=display:flex><span>    else
+</span></span><span style=display:flex><span>        return max(LCS(X, i-1, Y, j), LCS(X, i, Y, j-1))
+</span></span></code></pre></div><p>Where <strong>max</strong> denotes a function choosing the maximum value between its two
+arguments or either one (because they are equal).</p><h4 id=performance>Performance</h4><p>𝒪(2n+m), because for each subsequence of <strong>X</strong> (which is 2n)
+we have to check each subsequence of <strong>Y</strong> (which is 2m), thus
+2n * 2m = 2n+m.</p><p>Obviously an exponential running time is rather undesirable. Dynamic programming to
+the rescue!</p><h2 id=dynamic-programming>Dynamic programming</h2><p>First we must check if dynamic programming is applicable. Two requirements must be
+satisfied:</p><ul><li>The problem has to have an <strong>optimal substructure</strong></li><li>The solution must be constructed of <strong>overlapping subproblems</strong></li></ul><h3 id=optimal-substructure>Optimal substructure</h3><p>The algorithm makes a choice between LCS(X, i-1, Y, j-1), LCS(X, i-1, Y, j) and
+LCS(X, i, Y, j-1). The first one may not seem like a choice, because it does not
+involve a second option like the last two, but it is conditional and as such
+acts as a choice.</p><ol><li>Clearly we have 3 possible subproblems to solve: LCS(X, i-1, Y, j-1),
+LCS(X, i-1, Y, j) and LCS(X, i, Y, j-1). All three are mutually independent? Why?
+They do not use up resources from one another. Just because LCS(X, i-1, Y, j)
+would find a subsequence it does not mean that LCS(X, i, Y, j-1) cannot find
+the exact same subsequence. In other words both solutions exist independently,
+because the existence of one does not contradict the existence of the other.</li><li>Assume that one of our three choices is optimal.</li><li>There are 3 possible choices:<ul><li>X[i] == Y[j], which means the characters match and we count it, and with
+that we have an LCS for sequences Xi and Yj. Let&rsquo;s
+assume that Xi-1 and Yj-1 do not form an LCS and there
+is a better choice, increasing the total LCS length by at least another one.
+That would mean that LCS for Xi and Yj increases by more
+than one. That is however impossible, because we can only match on one
+character pair at a time, thus the length cannot increase by more than one.</li><li>X[i] != Y[j], and Xi-1 and Yj forms an LCS for
+Xi and Yj. Lets assume that Xi-1 and Yj isn&rsquo;t optimal and there exists a longer solution. That would entail that
+the LCS for Xi and Yj increases by at least one. That
+however contradicts the original statement that X[i] != Y[j]. The length
+cannot increase as there are no available character pair to increase it by.</li><li>X[i] != Y[j], and Xi and Yj-1 forms and LCS for
+Xi and Yj. This is symmetric to the previous one.</li></ul></li></ol><p>With this we see that LCS exhibits the optimal substructure property.</p><h3 id=overlapping-subproblems>Overlapping subproblems</h3><p>This problem is indeed constructed of overlapping subproblems. The recursive
+solution displays it clearly if we examine the possible branches it can take.
+Let&rsquo;s assume we are at LCS(X, i, Y, j). It can call LCS(X, i-1, Y, j-1) or
+LCS(X, i-1, Y, j) and LCS(X, i, Y, j-1). The last two would eventually have to
+evaluate LCS(X, i-1, Y, j-1) as well, which is a subproblem the algorithm had had
+to evaluate on the previous iteration.</p><p><img src=lcs_overlapping_subproblems.png alt=lcs_overlapping_subproblems_example></p><p>With both requirements satisfied for dynamic programming we can finally apply it.</p><h3 id=top-down>Top-down</h3><p>The Top-down solution is in essence exactly the same as the recursive solution. The
+only difference is that <strong>memoization</strong> has been added. So previously seen
+subproblems will not be evaluated multiple times.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>LCS(X, i, Y, j, memo):
+</span></span><span style=display:flex><span>    if {&lt;i, j} in memo
+</span></span><span style=display:flex><span>        return memo[i, j]
+</span></span><span style=display:flex><span>    if i == 0 or j == 0
+</span></span><span style=display:flex><span>        memo[i, j] = 0
+</span></span><span style=display:flex><span>        return 0
+</span></span><span style=display:flex><span>    if X[i] == Y[j]
+</span></span><span style=display:flex><span>        value = LCS(X, i-1, Y, j-1, memo) + 1
+</span></span><span style=display:flex><span>        memo[i, j] = value
+</span></span><span style=display:flex><span>        return value
+</span></span><span style=display:flex><span>    else
+</span></span><span style=display:flex><span>        value = max(LCS(X, i-1, Y, j, memo), LCS(X, i, Y, j-1, memo))
+</span></span><span style=display:flex><span>        memo[i, j] = value
+</span></span><span style=display:flex><span>        return value
+</span></span></code></pre></div><h4 id=performance-1>Performance</h4><p>Time-complexity: 𝒪(n*m)</p><p>Space-complexity: 𝒪(n*m)</p><h3 id=bottom-up>Bottom-up</h3><p>The Bottom-up solution is a little bit different and it necessitates the
+observation that for each {i, j} pair we have to solve the LCS problem for
+{i-1, j-1}, {i-1, j} and {i, j-1}. If we were to create a <strong>dp</strong> matrix where the
+of height is length(X) and width of length(Y) we could store the result to each
+subproblem in it. More importantly this matrix can be filled up from the top row,
+from the left to right, in the common fashion as each matrix entry of {i, j} only
+depends on the entries to its left, above it and from the entry above and left
+from it.</p><p><img src=lcs_bottom_up_example.png alt=lcs_bottom_up_example></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-text data-lang=text><span style=display:flex><span>LCS(X, Y):
+</span></span><span style=display:flex><span>    dp = zero matrix of height length(X) + 1, and width of length(Y) + 1
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    if X is empty or Y is empty:
+</span></span><span style=display:flex><span>        return 0
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    for i = 0 to length(X)
+</span></span><span style=display:flex><span>        for j = 0 to length(Y)
+</span></span><span style=display:flex><span>            if X[i] == Y[j]
+</span></span><span style=display:flex><span>                dp[i + 1][j + 1] = dp[i][j] + 1
+</span></span><span style=display:flex><span>            else
+</span></span><span style=display:flex><span>                dp[i + 1][j + 1] = max( dp[i + 1][j], dp[i][j + 1]
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    return dp[length(X)][length(Y)]
+</span></span></code></pre></div><p>Do not be intimidated by the indexing. It is just a trick so the check for invalid
+values is avoided. dp[i + 1][j + 1] = dp[i][j] + 1 is the same as writing
+dp[i][j] = dp[i - 1][j - 1] + 1, but in the latter we would have to write checks
+not to get out of the bound of the matrix.</p><h4 id=performance-2>Performance</h4><p>Time-complexity: 𝒪(n*m)</p><p>Space-complexity: 𝒪(n*m)</p><h2 id=execution-speed-using-c-implementations>Execution speed using C++ implementations</h2><p>Code can be found <a href=https://github.com/TheMrAI/Cpp/blob/master/algorithms/include/dynamic_programming.h>here</a>.</p><table><thead><tr><th>Input length</th><th>Recursive</th><th>Top-down</th><th>Bottom-up</th></tr></thead><tbody><tr><td>10</td><td>673'747 ns</td><td>644 ns</td><td>286 ns</td></tr><tr><td>100</td><td>N/A</td><td>61'568 ns</td><td>17'266 ns</td></tr><tr><td>1000</td><td>N/A</td><td>7'269'949 ns</td><td>3'930'985 ns</td></tr></tbody></table><p>Even though we have seen the time and space complexity for both the Top-down and
+Bottom-up solutions are the same, in practice the Buttom-up solution runs at least
+twice as fast. This is because it performs no checks to see if a subproblem was
+already evaluated. It just blindly calculates everything that it needs and
+that is it.</p><ul class=pa0></ul><div class="mt6 instapaper_ignoref"></div></div><aside class="w-30-l mt6-l"></aside></article></main><footer class="bg-black bottom-0 w-100 pa3" role=contentinfo><div class="flex justify-between"><a class="f4 fw4 hover-white no-underline white-70 dn dib-ns pv2 ph3" href=https://themrai.github.io/>&copy; MrAI 2022</a><div><div class=ananke-socials></div></div></div></footer></body></html>
