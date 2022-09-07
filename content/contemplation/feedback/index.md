@@ -56,9 +56,9 @@ our very detriment.
 
 People simply tend to avoid what they don't understand. We have all experienced
 situations where our gut feeling was telling us "Don't do it, it will be bad for
-you", yet we ignored it and did it anyways. Then it turned out our little voice
+you", yet we ignored it and did it anyway. Then it turned out our little voice
 was right, and we vowed to start listening to it, yet we kept making the same
-mistake ever since. After a few such cycles we might even decide the endeavour is
+mistake ever since. After a few such cycles we might even decide the endeavor is
 hopeless and in some twisted way, perhaps we even deserve the suffering. In a
 fell swoop our suffering is normalized, issues weren't solved and our pain never
 ends.
@@ -77,8 +77,8 @@ strive for something better.
 
 4 things are absolutely necessary for any kind of change. A desire on our side
 for change, individuals whom we can trust and communicate our problems openly
-with, these individuals willingness to help us find our own solution instead of
-providing theirs and finally, the humility to try and fail as many times it
+with, these individuals' willingness to help us find our own solution instead of
+providing theirs and finally, the humility to try and fail as many times it is
 necessary.
 
 All four have to come together at once, and even then change will be hard.
@@ -86,15 +86,15 @@ All four have to come together at once, and even then change will be hard.
 Firstly, if you haven't arrived at the point where you, yourself have identified
 that you should change something and then subsequently have decided to actually
 do it, you won't. All the feedback, punishment or judgement in the world won't
-sway you to act. For example you have gained a little weight. In some recesses of
-your mind you knew you wanted to loose it, but haven't really decided to do so
+sway you to act. For example, you have gained a little weight. In some recesses of
+your mind you knew you wanted to lose it, but haven't really decided to do so
 yet. Some people, as they often do, pestered you about it, made little jokes
 about it, and even if you have agreed with them on a fundamental level, these
 reminders never really helped. You just felt more hurt and ashamed and had to
 spend so much of your energy just to recover your mood that you had none left
 for the weight loss to even start.
 
-Secondly and thirdly, change is extremely difficult and it is necessary to have
+Secondly and thirdly, change is extremely difficult, and it is necessary to have
 someone to whom we can share this with. What is difficult, why do we think it
 is, what we think might help. Then they listen and respond in the most honest
 way they can. Without
@@ -110,7 +110,7 @@ For example if you had a good partner or a friend with whom you could share
 anything with, chances are you have experienced such a relationship. You looked
 forward to being with them, regardless what mood you were in, or what tasks you
 had to do.
-This is also the pre-requisite of going to a therapist. If this is missing, hell
+This is also the prerequisite of going to a therapist. If this is missing, hell
 can freeze over and nothing would change for the better.
 
 Lastly and perhaps most importantly, one has to have the humility to understand
@@ -126,9 +126,9 @@ really high on this trait, making them very agreeable. These people will tend to
 prioritize others over themselves. They will tend to agree. Might have
 their own opinions, but disregard them quickly in favor of someone else's. They
 would take on willingly more work than they can manage, or can be so easily pressured
-into doing so that the pressurer doesn't even notice it. They won't be able to
-deliver, won't complain about the overload and won't ask for help. They would
-rather burn themselves to the ground, rather than to disappoint others (perceived
+into doing so that their exploitation stays overlooked by everyone. They won't be able to
+deliver, won't complain about the overload and won't ask for help. Likewise, they would
+rather burn themselves to the ground, than to disappoint others (perceived
 or otherwise).
 In the very extreme, their aptitude for pleasing can be so pervasive that
 they can't formulate what they want/desire, because that was secondary for so
@@ -140,9 +140,9 @@ behavioral therapy to do so, and even then, when overwhelmed they can easily
 revert to previous states.
 There are simply things that people need to learn to live with.
 
-For clarity I would like to also formulate the sub-textual message that is so
+For clarity, I would like to also formulate the sub-textual message that is so
 often overlooked in all representations of struggle and subsequent change in the
-media. The journey is not glamours and even less so heroic. In fact when you are doing it
+media. The journey is not glamorous and even less so heroic. In fact when you are doing it
 your suffering only intensifies, until you finally reach the next plateau and can
 realize some improvement. Even worse, the change comes by actively doing
 something different to how you would want to in the situations which are the
@@ -181,7 +181,7 @@ This is an event that everyone attends ultimately because it is
 mandatory, not because they seek guidance or advice at that time.
 That is okay however, as you can opt to not do anything with the feedback. At
 this point our first requirement for change can easily go out the window. Even if
-it we change was somehow required, most of the time people would still ignore the
+change was somehow required, most of the time people would still ignore the
 feedback. By ignoring in this sense it is the same to not act on it or forgetting
 it by the next day.
 
@@ -194,22 +194,22 @@ The third criterion is not met outright, given the setup. As we don't know what
 the individual has done or why, because we haven't bothered to ask or understand
 what has happened. If we give any actionable step, that is only based on our view
 of the world, not theirs. Which is an ultimately lopsided situation. We cannot
-know what is good for them. Only they can know what to do and they have to
+know what is good for them. Only they can know what to do, and they have to
 figure it out too.
-In these instances many feedback simply doesn't make sense to the receiver. They
+In these instances feedback simply doesn't make sense to the receiver. They
 are told something they feel is not true, doesn't ring right, yet there is
 nothing they can do.
-The step by which trust can be forged has been skipped and the quickest action
-was implemented. 
+The step by which trust can be forged has been skipped, and the quickest action
+was implemented.
 
 >"Tell them what is wrong with them, how they can solve it, and
 who cares what is the truth or the circumstances. My job is done here."
 
 Even worse when there is no adequate example, which is likely not going to work
-either as memory is a fickle thing and it is hard to remember events that have
-happened somewhere during a 3-4 month timespan.
+either as memory is a fickle thing, and it is hard to remember events that have
+happened somewhere during a 3-4 month time span.
 
-Finally the fourth requirement is trivialized away. No meaningful change occurs
+Finally, the fourth requirement is trivialized away. No meaningful change occurs
 in 3-4 months. Especially if people aren't actively working on changing, on their
 own volition. As if there was an expectation that something could happen, by
 applying such cheap intervention. This sends a message however subtle it may be
@@ -220,8 +220,8 @@ reminded that you did. Will that motivate you to do better next time?
 
 Don't concern yourself with others problems. It is their burden and it is theirs
 alone. It is not your place to tell anybody what to do and if you look deeply
-into yourself you should already know that. It is up to you to make the choice to
-change, it is up to you to decide to seek help and it is up to you to cherish the
+into yourself you should already know that. Furthermore, it is up to you to make the choice to
+change, it is up to you to decide to seek help, and it is up to you to cherish the
 moments when you manage to squeeze in a win.
 It is arrogance that makes people believe they can help others, that they know
 better. They don't. Our lives with their ups and downs are our responsibility and
@@ -230,7 +230,7 @@ We grow a little, the horizon of what we believed ourselves capable off grows a 
 had to do it. And only we could do it. Little by little we can learn that we can
 do what we want, but only if we act as we know we should in the situations we are
 least likely to do so. Those are the moments that matter. They occur each and
-every day and they are very small. So small it is hard to notice you are making
+every day, and they are very small. So small it is hard to notice you are making
 any progress. That is why you need others you trust, others you can share with,
 who see you from a different perspective. That is when you get feedback, when
 you inquire. It starts and ends with you.
@@ -255,15 +255,15 @@ Instead
 of holding this in, because you think it is petty and is your own shortcoming you
 can ask what has happened? You can try to understand their perspective and then
 help them see yours. If you do so you make an actual connection. They see you as
-an individual and you see them better as well. A little bit of trust is made,
+an individual, and you see them better as well. A bit of trust is made,
 because they have shown some of their weakness, but they wanted to understand
 yours too.
 
-This is what you should strive to do. Some times it won't work for you, some times
+This is what you should strive to do. Sometimes it won't work for you, sometimes
 won't work for them and many times nothing good may come of it, but an argument.
-You do it anyways when you feel you should. That is why you have the feeling, it
-is telling you to do something. Obviously that doesn't mean you knee jerk act out
-of anger and curse someone. Manage the emotions but, don't ignore them. Then when
+You do it anyway when you feel you should. That is why you have the feeling, it
+is telling you to do something. Obviously that doesn't mean you knee-jerk act out
+of anger and curse someone. Manage the emotions but, don't ignore them. Then, when
 you are ready, you face the challenge.
 
 Better yet, if you manage to apply this for a certain span of time, you will

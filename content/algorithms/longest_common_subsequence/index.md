@@ -63,7 +63,7 @@ LCS(X, i, Y, j):
 Where **max** denotes a function choosing the maximum value between its two
 arguments or either one (because they are equal).
 
-#### Performance
+### Performance
 
 𝒪(2<sup>n+m</sup>), because for each subsequence of **X** (which is 2<sup>n</sup>)
 we have to check each subsequence of **Y** (which is 2<sup>m</sup>), thus
