@@ -6,11 +6,11 @@ title: Dynamic programming
 ## Name
 
 The origin of the term dynamic programming is an interesting one. Two legends are
-in circulation. One from the author [Richard Bellman](https://en.wikipedia.org/wiki/Richard_E._Bellman) 
+in circulation. One from the author [Richard Bellman](https://en.wikipedia.org/wiki/Richard_E._Bellman)
 stating that it was designed to hide the mathematical background of
 his work from his employer at the time. Choosing dynamic as it has no negative
 connotations and to refer to the time varying, multistage nature of the problems.
-Programming was chosen because it didn't contain the word mathematics and it
+Programming was chosen because it didn't contain the word mathematics, and it
 sounded better than planning.
 The other legend refers to an attempt to one up the previously existing methods
 named linear programming.
@@ -36,7 +36,7 @@ be applied:
 ### Optimal substructure
 
 If an optimal solution to the problem consists of <u>independent</u> and
-<u>optimal solutions</u> to it's subproblems then we say the problem exhibits an
+<u>optimal solutions</u> to its subproblems then we say the problem exhibits an
 optimal substructure.
 
 There are 3 steps used while testing for optimal substructure:
@@ -54,7 +54,7 @@ independent if they do not use up resources from on one
 another. I.e. the solution for B does note use sub-solutions from C and vice-versa.
 
 > Cut-and-paste: Suppose that each subproblem solution is non-optimal. By cutting
-them out and substituting an optimal solutions, demonstrate that you get a better
+them out and substituting an optimal solution, demonstrate that you get a better
 solution to the original problem, which contradicts your original assumption of
 already having an optimal solution to your original problem.
 
@@ -70,7 +70,7 @@ while applying a brute force approach in solving the problem.
 ## Design steps
 
 Developing an algorithm using dynamic programming is not a simple task. Especially
-as dynamic programming itself isn't a way of designing per say, more of a way of
+as dynamic programming itself isn't a way of designing per se, more of a way of
 redesigning an already existing solution to a format which is more efficient.
 
 The steps for applying dynamic programming:
@@ -107,7 +107,7 @@ solution to an already solved sub-problem, so when it is encountered again, it
 needs not be recomputed.
 
 > Memoization could be called memorization as the values are memorized, but
-historically this step was called memoization, based on the latin word [memorandum](https://en.wikipedia.org/wiki/Memoization#Etymology).
+historically this step was called memoization, based on the Latin word [memorandum](https://en.wikipedia.org/wiki/Memoization#Etymology).
 
 #### Bottom-up
 
@@ -133,11 +133,8 @@ programming** solution is what they are observing.
 Dynamic programming identifies the optimal value, but it doesn't necessarily
 provide the solution itself. The solution most commonly is the chain of choices
 made while calculating the optimal values. These could be characters chosen in the
-__Longest Common Subsequence__ problem, optimal piece sizes in the __Rod Cutting
-Problem__ or any other piece of information that describes an optimal solution.
-
-To best demonstrate the process please check out the example solution for the
-textbook problem of [Longest Common Subsequence](longest_common_subsequence.md).
+**Longest Common Subsequence** problem, optimal piece sizes in the **Rod Cutting
+Problem** or any other piece of information that describes an optimal solution.
 
 ## Acknowledgements
 

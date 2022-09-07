@@ -7,7 +7,7 @@ Fusion 360 link: [table_fan](https://drive.google.com/file/d/1xaoRFsdWr-SbcTNqeK
 
 Summers are hot where I live, and even though I have a big fan that moves more
 than enough air to provide help my body enough with its evaporative cooling,
-it has one problem. It is more than enough. It moves too much air and it is
+it has one problem. It is more than enough. It moves too much air, and it is
 loud compared to what I need.
 
 In the empire of dirt there is an abundance of 12 cm diameter radial cooling
