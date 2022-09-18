@@ -15,7 +15,7 @@ summary in what may be found within the pages.
 Consider buying the book if you think it may be something you are looking for:
 [The Book on the Taboo Against Knowing Who You Are](https://www.amazon.com/Book-Taboo-Against-Knowing-Who-ebook/dp/B006WB7K36/ref=sr_1_1?keywords=the+book+on+the+taboo+alan+watts&qid=1663507194&sprefix=The+book+on+the+%2Caps%2C189&sr=8-1) (non affiliate link)
 
-Perhaps this little short story representing a similar idea may give raise your interest:
+Perhaps this little short story representing a similar idea may raise your interest:
 {{< youtube id="h6fcK_fRYaI" autoplay="false" title="The egg" >}}
 
 Below whenever a quotation is not marked, it has been made by the author and the quote
