@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Fume extractor
+date: 2022-09-17
 draft: true
 ---
 
@@ -59,8 +60,11 @@ specification).
 
 {{< figure src="air-duct-connection-version-1-fit-test.jpg" title="Air-duct connection version 1 fit test" >}}
 
-Well, this didn't work out. While the general dimensions were correct the girth of the spiral was way too much, resulting
-in an alarmingly tight fit. It fits, but it feels like it is going to burst at any moment.
+Well, this didn't work out. While the general dimensions were correct the girth of the spiral was way too much
+(guessed the size and wanted to lean on the side of too tight instead of too loose), resulting
+in an alarmingly tight fit. It can barely be forced into the pipe, and it feels like it is going to burst as any moment.
+Also, I don't know why but as you can see I have designed the 12 cm fan connection part exactly as the housing of a 12 cm
+fan. It looks completely silly, haha, I think I have enjoyed the modelling a bit too much. Let's try again!
 
 {{< figure src="12cm_fan_to_airduct_v7.png" title="Air-duct connection version 2 model">}}
 
@@ -68,7 +72,8 @@ in an alarmingly tight fit. It fits, but it feels like it is going to burst at a
 
 {{< figure src="air-duct-connection-version-2-fit-test.jpg" title="Air-duct connection version 2 fit test" >}}
 
-After reducing the spirals' thickness it fits perfectly.
+Ahh, much better! After reducing the spirals' thickness it fits perfectly. Cut off the vestigial fan tumor too and kept
+only the necessary interface.
 
 Fusion 360 files: [Air-duct connection](https://drive.google.com/file/d/1xlnxEKTH6QuJ732jFBLrokHPp-Z7FVVv/view?usp=sharing)
 
