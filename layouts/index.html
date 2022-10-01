@@ -1,0 +1,12 @@
+{{ define "main" }}
+  <div class="homepage-content">
+    {{ .Content }}
+  </div>
+  <div>
+    {{ range first 10 .Site.RegularPages }}
+      <article>
+        {{ .Title }}
+      </article>
+    {{ end }}
+  </div>
+{{ end }}
