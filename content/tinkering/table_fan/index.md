@@ -3,7 +3,7 @@ layout: page
 title: Table fan stand
 ---
 
-Fusion 360 link: [table_fan](https://drive.google.com/file/d/1xaoRFsdWr-SbcTNqeKaUtKMEPf8zrqWq/view?usp=sharing)
+## Problem
 
 Summers are hot where I live, and even though I have a big fan that moves more
 than enough air to provide help my body enough with its evaporative cooling,
@@ -42,3 +42,7 @@ Extended the half circles on the stand to be full circles making the printing
 without support materials possible. But more importantly solved the assembly issue
 by adding two cutouts into each side at a shallow angle. These groves allow the fan
 base to be simply slide onto its stand.
+
+## Files
+
+Fusion 360 link: [table_fan](https://drive.google.com/file/d/1xaoRFsdWr-SbcTNqeKaUtKMEPf8zrqWq/view?usp=sharing)
