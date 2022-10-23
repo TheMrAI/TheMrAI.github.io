@@ -47,7 +47,7 @@ Maximum positive sum cannot be negative, so the returned value is 0.
 
 ### Illustration
 
-![kadane](kadane_illustration.png)
+{{< figure src="kadane_illustration.png" title="Kadane">}}
 
 ### Complexity
 
