@@ -19,24 +19,24 @@ all my requirements.
 
 ## First version
 
-![First version design](first_version_design.png)
+{{< figure src="first_version_design.png" title="First version design">}}
 
-![First version real](first_version_real.jpg)
+{{< figure src="first_version_real.jpg" title="First version real">}}
 
 There is one major issue with this design. Should one try to assemble the "fan
 holder" section which then should be put into the stand, it becomes evident that
 this isn't possible. There is simply not enough space to insert the "fan holder".
 
-![Not fitting properly](not_fitting.jpg)
+{{< figure src="not_fitting.jpg" title="Hmmm">}}
 
 Managed to assemble it, but that required an uncomfortable amount of bending, so
 it would be best if we could avoid it in the future.
 
 ## Second version
 
-![Second version design](second_version_design.png)
+{{< figure src="second_version_design.png" title="Second version design">}}
 
-![Second version real](second_version_real.jpg)
+{{< figure src="second_version_real.jpg" title="Second version real">}}
 
 Extended the half circles on the stand to be full circles making the printing
 without support materials possible. But more importantly solved the assembly issue
