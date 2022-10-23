@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Kadane`s algorithm
+summary: "A brilliant way for solving the maximal subsequence problem (or maximal sub-array).
+One of those specialized algorithms that makes you truly appreciate the genius of others'."
 ---
 
 For a given one-dimensional input array of numbers, Kadane's algorithm will

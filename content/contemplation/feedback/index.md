@@ -1,6 +1,13 @@
 ---
 layout: page
 title: Forced and voluntary feedback
+summary: "Company cultures are not necessarily healthy, even with the best of intentions.
+Non the less they are one of the most prevalent aspects of our lives. If we don't watch
+out, the mistakes in them can seep into our lives, potentially ruining it.
+Here we examine a way on how not to give feedback and how to do it properly. If ever in
+doubt try to ask yourself: 'Is this how I would communicate an issue to my significant other?'
+If not, you know it isn't right. To further help the reader some context and an attempt at
+explanation is given as well."
 ---
 
 In this essay my aim is to highlight flaws in how corporations are implementing feedback

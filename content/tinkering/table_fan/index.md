@@ -1,6 +1,9 @@
 ---
 layout: page
 title: Table fan stand
+summary: "Air conditioners are expensive and it is hot outside and you got a lot of 12cm
+axial fans laying around? This stunningly simple stand can hold the little fan aimed right
+at you, providing some much needed airflow, while still being extremely quiet."
 ---
 
 ## Problem

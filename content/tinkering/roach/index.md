@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Roach
+summary: "Ever wanted to have a little robot that is so clumsy it is almost fun to watch? Here is my first
+attempt at doing just that."
 ---
 
 ## The first idea
