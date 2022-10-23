@@ -1,6 +1,8 @@
 ---
 layout: page
 title: Headphone holder
+summary: "Reclaim some space from your table by putting your headphone where it is still
+in reach, but not in the way."
 ---
 
 ## Problem

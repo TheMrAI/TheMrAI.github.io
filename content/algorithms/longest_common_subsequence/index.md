@@ -1,6 +1,9 @@
 ---
 layout: page
 title: Longest Common Subsequence
+summary: "How to solve the 'longest common subsequence' problem. Here we examine
+a method for solving it recursively (naively) and how to solve it efficiently
+with dynamic programming."
 ---
 
 The textbook example (literally) problem is the Longest Common Subsequence. Found

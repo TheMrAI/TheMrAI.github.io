@@ -1,6 +1,11 @@
 ---
 layout: page
 title: The Book on the Taboo Against Knowing Who You Are - Alan Watts
+summary: "If you have ever wondered what you are doing with your life. Had the sneaking
+suspicion that something isn't right. Especially if you are tired of the hustle culture, of
+gurus selling programs that claim solve your problems. This book may be for you. It talks about religion
+and faith, goals and motivations, but not as an end all be all. It only gently shows you a way
+of thinking, that as I did, you may find as a refreshing drop of sanity to center yourself by."
 ---
 
 Refreshingly Alan Watts has an easy to read and follow writing style, and contrary

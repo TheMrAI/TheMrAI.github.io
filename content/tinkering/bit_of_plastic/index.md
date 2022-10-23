@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Most useful piece of plastic
+summary: "How to make a simple laptop stand for comfort and increased airflow."
 ---
 
 Fusion 360 link: [laptop_stand](https://drive.google.com/file/d/1PPjS1Oo1_NPz1fMau9EfA9M-WzJKoiLt/view?usp=sharing)
