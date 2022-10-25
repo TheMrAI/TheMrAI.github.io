@@ -1,4 +1,76 @@
+.body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
 .article {
     width: 40%;
     position: center;
+}
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border-left: 0px;
+    font-family: avenir next,avenir,sans-serif;
+    color: rgba(255, 255, 255, 0.897);
+}
+
+.sides {
+    padding-top: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-bottom: 3px;
+    font-size: 1.5rem;
+    flex-grow: 0
+}
+
+.navbar a{
+    color: rgba(255, 255, 255, 0.897);
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    color: white;
+}
+
+.breadcrumb-div {
+    background-color: rgb(39, 39, 39);
+    flex-grow: 1
+}
+
+.breadcrumb {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 0px;
+}
+  
+.breadcrumb li {
+    display: inline;
+    white-space: nowrap;
+}
+
+.breadcrumb li + li:before {
+    content: ">";
+    padding: 0.3rem;
+}
+
+.toplevel-menu {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0px;
+}
+
+.toplevel-menu li + li:before {
+    content: "|";
+    padding: 0.3rem;
 }
