@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Dynamic programming
+date: "2022-07-24"
 summary: "An advanced way for designing solutions. What features does a problem need to display
 so that this type of solution can be applied? If those are satisfied we can transform algorithms with
 exponential time complexity to polynomial ones, by sacrificing on space."

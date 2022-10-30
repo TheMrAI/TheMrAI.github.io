@@ -1,6 +1,7 @@
 ---
 layout: page
 title: The Book on the Taboo Against Knowing Who You Are - Alan Watts
+date: "2022-09-23"
 summary: "If you have ever wondered what you are doing with your life. Had the sneaking
 suspicion that something isn't right. Especially if you are tired of the hustle culture, of
 gurus selling programs that claim solve your problems. This book may be for you. It talks about religion

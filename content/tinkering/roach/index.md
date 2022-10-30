@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Roach
+date: "2022-10-03"
 summary: "Ever wanted to have a little robot that is so clumsy it is almost fun to watch? Here is my first
 attempt at doing just that."
 ---
