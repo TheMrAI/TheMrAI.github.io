@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Most useful piece of plastic
+date: "2022-08-24"
 summary: "How to make a simple laptop stand for comfort and increased airflow."
 ---
 

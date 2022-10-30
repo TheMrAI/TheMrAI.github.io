@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Longest Common Subsequence
+date: "2022-08-24"
 summary: "How to solve the 'longest common subsequence' problem. Here we examine
 a method for solving it recursively (naively) and how to solve it efficiently
 with dynamic programming."

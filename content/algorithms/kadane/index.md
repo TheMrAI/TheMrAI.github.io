@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Kadane`s algorithm
+date: "2022-07-24"
 summary: "A brilliant way for solving the maximal subsequence problem (or maximal sub-array).
 One of those specialized algorithms that makes you truly appreciate the genius of others'."
 ---

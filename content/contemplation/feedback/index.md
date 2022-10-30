@@ -1,6 +1,7 @@
 ---
 layout: page
 title: Forced and voluntary feedback
+date: "2022-08-24"
 summary: "Company cultures are not necessarily healthy, even with the best of intentions.
 Non the less they are one of the most prevalent aspects of our lives. If we don't watch
 out, the mistakes in them can seep into our lives, potentially ruining it.
