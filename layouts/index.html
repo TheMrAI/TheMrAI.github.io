@@ -1,12 +1,15 @@
 {{ define "main" }}
-  <div class="homepage-content">
-    {{ .Content }}
-  </div>
-  <div>
-    {{ range first 10 .Site.RegularPages }}
-      <article>
-        {{ .Title }}
-      </article>
-    {{ end }}
+  <div class="homepage-content">  
+    <div>
+      {{- .Content -}}
+    </div>
+    <div>
+      <h2 id="Entries">Entries</h2>
+      <div>
+        {{ range .Site.RegularPages }}
+          {{ .Render "li" }}
+        {{ end }}
+      </div>
+    </div>
   </div>
 {{ end }}
