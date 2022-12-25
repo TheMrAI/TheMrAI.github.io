@@ -1,13 +1,19 @@
-.body {
+body {
     margin-top: 0px;
     margin-left: 0px;
     margin-right: 0px;
     margin-bottom: 0px;
+    display: flex;
+    flex-direction: column;
 }
 
-.article {
+body main {
+    flex-grow: 1;
+    min-height: calc(100vh - 83px - 19px);
+}
+
+.main-article {
     width: 40%;
-    position: center;
 }
 
 .navbar {
@@ -73,4 +79,10 @@
 .toplevel-menu li + li:before {
     content: "|";
     padding: 0.3rem;
+}
+
+/* footer */
+.footer {
+    background-color: black;
+    min-height: 19px;
 }

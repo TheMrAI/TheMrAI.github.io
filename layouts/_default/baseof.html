@@ -14,8 +14,8 @@
   <body class="body">
     {{ partial "nav/site.html" . }}
     <main>
-      {{ block "main" . }}Main block bro{{ end }}
+      {{ block "main" . }}Main block goes here{{ end }}
     </main>
-    {{ block "footer" . }}Footer{{ end }}
+    {{ partial "footer.html" . }}
   </body>
 </html>
