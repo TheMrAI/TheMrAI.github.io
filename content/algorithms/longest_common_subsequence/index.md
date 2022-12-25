@@ -125,7 +125,7 @@ LCS(X, i-1, Y, j) and LCS(X, i, Y, j-1). The last two would eventually have to
 evaluate LCS(X, i-1, Y, j-1) as well, which is a subproblem the algorithm had had
 to evaluate on the previous iteration.
 
-![lcs_overlapping_subproblems_example](lcs_overlapping_subproblems.png)
+{{< figure src="lcs_overlapping_subproblems.png" title="LCS overlapping subproblems illustration">}}
 
 With both requirements satisfied for dynamic programming we can finally apply it.
 
@@ -169,7 +169,7 @@ from the left to right, in the common fashion as each matrix entry of {i, j} onl
 depends on the entries to its left, above it and from the entry above and left
 from it.
 
-![lcs_bottom_up_example](lcs_bottom_up_example.png)
+{{< figure src="lcs_bottom_up_example.png" title="LCS bottom up example">}}
 
 ```text
 LCS(X, Y):
