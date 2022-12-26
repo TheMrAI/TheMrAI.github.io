@@ -1,6 +1,6 @@
-# Welcome to my blog/scratchpad/rambling page!
+# Welcome to my blog/scratchpad/rambling page
 
-## What is this?
+## What is this
 
 This is something I don't understand myself yet either. Haven't really seen something like this before (there may be, but like this page it is probably
 more for the author than for the audience, so you won't find it unless you know exactly where to look for it).
@@ -21,7 +21,7 @@ Personally, don't quite like Steve Jobs, but he formulated this idea exquisitely
 Lastly, and this is a big hope of mine, as I have learned almost everything in my life that was important from free online sources, maybe someone
 somewhere will be able to learn from this as well. Thus, the circle of giving continues and the tide lifts everybody up.
 
-## How does this work?
+## How does this work
 
 In this page I will try to write down ideas, observations and experiments in the domains that have interested me at the time. This will be done by
 referencing any sources that were used for every project and giving you access for any results that were added by me. You are free to use
@@ -36,6 +36,6 @@ I am of the firm belief that nothing is truly difficult. There are only things t
 throughout our education system, however I think it is vitally important to see. We are all ignorant until we aren't, and it always starts with making mistakes.
 So here, in a somewhat comedic tone, failures will always be pointed out exactly as if they were part of the process, as they really are.
 
-## Contact?
+## Contact
 
 Should you find a mistake that should be corrected or would just like to say hi, you can find me at my e-mail address here: mr.istvan.acs@gmail.com

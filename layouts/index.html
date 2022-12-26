@@ -1,10 +1,14 @@
 {{ define "main" }}
-  <div class="homepage-content">  
+  <div class="homepage-content"> 
     <div>
-      {{- .Content -}}
     </div>
     <div>
+      {{- .Content -}}
       <h2 id="Entries">Entries</h2>
+    </div>
+    <div>
+    </div>
+    <div class="entries">
       <div>
         {{ range .Site.RegularPages }}
           {{ .Render "li" }}

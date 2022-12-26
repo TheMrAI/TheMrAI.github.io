@@ -43,7 +43,7 @@ figure figcaption {
 
 .homepage-content {
     display: grid;
-    grid-template-columns: 3fr 2fr;
+    grid-template-columns: 1fr 2fr 1fr;
     gap: 2em;
     padding-left: 2em;
     padding-right: 2em;
@@ -56,6 +56,10 @@ figure figcaption {
 
 .homepage-content a:hover{
     color: black;
+}
+
+.homepage-content .entries {
+    grid-column: 1/4;
 }
 
 /* Navbar */
