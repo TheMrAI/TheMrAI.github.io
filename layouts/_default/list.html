@@ -1,0 +1,11 @@
+{{ define "main" }}
+<div class="grid">
+  <div></div>
+  <div>
+    {{ .Content }}
+    {{ range .Pages }}
+        {{ .Render "summary" }}
+    {{ end }}
+  </div>
+  <div></div>
+{{ end }}

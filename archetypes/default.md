@@ -1,5 +1,7 @@
 ---
 title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
+date: {{ .PublishDate.UTC }}
 draft: true
+type: page
+summary: ""
 ---

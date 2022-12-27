@@ -1,0 +1,156 @@
+body {
+    margin-top: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-bottom: 0px;
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(220,220,220);
+}
+
+body main {
+    flex-grow: 1;
+    min-height: calc(100vh - 83px - 1em);
+}
+
+/* Single page */
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+}
+
+.main-article {
+    background-color: rgb(211,211,211);
+}
+
+figure {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+figure img {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+figure figcaption {
+    text-align: right;
+}
+
+/* Home page content */
+
+.homepage-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2em;
+    padding-left: 2em;
+    padding-right: 2em;
+}
+
+.homepage-content a {
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+
+.homepage-content a:hover{
+    color: black;
+}
+
+.homepage-content .entries {
+    grid-column: 1/4;
+}
+
+/* List view */
+
+.summary {
+    border-width: 0.1em;
+    border-style: solid;
+    margin: 1em;
+    padding: 0.5em;
+}
+
+.summary a {
+    color: rgba(0, 0, 0, 0.7);
+    text-decoration: none;
+}
+
+.summary a:hover{
+    color: black;
+}
+
+/* Navbar */
+
+.navbar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    border-left: 0px;
+    font-family: avenir next,avenir,sans-serif;
+    color: rgba(255, 255, 255, 0.897);
+    min-height: 5.2em;
+}
+
+.sides {
+    padding-top: 3px;
+    padding-left: 9px;
+    padding-right: 9px;
+    padding-bottom: 3px;
+    font-size: 1.5em;
+    flex-grow: 0
+}
+
+.navbar a{
+    color: rgba(255, 255, 255, 0.897);
+    text-decoration: none;
+}
+
+.navbar a:hover{
+    color: white;
+}
+
+.breadcrumb-div {
+    background-color: rgb(39, 39, 39);
+    flex-grow: 1
+}
+
+.breadcrumb {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding-left: 0px;
+}
+  
+.breadcrumb li {
+    display: inline;
+    white-space: nowrap;
+}
+
+.breadcrumb li + li:before {
+    content: ">";
+    padding: 0.3rem;
+}
+
+.toplevel-menu {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0px;
+}
+
+.toplevel-menu li + li:before {
+    content: "|";
+    padding: 0.3rem;
+}
+
+/* Footer */
+
+.footer {
+    background-color: black;
+    min-height: 1em;
+}

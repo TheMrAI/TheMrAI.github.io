@@ -1,0 +1,5 @@
+<div class="summary">
+    <div>{{ .Date.Format "Mon, Jan 2, 2006" }} ~ {{ .FuzzyWordCount }} Words </div>
+    <h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
+    {{- .Summary -}}
+</div>
