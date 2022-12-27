@@ -4,6 +4,7 @@ title: Air quality monitor
 date: "2022-11-26"
 summary: "A simple air quality monitor, measuring temperature, humidity, air pressure, CO2 concentration
 and displaying it on a simple LCD screen."
+draft: true
 ---
 
 ## Idea/goals
