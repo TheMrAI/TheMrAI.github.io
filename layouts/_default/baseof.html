@@ -4,18 +4,18 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <title>{{ block "title" . }}{{ with .Params.Title }}{{ . }} &#9775; {{ end }}{{ .Site.Title }}{{ end }}</title>
-    <meta name="viewport" content="width=device-width,minimum-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}">
 
     <link rel="shortcut icon" href={{"/favicon.png" | absURL }} type="image/x-icon" />
-    <link rel="stylesheet" href={{"/style.css" | absURL}} >
+    <link rel="stylesheet" href={{"/pico/css/pico.min.css" | absURL}} >
   </head>
 
   <body class="body">
-    {{ partial "nav/site.html" . }}
-    <main>
+    <main class="container">
+      {{ partial "nav/site.html" . }}
       {{ block "main" . }}Main block goes here{{ end }}
+      {{ partial "footer.html" . }}
     </main>
-    {{ partial "footer.html" . }}
   </body>
 </html>

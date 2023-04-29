@@ -1,9 +1,9 @@
-<div class="navbar">
-    <div class="sides">
-        <a href="{{ .Site.Home.RelPermalink }}">MrAI</a>
-    </div>
-    <div class="breadcrumb-div">
-        <ol class="breadcrumb">
+<nav>
+    <ul>
+        <li><a href="{{ .Site.Home.RelPermalink }}">MrAI</a></li>
+    </ul>
+    <nav aria-label="breadcrumb">
+        <ul>
             <li><a href="{{ .Site.Home.RelPermalink }}">Home</a></li>
             {{ $rellink := "" }}
             {{ range (split .RelPermalink "/") }}
@@ -12,13 +12,11 @@
                     <li><a href="{{ $rellink }}">{{ humanize . }}</a></li>
                 {{ end }}
             {{ end }}
-        </ol>
-    </div>
-    <div class="sides">
-        <ol class="toplevel-menu">
-            {{ range .Site.Menus.main }}
-                <li><a href="{{ .URL }}">{{ .Name }}</a></li>
-            {{end}}
-        </ol>
-    </div>
-</div>
+        </ul>
+    </nav>
+    <ul>
+        {{ range .Site.Menus.main }}
+            <li><a href="{{ .URL }}">{{ .Name }}</a></li>
+        {{end}}
+    </ul>
+</nav>

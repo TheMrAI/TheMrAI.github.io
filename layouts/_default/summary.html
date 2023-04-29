@@ -1,5 +1,7 @@
-<div class="summary">
-    <div>{{ .Date.Format "Mon, Jan 2, 2006" }} ~ {{ .FuzzyWordCount }} Words </div>
-    <h2><a href='{{ .Permalink }}'> {{ .Title }}</a> </h2>
+<article>
+    <hgroup>
+        <h2><a href='{{ .Permalink }}'> {{ .Title }}</a></h2>
+        <h5>{{ .Date.Format "Mon, Jan 2, 2006" }} ~ {{ .FuzzyWordCount }} Words </h5>
+    </hgroup>
     {{- .Summary -}}
-</div>
+</article>
