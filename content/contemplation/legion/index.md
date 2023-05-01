@@ -65,9 +65,10 @@ And to this the officer responded with full honesty:
 Not that he fully missed the sarcasm he honestly looked shocked by the remark as it would be completely absurd. We would have laughed if the situation wasn't so shockingly absurd.
 
 P.S.: Some wisdom from the toilet stall scribbles:
-"Prison was better."
-"Run while you can."
-"Don't let them fuck up your life! Be a man and fuck up your own life!"
+
+- "Prison was better."
+- "Run while you can."
+- "Don't let them fuck up your life! Be a man and fuck up your own life!"
 
 (As I wrote this I was told that the 3rd Hungarian peaced out as well, there were only 3 of us. My Legionnaire name was Almos Balint by the way, the other two were unlucky as the chimps gave them female names.)
 
