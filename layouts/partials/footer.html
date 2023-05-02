@@ -1,3 +1,14 @@
-<div class="footer">
-    <!-- Anything for the footer would go here. At the moment I am not sure what should be here, but I want to have it here so that the page is more contained. For some reason I really don't like if the page just seems to be unbounded. -->
-</div>
+<footer>
+    <nav aria-label="breadcrumb">
+        <ul>
+            <li><a href="{{ .Site.Home.RelPermalink }}">Home</a></li>
+            {{ $rellink := "" }}
+            {{ range (split .RelPermalink "/") }}
+                {{ if gt (len . ) 0 }}
+                    {{ $rellink = printf "%s/%s" $rellink . }}
+                    <li><a href="{{ $rellink }}">{{ humanize . }}</a></li>
+                {{ end }}
+            {{ end }}
+        </ul>
+    </nav>
+</footer>

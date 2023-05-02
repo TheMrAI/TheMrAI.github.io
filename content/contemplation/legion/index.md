@@ -36,7 +36,7 @@ There was a guy who walked there from India (stopping somewhere to work for 3 mo
 are no jobs in their country and inflation is making life really difficult. Besides there was every nationality under the Sun.
 People from Nepal, Mexico, Cuba, USA, UK, Netherlands, Moldova, Thailand, Vietnam, Japan, South Korea and more. Most came from Mexico, Nepal and India, but about
 90% of Indians were eliminated really quickly.
-The Nepalese are really friendly people, really upbeat and funny and super touchy. In their culture it is completely normal to put your head in a stranger's lap to rest.
+The Nepalese are really friendly people, really upbeat and funny and very affectionate/physical. In their culture it is completely normal to put your head in a stranger's lap to rest.
 If you can make a Nepalese mate, I highly recommend it!
 By the way, more Nepalese spoke English than the French in general. Now I have heard rumors that the French just dislike speaking English so much they refuse to do so, or maybe
 the Legionaries didn't speak it I don't know.
