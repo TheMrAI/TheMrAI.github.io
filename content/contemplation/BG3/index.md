@@ -34,11 +34,11 @@ away from its other qualities. But because of that, even though I have liked the
 it again. Dragon Age: Origins to me always felt like those eternal stories between light and dark, where power didn't come cheap and even
 the heroes, The Grey Wardens were destined to either go completely insane or, as in their tradition, die in a final assault at their world's
 gates of hell.
-Apart from that I think story and well written characters are where a good game shines. For example God of War (2022) is a masterpiece
-when it comes to story telling and characters. Following that train of thought, I never really liked the Souls like games, as there is no real story or real characters.
+Apart from that I think story and well written characters are where a good game shines. For example God of War (2018) is a masterpiece
+when it comes to storytelling and characters. Following that train of thought, I never really liked the Souls like games, as there is no real story or real characters.
 Everything is just a husk in a husk of a world. Although while mechanically they are all good, without the story I don't feel motivated to ever
 touch them again after an initial first play through.
-On combat types I don't really have a preference I don't think. It can be action, turn based or something other it doesn't matter. For example
+On combat types I don't really have a preference I don't think. It can be action, turn based or something other it doesn't matter, it just needs to be good. For example
 XCOM 1 and 2 had an almost perfect turned based combat system in my opinion, so much so that even the lack of story made me go back to them.
 On the other hand I didn't like Pillar's of Eternity, and found Divinity Original Sin 1 so dreadfully boring, both in combat and story that I
 simply couldn't even finish any of them. For that reason I have never even checked out Pillars of Eternity 2 or Divinity Original Sin 2. They
@@ -78,7 +78,7 @@ Then in the first Act, if you potentially want to romance her, pick up Karlach r
 some rocks. You want to do this, otherwise you might lock yourself out of romancing her as you can't build a high enough approval rating with her by the end of Act 1.
 
 You will meet grating/messed up characters like Astarion, Lae'zel and even Shadowheart could be rather annoying. Nevertheless, keep them around. Save them if they need saving and
-don't send them away/kill them when they do something messed up.
+don't send them away/kill them when they do something messed up (because they will/want to).
 
 Talk to your companions after any bigger event and see what they have to say, and if you are willing, switch your party members when you know you are going to do something that they
 are very interested in. You will know who goes where because they will be harping about it all the time. You want to do this, because some of them might leave you if you
@@ -89,13 +89,16 @@ you may completely miss a huge part of the backstory which admittedly doesn't mu
 When you long rest and a special cutscene plays, make sure you long rest again until all such events have all played out. Many character interactions evolve through these and many of
 them get enabled at once, but only one can occur each night, and if you play efficiently you may miss some, just because you didn't long rest enough times.
 You can do these without consuming food, and don't worry about days passing by, all events will wait for you, with one exception with a certain character called Nere.
-For some reason that has a time limit of a few days, but apart from that no problem.
+For some reason that has a time limit of a few days, but apart from that no problem. You will know about this time pressure, because your companions will mention it, you will have
+visions, so don't worry can't miss the signs.
 
 Lastly, pay attention to your companions. They will tell you what they like and don't like. This may be crucially important for one character in Act 2. If you know them well enough
 you don't have to pass any skill checks for the good outcome (which is a marvel of story telling in such games I believe in itself).
-You don't have to agree with them all (most of the time it is impossible) the time and while the approval system somewhat matters (in a few big choices), it isn't very important.
+You don't have to agree with them all the time (it is impossible) and while the approval system somewhat matters (in a few big choices), it isn't very important.
 Some will dislike you and disagree with you if you are good, some good characters will disagree with you if you want to be smart about a combat scenario and not just play the dumb
-hero. It is all fine, these will never break anything, they just help you understand their personalities better.
+hero. It is all fine, these will never break anything, they just help you understand their personalities better. Think of the approvals/disapproval as indications about their
+personality. Most of the time approvals have much more value than disapprovals, so you should just focus on what you think is best and unless most of your choices are against a
+characters' belief system, by the end of the game you will max out all of your companions approvals.
 
 Apart from all this just play the character you want to play. Whether you have enough Persuasion, Insight etc. in a given situation don't worry about it. Make your first character
 your own, don't worry about min-maxing anything, play on Balanced, pick the base loadout the game gives you for one class and go for it. You can respect later, change class, face,
@@ -103,7 +106,7 @@ don't worry about it. All the more important checks are reasonable to pass anywa
 The Dark Urge. Contrary to all other origin characters this is fully customizable and has perhaps the best story in the game by none. It can only be experienced as the player
 character, there is no equivalent companion in the game. I do recommend playing as The Dark Urge, but be aware in this run you will have a very dark past and some bad choices will
 be made without your intervention. If you are okay with some bad things happening outside your control and basically being a monster, with The Dark Urge you can find a redemption arc
-that is quite memorable. (Personally, I think it can be a good metaphor for you fighting your own demons as well.)
+that is quite memorable. Personally, I think it can be a good metaphor for you fighting your own demons as well. Or you can have the most evil playthrough of the game as well.
 
 Oh, and don't forget to quicksave, before conversations and after battles. Make some bigger save points as well from time to time. Don't save scum if you can avoid it, but if you have
 spent ~20 hours playing, and you really don't want something bad to happen just because your character isn't suited for that, it will be okay. We have real lives, don't have the
@@ -165,7 +168,7 @@ they are about to explore.
 ### Combat & Inventory management
 
 The combat is simply really good, not perfect mind you, but very good. Wasn't familiar with D&D 5E system or D&D system in general, but 5E just seems to be simple enough that you
-can learn about it without getting overwhelmed, while being difficult enough to engage. You can make truly powerful builds if you know what you are doing, that can easily obliterate
+can learn about it without getting overwhelmed, while being complex enough to engage. You can make truly powerful builds if you know what you are doing, that can easily obliterate
 any opponent even on Tactical difficulty. However, the real value of this system lies in its simplicity. If you are new to these types of games Balanced can be challenging (as it was
 to me), but not overwhelming. You will never be overloaded with so many spells that you don't even want to read their descriptions. Some classes like Wizzards and Clerics will get
 a ton of spells, but only incrementally. So as a player you can comfortably learn what works and what doesn't in what situations without too much frustration.
@@ -174,10 +177,10 @@ The mechanics are turned based. The game doesn't even support real-time with pau
 you just want your characters to automatically mow down in real-time and the rounds go by pretty fast. The game may occasionally hang in certain situation, seemingly for no good
 reason, but in general the opponents take their turns almost immediately. This is further sped up by combining the turn of all assailants that would come after each other anyway
 into one round of actions. What you don't get is a convenient way of changing between elevations if you were to inspect the current combat scenario. You will always be locked to the
-elevation the character with the current turn, which may prove difficult figuring out from which angle you may or may not strike an opponent.
+elevation the character with the current turn, which may prove difficult figuring out from which angle you may or may not strike an opponent from.
 
-The combat encounters all feel handcrafted and either tie in to the story of some quest or the area. If you look out for it you may notice it. For example in Act 1, you are walking
-on down a road and see a decimated caravan. Mangled humanoid bodies litter the road left and right. You also see a lot of hyena and gnoll carcasses. What do you expect to find up the
+The combat encounters all feel handcrafted and either tie in to the story of some quest or the area. If you look out for it, you may notice it. For example in Act 1, you are walking
+down on a road and see a decimated caravan. Mangled humanoid bodies litter the road left and right. You also see a lot of hyena and gnoll carcasses. What do you expect to find up the
 road? Hyenas and gnolls. What will you find? Hyenas and gnolls. Sounds simple, but it really elevates the immersion. The world draws you in, because the locations are in harmony with
 the enemies that are placed there and with the story. This is called Ludonarrative harmony if I am not mistaken. A feat that rarely materializes in any game.
 
@@ -187,15 +190,16 @@ character has their own stash, and you have to move items around so none get enc
 members. If a companion isn't inside your current party you can't access their inventory. Where did you put that potion or weapon you may need now? Well, you have to send somebody
 away from your current party, invite somebody else for inspection until you find it. Very tedious. They tried to "quick-fix" this by forcing all companions stash into your main
 characters when you were changing them out. Of course this would usually encumber your main character, and you could start inventory management again. Even worse than the prior state.
-Thankfully they reverted this nonsense quite quickly. Not a game breaker, but you have to balance out who has how many health potions it will feel annoying. Especially when you need
-a potion for one character in combat, but you forgot to do this dance before. One baffling bug is when you are taking a Long Rest and click Auto select to pick which food items
-to use up for resting. For some reason this Auto select is so stupid that if some items were stacked (one icon representing 4 Camp supplies for example) it could only count it as 4.
+Thankfully they reverted this nonsense quite quickly. Not a game breaker, but when you have to balance out who has how many health potions it will feel annoying.
+Especially when you need a potion for one character in combat, but you forgot to do this dance before. One baffling bug is when you are taking a Long Rest and click Auto select
+to pick which food items to use up for resting. For some reason this Auto select is so stupid that if some items were stacked (one icon representing 4 Camp supplies for example)
+it could only count it as 4.
 It couldn't possibly separate into two stacks of 2, and only use one stack of 2, all that you need for resting (on Tactician). This is fun if you don't notice as it could burn away
 your camp supplies quite fast.
 
 ### Music
 
-The music is just absolutely amazing! Can't tell you why, because I simply lack the appropriate vocabulary and understanding, but I can feel it. Like in the Lord of The Rings
+The music is just absolutely amazing! Can't tell you why, because I simply lack the appropriate vocabulary or understanding, but I can feel it. Like in the Lord of The Rings
 trilogy, where there are a number of main themes that are so good, so catchy, so true that they stay with you long, long after you have heard them. For example this track has a few
 of them: [The Road Goes Ever On..., Pt. 1 - Howard Shore](https://music.youtube.com/watch?v=KiaUB7-tb_8&si=IYobYNXmKCDDz6lG).
 So what it is like in Baldur's Gate 3? There are a number of themes, but to me, it feels that this is the most prevalent one:
@@ -208,31 +212,50 @@ doing but let's go!
 Perhaps it is best if I just refer you to a professional:
 {{< youtube id="995LaqMOFGs" autoplay="false" title="Music Producer STUNNED by Baldur's Gate 3 Soundtrack" >}}
 
-Now I don't know exactly what he is saying, but I do understand the feelings he is expressing. The smile on his face, the light in his eyes. That is how these songs feel to me too.
+Now I don't exactly know what he is saying, but I do understand the feelings he is expressing. The smile on his face, the light in his eyes. That is how these songs feel to me too.
 Just watched his reaction again and my oh my, the songs are even better than I remembered! When **Nightsong** came up, and I remembered the moment when it happens in the
 game it made me tear up. What he is saying about the song is exactly how it is in the game as well. Absolutely amazing!
 
 ### Story & Characters
 
-I won't be talking about the story or characters here in any significant detail, because to properly do so, I wish to heavily spoil everything. But I wish to paint you a sort of
+I won't be talking about the story or characters here in any significant detail, because to properly do so, I wish to heavily spoil everything. However, I can give you a sort of
 outline, so you may know what will await you.
 Once again similarly to **Lord of The Rings**, there is some big evil that must be stopped, but as in every good story you don't know about anything in detail at the beginning. You
-just want to survive. All your companions just want to survive, and the game will really make you feel pressured by time. Oh, oh, if we don't solve this problem then we die.
+just want to survive. All your companions just want to survive, and the game will really make you feel pressured to do so. Oh, oh, if we don't solve this problem then we die.
 Then the story progresses, you make choices, characters die and many, many things change. Seemingly innocuous things may change how quests play out later, and you will quickly learn
-that everything you do matters. One of the random NPCs died in one random battle? Well, they might have been important, and you may not know about this until further down the line.
-The game will handle it for you. Larian studios put a great deal of effort in seamlessly handling every possibility. Whatever happens, the game handles it for you. You will not feel
-like you have failed a quest or that something got locked out from your playthrough because of your choices. Only later when you have understood the effect of you choices
-may you even realize you made a choice. Lastly, I want to point out how many characters if not all of them represent an idea, they stand as a metaphor for something. The whole story
+that everything you do matters. Their impact may not be big, but everything does have an impact.
+One of the random NPCs died in one random battle? Well, they might have been important, and you may not know about this until further down the line.
+The game will handle it for you. Larian studios put a great deal of effort in seamlessly handling every possibility. Exactly because of this you will not feel
+like you have failed a quest or that something got locked out from your playthrough because of your choices. Only later when you have observed the effect of you choices
+may you even realize you have actually made a choice. You may not even observe such effect on the first playthrough. How could you if a questline just appeared while another one may
+have disappeared? You simply won't even know about it. Which is perfection! Being unaware of the effect of some mundane choices until you see the other side will give you that little
+umpf that will keep the subsequent playthroughs fresh.
+Of course there will be choices that are important and on the nose enough that you will know exactly how your decisions may impact things.
+
+Lastly, I want to point out how many characters if not all of them represent an idea, they stand as a metaphor for something. The whole story
 is underlined by these archetypical ideas, one of the main ones being the "chance at redemption". No matter what you did or why, with enough sacrifice you may rise above your failings
-and put things right. One message that is timeless and true and very important to be reminded about from time to time.
+and put things right. One message that is timeless and true and very important to be reminded about from time to time. Almost all if not all characters have this underlying message.
 
-This can and will be your story if you let it. The game gives you every tool and more than I have seen before in any narrative.
+> This can and will be your story if you let it. The game gives you every tool and more than I have seen before in any narrative driven RPG.
 
-On the companions, the one thing I am comfortable saying is that each one
+On the companions, the one thing I am comfortable saying without spoiling anything is that each one
 is very well written, and I really mean it. Most of them are better written and have more growth than most blockbuster movie characters.
 They really carry the game and the narrative, and they are a testament of great writing.
-Even the non-companion NPCs are very well written. You don't have these extremely annoying girl-boss characters or feel that this LGBTQ+ message is forced down your throat like in
-Amazon's Lord Of The Rings garbage or almost all modern day media. You have powerful women, powerful men and everybody does what they need to do and what they can do. And because the
-story and writing is so good, so rooted in reality, every one of them makes sense. You understand them, can sympathize with them and really feel for them. These characters will make
-you laugh, angry and often cry. They feel like they could be alive and real if we lived in the universe of Dungeons and Dragons.
-This is exactly how you write characters! Make their personality and everything comes together.
+Even the non-companion NPCs are very well written. You don't have these extremely annoying girl-boss characters or feel that the nowadays all to prevalent LGBTQ+ or any other
+movements message is forced down your throat like in Amazon's Lord Of The Rings disgrace to Tolkien's legacy. Or almost any modern day media for that matter.
+You have powerful women, powerful men and everybody does what they need to do and what they can do. Regardless of their sexual orientation, skin color or race.
+You will not be bombarded with this message without any substance.
+The story and writing is so good, so rooted in reality that every character just makes sense. You understand them, can sympathize with them and really feel for them.
+These characters will make you laugh, angry and often cry. They feel like they could be alive and real if we lived in the universe of Dungeons and Dragons.
+It really doesn't matter which one is gay, lesbian or whatever, they are just people, and they just do their thing, they want to survive and that is it.
+This is exactly how you write characters! Make their personality and everything comes together. They really, truly are exceptionally written!
+
+Lastly, this is the point where I can give the biggest criticisms that I could formulate after 280 hours. The characters and the story feels almost too real. It sounds
+perhaps weird, but hear me out. There are things you will not do in real life, but you could do in a game just to see what happens, so that things keep being interesting.
+With this game I have found myself categorically incapable of choosing the evil path and very hard choosing the less correct looking options.
+There are some points in the game where your characters can just do heinous things. Absolutely vicious things, especially if you play The Dark Urge.
+And because everything seems so real, you may just not be able to do the evil thing, which is sad in a way, because I know of at least one very interesting character that
+is locked behind the "evil" path. There will be parts of this game that I may never see, unless Larian hears our cry and somehow sidesteps this hurdle. Or until I manage to
+role-play, without confusing reality with the game.
+
+An absolutely amazing game. Hope you have the option to experience it at one point! I think I have grown as a person, just because I could play this game, that is how good it is!
