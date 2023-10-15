@@ -173,7 +173,7 @@ any opponent even on Tactical difficulty. However, the real value of this system
 to me), but not overwhelming. You will never be overloaded with so many spells that you don't even want to read their descriptions. Some classes like Wizzards and Clerics will get
 a ton of spells, but only incrementally. So as a player you can comfortably learn what works and what doesn't in what situations without too much frustration.
 
-The mechanics are turned based. The game doesn't even support real-time with pause like some other similar CRPGs. That is okay, because you don't really have trash enemies that
+The mechanics are turn-based. The game doesn't even support real-time with pause like some other similar CRPGs. That is okay, because you don't really have trash enemies that
 you just want your characters to automatically mow down in real-time and the rounds go by pretty fast. The game may occasionally hang in certain situation, seemingly for no good
 reason, but in general the opponents take their turns almost immediately. This is further sped up by combining the turn of all assailants that would come after each other anyway
 into one round of actions. What you don't get is a convenient way of changing between elevations if you were to inspect the current combat scenario. You will always be locked to the
