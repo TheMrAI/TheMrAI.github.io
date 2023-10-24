@@ -1,7 +1,7 @@
 ---
 layout: page
 title: Baldur's Gate 3 Characters & Story
-date: "2023-10-15"
+date: "2023-10-24"
 draft: true
 summary: "An in-depth look at Baldur's Gate 3 story and character design."
 ---
@@ -27,8 +27,14 @@ everyone will be better for it.
 
 ## Companion characters
 
-Let's examine these characters and see who they are. Not surprisingly all of them are different from they would first appear, and they may change in very
+Let's examine these characters and see who they are. Not surprisingly most of them are different from how they would first appear, and they may change in very
 fascinating ways. As if the old saying "Don't judge a book by its cover.", really had something going for it.
+Not all characters will be examined here. This is most likely because there just isn't enough to warrant a separate section, or I simply
+didn't find them that interesting to begin with. For example Jaheira, Minsc and Halsin were all companions with some substance, but they already had their arcs off-screen.
+They didn't have a real character arc, nothing that really gripped me. Along similar lines I am categorically uninterested in evil paths that would lead any companions down
+into the abyss. For this reason, I can't comment on what happens if any of them do the worst things they can. Simply didn't see these, and it would pain me to do so.
+Finally, I may be wrong on some of them or lack the complete picture. Only ever had the time to romance Karlach, Lae'zel, Minthara and Gale a bit. Some can be surprisingly
+interesting as romance options rounding out their personalities even more. If I missed something about the others, this may be why.
 
 ### Withers
 
@@ -64,7 +70,46 @@ endless and to him all life has equal value. An individuals action's may stain t
 moment you die, this **God of Death** cares not for your actions. Until then everything is free game. In other words the message is "No matter your sins, you may redeem yourself.",
 which echoes throughout the whole game. To really see why we need to see the arc all other companions, especially that of the **The Dark Urge**.
 
-### Wyll
+### Wyll - The Blade of Frontiers and Mizora
+
+This is what Lae'zel has to say about him:
+
+> The githyanki people have a word for men like the Blade of Frontiers: She'lak. Roughly translated: 'idealist do-gooder'. Or better yet, 'benevolent burden'. His confidence is an
+asset. His pursuit of valour? Not so much.
+
+Frankly she is right. Wyll proudly calls himself the **Blade of Frontiers**, the name he probably gave himself the same as he will do with **The Blade of Avernus** later on.
+Uses every opportunity to proclaim his valour and spread his image. The hero of the common folk. All true, but he is so much more. This is partly just an act.
+Hard to see, because his character isn't outstanding on in any other way. However, if we listen to what he says and observe what he does can we really see who he is.
+A man of an utterly unshakable moral code and resolve. He would pick the burdens of the world on his shoulders, just so he can spare it from someone else. No matter the price he has
+and must pay still.
+
+His father is Ulder Ravengard, the Grand Duke of Baldur's Gate. A man respected for his qualities far and wide. Wyll ever hopes to follow in his footsteps. When Wyll was 17
+his father went away on a diplomatic mission while some cultists attempted to conjure Tiamat, the dragon queen, and destroy Baldur's Gate. As devil's do they use mortals for their
+own purposes and whom better to corrupt then the well-meaning sole sun of such a celebrated man. And thus Wyll was given a choice by Mizora the servant of the arch-devil Zariel.
+
+> She will destroy Baldur's Gate. Grant me your soul - and I will give you the power to save it. - Mizora
+
+> She read the terms while two devils stood witness. And I said yes. One soul for one city. - Wyll
+
+He saves the city, eternally condemning his soul to the Mizora and Zariel. To torment him ever more, when his father returns Mizora, a devil, awaits him by Wyll's side. Forbidden by
+the pact, to talk about the pact, Wyll cannot explain what he did or why. His father only sees his son accompanied by a smirking devil. He casts him out. Yet Wyll never harbors
+any resentment towards his father and says:
+
+> He did the only thing he could. In his eyes, I invited a devil into our midst. I was a fool at best; a traitor at worst.
+
+Even after years of being Mizora's lapdog he will claim it was his proudest moment, and he would do it again. Even though he completely understands the price he paid, and he will
+vehemently oppose you taking Raphael's deal (another devil):
+
+> He'll require of you only what you're least ready to part with. And then require more still. You might think you'd give up anything for a cure. But the devil won't take
+just anything. He'll take everything.
+
+Then when meeting Karlach whom he was tasked to kill by Mizora, after he learns that she isn't a monster he was told her to be, he immediately stops and breaks the terms of his pact.
+Knowing full well, that doing so will carry a punishment for him, likely a life ending one. Mizora comes and irreversibly turns Wyll into a devil. Now he is a monster he wishes to
+protect others from. Yet, he doesn't waver. Not for a moment does he regret, becoming a devil to save an innocents' life.
+
+Later on we get the option to break Wyll's pact with Mizora by letting his father die. You have to convince him that enough is enough and that he deserves a life too. Otherwise,
+he just won't do it. He would rather face eternal servitude than to let his father die. Mind you Mizora was very clever, because she gave a choice which for an outside observer was
+simple, but not for Wyll. Wyll's father has already been sent of to be executed, so the choice wasn't really between killing him and saving him, but letting him die or saving him.
 
 ### Gale
 
@@ -129,15 +174,17 @@ In my mind, however there is only one ending for her. When you convince her, wit
 
 ### Astarion
 
+Astarion the sociopath.
+
 ### Shadowheart
 
 ### Lae'zel
 
+> My mind
+
 ### The Dark Urge
 
 > As it was, so it is again. A hero has risen from a legacy of death.
-
-### Jaheira & Minsc
 
 ## Notable non companion characters
 
