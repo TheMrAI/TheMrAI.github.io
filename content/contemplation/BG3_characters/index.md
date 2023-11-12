@@ -251,7 +251,7 @@ That is goddam strength right there! And wisdom too. To face the certainty of yo
 right thing until your final breadth. Every other character sees this too and even Lae'zel can only speak of her admiration towards Karlach. This is how I think we all should aspire
 to become, at least in principle.
 
-There are 3 endings for Karlach. She becomes a mind-flayer and lives, she dies or she goes back to Avernus. From these three only the last two are interesting. The death one, because
+There are 3 endings for Karlach. She becomes a mind-flayer and lives, she dies, or she goes back to Avernus. From these three only the last two are interesting. The death one, because
 it really drills home who she was:
 
 > I never gave up. I did my best. I did my best. It's the one thing I can't beat, isn't it? I wanted to live. In my city. With my friends. But life is for the living.
@@ -262,6 +262,10 @@ In my mind, however there is only one ending for her. When you convince her, wit
 > Better let these fuckers know I'm back. And this time, I'm not alone.
 
 ### Astarion
+
+https://www.youtube.com/watch?v=qX0EYVpGztg
+
+
 
 When we reach Cazador's dungeon there, we find many horrors. One of which is the skeletal head of Cazador's old master, Vellioth. The fragment of a mind left within the skull
 shares something horrific:
@@ -279,10 +283,10 @@ Sebastian tells Astarion that he was the first and last person he ever kissed, r
 
 > One hundred and seventy years. You were one of my first too. - Astarion
 
-And thus Astarion learns the full truth. Previously he was only a murderer bringing food to his master. Now he is an accomplice in the suffering of thousands.
+And thus Astarion learns the full truth. Previously he was only a murderer bringing food to his master. Now he is an accomplice in the centuries old suffering of thousands.
 
-After finally killing Cazador, Astarion is faced yet another brutal choice. Save seven thousand spawns, many of which he brought to his master, or kill them all.
-Releasing them would unleash seven thousand souls many of which have been tormented for more than a century. The mind cannot comprehend their torment and the subsequent
+After finally killing Cazador, Astarion is faced with yet another brutal choice. Save seven thousand spawns, many of which he brought to his master, or kill them all.
+Releasing them would unleash seven thousand souls many of which have been tormented for more than a century. The mind cannot comprehend their suffering and the subsequent
 madness that they lived through. So he, only has one choice. Kill them all.
 
 After this, Ulma, the leader of the Gur's forgives him and offers a few words of encouragement:
@@ -295,12 +299,163 @@ one.
 
 ### Shadowheart
 
-### Lae'zel
+### Lae'zel of K'liir
 
 > Vlaakith requires everything of her children. I can't count how many bruises I've inflicted, can't measure how much blood I've drawn in the Undying Queen's name. I know only
 blood-red and death-black. My mind is silver and my body steel. I am what I must be, say what I must be, to survive every beast I face and every wound I bear.
 
-Yet, she is deathly afraid.
+The Githyanki people hate the mind flayer race with a vengeance. They have been their slaves for thousands of years. Then one day a special Githyanki called Gith was born. She had
+the ability to disrupt the mind flayer hivemind communication network. With this power the Githyanki finally broke free, and they have single-handedly ended the
+mind flayer empire that has subjugated the known universe. However, to ensure their victory and to give their race an edge for all the fights to come, mother Gith has made a pact
+, with the archdevil Tiamat, the dragon queen, allowing the Githyanki to ride her red dragons into battle whenever the need arose. The details of the pact are not know, but
+mother Gith was never heard from again. In her place Tiamat's envoy proclaimed the first Vlaakith, and their line has been ruling the Githyanki ever since. Matriarchs of the Githyanki people, their words are gospel.
+Fullfiling a Vlaakith's demands is as if one served mother Gith herself.
+Thousands of years have passed, yet the Githyanki could not step beyond their hatred. They have organized their society
+around military proves. Only the strongest may and should survive. Weakness of any kind is unacceptable and is punishable by death. Killing a ghaik, a mindflayer in their tongue,
+is a rite of passage into adulthood. They follow the 10'000 protocols with religious fervor, specifying how a Githyanki should behave and should believe.
+
+The current Vlaakith is the 157th in line and is called Vlaakith the Undying or the Lich Queen. According to the Githyanki she has ascended mortality and claimed
+undeath, and has reigned for a thousand years. And there is no greater honor for a Githyanki then to ascend and become part of the personal guard of a Vlaakith.
+
+When we meet Lae'zel we have already been infected by a Mindflayer parasite and would turn into full fledged Mindflayers in a matter of days through a process called
+ceromorphosis:
+
+> It starts with a fever and memory loss. Then you start to hallucinate. Your hair falls out and you bleed from every orifice. Your bones will change form. Your jaw will
+split to allow room for four great tentacles. All skin will turn to gore, and be shed to reveal new flesh underneath. Then you have ceased to exist, and a mind flayer is born.
+
+Lae'zel is rude and callous as we would expect for being raised as she has:
+
+> The pupils themselves culled the weak from their ranks. I myself felled four of my own classmates once K'liir had a hundred times circled Toril.
+
+Yet, she is deathly afraid. She spent her entire life sacrificing everything for Vlakith, so one day she may ascend. To fail and even worse, turn into a mind flayer is beyond
+terrible. She is in fact so afraid, that on the first sight of sickness she would offer to kill us all and then herself just so that we do not turn.
+This is why she is hellbent on finding a Créche, a githyanki stronghold, and be rid of the parasite by a machine built just for this purpose called a zaith'isk.
+
+One of the first things she says at camp is:
+
+> A fine evening, don't you think? The moonlight shines warmly on us. The breeze caresses our faces. Hideous. All of it. Would that I were doing battle up there, among the Tears.
+
+Lae'zel is an incredible character. Despite all the top level rudeness and callousness, she is kind and caring, and even stronger than it initially seems. We can learn most about
+this while romancing her. A matter in which she expresses her interest with blatant directness.
+
+> I have a confession. I was too hasty to judge you. I thought you witless, gutless, unimpressively bland. Now, well - you've earned my respect, and more still. You've proven your
+wits. You are efficient and dominant, in and out of battle. You've proven your courage. I swear, you would tear the horns off one dragon to plunge into another. And you're hardly
+bland. Your scent alone is enough to make my neck sweat and my hairs stand on end. I want to taste you. Perhaps tonight. Perhaps later. But I want it all the same.
+
+If we indulge in her proposition, we will initially see that she only wants sex and nothing more. Even the concept of cuddling is completely foreign to her:
+
+> Chk. Overheated grappling, that wastefully eats into time better spent resting our muscles.
+
+Lae'zel is ruthless in battle, but does not cling to resentment or seeks needless retribution. We can observe this when her argument with Shadowheart eventually escalates
+into a duel to the death. Since Shadowheart has no real chance against Lae'zel, she tries to murder her in her sleep. If we manage to diffuse the situation, Lae'zel will comment on
+the event as if this were the natural order of the world:
+
+> It is over, where I am concerned. It is through conflict that we strengthen our bonds.
+
+Eventually we find a githyanki patrol and observe how they have ruthlessly murdered a bunch of people in search of a weapon. Lae'zel unfazed approaches then to inquire about
+the nearest créche. The leader of the patrol, Kith'rak Voss, Knight Supreme. The queen's silver, the queen's sword berates her immediately, basically telling her she should be
+grateful she is still alive (just for talking to him, without permission) then describes that they are looking
+for a weapon polyhedric in shape, that is likely with the ones who survived the nautoloid crash. In short, they are looking for us and Shadowheart's artifact. You would think
+Lae'zel would immediately tell such a high ranking githyanki that we have the weapon they seek, dooming us to death. Yet she doesn't, she knows of the possible consequences, and she
+will not betray us.
+
+Eventually we reach the githyanki créche. If we choose to go there that is, which given what we have seen seems like suicide, but we want to be rid of the parasite and have no
+other options left. In the créche we find this so called zaith'isk. Either we or Lae'zel sits in the chair. The purification begins, but throughout it, we quickly understand that the
+device isn't meant to extract the parasite, rather the memories of the host, then erasing their mind altogether. There is no purification, only purging. The process eventually
+ends in the destruction of the device and the first shock to Lae'zels world:
+
+> What madness is this? The zaith'isk nearly destroyed me! I AM GITHYANKI. I WILL NOT BE GHAIK!
+
+But she does not want to accept that purification was a lie:
+
+> I followed protocol. I kept to my faith. Yet the zaith'isk might have killed me. The ghustil tampered with it. Traitor - and there may be more still! This must be why the
+Inquisitor's come.
+
+Then, if we seek out this inquisitor, he will demand that we hand over the artifact. Lae'zel initially wants to comply, but if we remind her of the zaith'isk, she will choose
+to stand by us knowing full well, this may be our final moments. Then we may speak with an apparition of Vlaakith, who is not a little bit bothered by us slaughtering her
+inquisitor. Here we learn that the artifact is The Astral Prism, an ancient gith artifact from the times when they have defeated the Illithid Empire. Vlaakith claims there is
+a presence in the prism, an agent of the Grand Design whom we must kill it, in exchange she will cleanse and ascend Lae'zel. We enter the prism and meet the Dream Visitor. The entity
+who has been protecting us from the Absolute all this time. Upon talking to the Dream Visitor we will learn that Vlaakith wants it dead:
+
+> Vlaakith is lying to her people. She pretends to know how Gith destroyed the mind flayer empire. In truth, she knows nothing. If the Illithid Empire were ever to return, she
+would be incapable of stopping them. And if her people found out about her impotence, there would be mutiny, revolution, the end of her rule. But that very power - the power to
+resist illithid control - which Vlaakith only pretends to know, is how I've been protecting you.
+
+Well, Lae'zel is not pleased with the results and demands to enter our memories, so she can see for herself.
+
+> Vlaakith tacki na'zin. I see only - only madness. Vlaakith bears the full might of Tu'narath's arms, and the covenant of the great Mother Gith! Tsk'va! We are leaving this place
+- now.
+
+She sees the twinkle of truth despite her indoctrination. Even though, understandably the revelations shook her:
+
+> I followed your path. What good, this heart of stone, for it to be shattered? She tests me. A trial of faith - K'liir prepared me. 'Only the heaviest souls soar to the Astral.'
+
+She isn't ready to let go. Kith'rak Voss comes to us and begs Lae'zel to allow him to aid her. He knows we carry the Astral Prism, and he knows the entity inside is protecting
+us. He isn't ready to tell us what this entity is, but if it chose us, Kith'rak will aid us whatever must be done.
+
+> The Prism's tenant alone has the power to end Vlaakith's tyranny. I've sought their freedom for aeons.
+
+Then we also get confirmation on what we have already seen:
+
+> Lies, Lae'zel - every last one. There is no purification, no ascension. The zaith'isk does not purify - it extracts memory and kills the infected. Nor does the lich queen glorify the ascended. She feeds on most all of them to grow her power and pursue godhood.
+
+Finally, Lae'zel starts to understand:
+
+> 'Vlaakith'ka sivim hrath krash'ht. Only in Vlaakith may we find light.' These were the first words I ever read on tir'su slate. But they are no mere aphorism. They are law, they
+are creed - the root from which the ten-thousand protocols stem. 'Forsake one protocol, and forsake Vlaakith. Forsake Vlaakith, and be the blood and meat which sates her dragons.'
+If Voss speaks true - if ascension is a lie, if tadpole purification is a fairy tale, then I have not sinned against Vlaakith... She has sinned against me.
+
+Her whole world is crumbling down. Everything she ever knew seems to be a lie, but she does not despair. She will find out the truth one way or another.
+
+By this point Lae'zel seems to be falling in love with our avatar, and tries to resolve these feelings by the only possible solution she understands, combat:
+
+> I am obsessed by the ground under your feet and the wind over your head. I see your face just before sleep and after I wake. I ask myself: are you worthy? Zhak vo'n'ash duj. There
+is only one way for you to prove it. We fight. I test you in battle. Dance with me. Bleed with me. Bruise me so that you might possess me.
+
+Then she stops the fight:
+
+> No more. I can't bear it. I've torn flesh from monsters and men. I've laughed as they suffered. But you - I don't want to hurt you - I want to protect you. For you to protect me.
+Zhak vo'n'ash duj. Source of my bruises.
+
+Then at some point the Dream Visitor will call for our aid and summon us into the Prism again. There we learn two things. First, the Dream Visitor is a mind flayer called The
+Emperor and second he isn't the only one in there. The other entity inside the prism is whom Vlaakith is really after, the one and only son of mother Gith, Orpheus the Prince
+of the Comet. He has the power to disturb the mind flayer hivemind, and he is the one The Emperor is using to protect us all. Orpheus is bound by infernal chains, we couldn't free
+him even if we wanted to, worse his hatred for illithids would force him to kill us all.
+
+Now Lae'zel knows the truth:
+
+> Every word Voss spoke, he spoke true. Orpheus is the living proof of the queen's lies, and the living weapon that conquered our ghaik slavers. One word from his lips, and
+the people would doubt. Two words, and they would rage. Three words, and they would bow to the True Heir. If the githyanki are to be free, the Prince of the Comet must lead the
+way.
+
+It is time we met with Voss again. We meet him pleading to the devil Raphael. Begging to give him the Orphic Hammer, the only tool that can break infernal chains, the only tool
+that could free Orpheus. What does the devil want in return? The Crown of Karsus would be sufficient. Why? He is not even subtle about it, to dominate and unite all the hells
+under his command. He promises under his rule the hells would not leak out into the living, but after all we have seen, who would ever trust a devil?
+
+Thankfully we don't have to make a deal with the devil. We can just steal the hammer from his House of Hope, just as the Crown was stolen from Mephistopheles. Easier said than done.
+Penetrating the hells, breaking into a devils home, stealing his most valuable asset. So naturally, that is what we do.
+
+Before the final battles against the elder brain would commence, Lae'zel will wake us again, at dawn, with something that we must see.
+
+> Watch. I used to hate that sight. The glowing sky, the long shadows, the fading stars. I lived for the red of blood and the black of death. Now I see the colours between.
+Look at the sun. What do you see?
+
+> Hope. Life. A future worth fighting for.
+
+> Yes. And something else too. Beauty. The dawn was my torment. Rustling leaves, agony. I couldn't wait to escape this place. Now, I revel in it. I revel in you. You showed me
+the between and beyonds. Between war and peace, beyond passion and obsession. Most importantly - you showed me freedom. When all this is over, will you stay with me? For good?
+
+Lae'zel has come full circle. She understood that life was about more than just combat and service, she understood that love is not weakness but strength, and most importantly, she
+understood that she doesn't have to be alone. That she shouldn't be.
+
+With the hammer in hand we can free Orpheus, at which point The Emperor forsakes us. Orpheus isn't too happy about how things stand. The Netherbrain is beyond our capabilities
+and someone has to become an illithid.
+
+After defeating the Netherbrain there are a number of endings for Lae'zel. She leaves alone or with Orpheus to liberate her people, or stays with you. In my mind either you
+or Orpheus had to become a mind flayer so is best for Lae'zel to go and liberate her people. Before she says a few final words for you:
+
+> Zhak von'n'fynh duj - source of my joy. Without you, I wouldn't have known warmth - only ice and fire. I can never forget you. Your name will be etched in our slates. You will
+be called Mla'ghir -liberator.
 
 ### The Dark Urge
 
@@ -312,7 +467,7 @@ Yet, she is deathly afraid.
 
 , and this will culminate in a scene
 with Lorroakan. A wizzard, much like Gale of great talent, but unlike him, one that only serves himself. Lorroakan aims to bind Dayme Aylin back into servitude, so he could
-siphon her life force and extend his life to eternity. So he could play god.
+siphon her life force and extend his life to eternity. So he could play a god.
 
 ### Raphael & Hope
 
