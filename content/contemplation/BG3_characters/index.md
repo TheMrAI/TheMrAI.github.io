@@ -201,8 +201,6 @@ And so he is, and so he does.
 It is interesting to see in the end that Mystra never really abandoned him. In fact she put the fate of all magic on the line so that Gale could live a little longer and get a
 chance at saving creation. In the end, all that Gale ever needed was some faith. Some faith in himself that he was enough, and some faith in her goddess.
 
-### Minthara
-
 ### Karlach
 
 > Karlach is life itself.
@@ -432,8 +430,7 @@ It is time we met with Voss again. We meet him pleading to the devil Raphael. Be
 that could free Orpheus. What does the devil want in return? The Crown of Karsus would be sufficient. Why? He is not even subtle about it, to dominate and unite all the hells
 under his command. He promises under his rule the hells would not leak out into the living, but after all we have seen, who would ever trust a devil?
 
-Thankfully we don't have to make a deal with the devil. We can just steal the hammer from his House of Hope, just as the Crown was stolen from Mephistopheles. Easier said than done.
-Penetrating the hells, breaking into a devils home, stealing his most valuable asset. So naturally, that is what we do.
+
 
 Before the final battles against the elder brain would commence, Lae'zel will wake us again, at dawn, with something that we must see.
 
@@ -448,7 +445,8 @@ the between and beyonds. Between war and peace, beyond passion and obsession. Mo
 Lae'zel has come full circle. She understood that life was about more than just combat and service, she understood that love is not weakness but strength, and most importantly, she
 understood that she doesn't have to be alone. That she shouldn't be.
 
-With the hammer in hand we can free Orpheus, at which point The Emperor forsakes us. Orpheus isn't too happy about how things stand. The Netherbrain is beyond our capabilities
+One way or another we get the hammer and with it, we can free Orpheus, at which point The Emperor forsakes us. Orpheus isn't too happy about how things stand. The Netherbrain is 
+beyond our capabilities
 and someone has to become an illithid.
 
 After defeating the Netherbrain there are a number of endings for Lae'zel. She leaves alone or with Orpheus to liberate her people, or stays with you. In my mind either you
@@ -463,6 +461,8 @@ be called Mla'ghir -liberator.
 
 ## Notable non companion characters
 
+### Jaheira & Minsk
+
 ### The Moonmaiden & Dame Aylin
 
 , and this will culminate in a scene
@@ -470,5 +470,104 @@ with Lorroakan. A wizzard, much like Gale of great talent, but unlike him, one t
 siphon her life force and extend his life to eternity. So he could play a god.
 
 ### Raphael & Hope
+
+> My, my what manner of place is this? A path to redemption, or a road to damnation? Hard to say, for your journey is just beginning.
+
+Are the first things Raphael says when we first meet him. Just by his mannerisms one can tell he is up to no good. Then we get transported into his home, which
+he has named:
+
+> The House of Hope. Where the tired come to rest, and the famished come to feed - lavishly.
+
+Pretty aptly named house for one whose business model rests on exploiting other's hope, a devil. A fact that he is all to keen to reveal:
+
+> What's better than a devil you don't know? A devil you do. Am I a friend? Potentially. An adversary? Conceivably. But a savior? That's for certain.
+
+He says he wants to help us, but why would he?
+
+> Because my compassion is boundless. I stride among the needy, giving comfort where I can. And you're in dire need. One skull, two tenants, and no solution in sight. I could
+fix it all (snaps fingers) like that.
+
+Of course no sane person can trust a devil, so when we reject his initial offering, he gets a bit frustrated:
+
+> Try to cure yourself. Shop around - beg, borrow, and steal. Exhaust every possibility until none are left. And when hope has been whittled down to the very marrow of despair -
+that's when you'll come knocking on my door. Hope. Hahaha! Such a tease.
+
+Unsurprisingly not soon after we learn that the devil was lying all along. He can't cure us at all, and he knows it too. Our tadpoles are enhanced with Nethereese magic, not even
+a god could cure us. But a devil doesn't care, he makes the bargain, and it is up to us to accept or deny it.
+
+Throughout the game we will see him make offers and even see the results of some. It is particularly hard to see him put his claws into a little tiefling girl refugee, Mol, the
+survivor of Elturel, bruised and battered, already missing an eye. She is holding together a band of kids, and they survive by stealing what they can. Not the best, and she knows it,
+however there is nothing better. We don't ever learn what he offered her, but we fear she will take it. What we know for sure is that Raphael definitely has no good intentions for
+her either:
+
+> What a lovely specimen she is. A blushing apple, begging to be plucked. But don't you worry about Mol - it goes without saying she still has the unconditional freedom to choose
+the only option she has left.
+
+When we meet him at the Mausoleum in the Shadow Cursed Lands he warns us of a creature:
+
+> There is a creature that lurks in silence and shadow - a creature who, like me, is very much of the infernal persuasion. Should it make its way out through the very doors
+you are about to brazenly swing open, you'll have unleashed a pestilence upon this realm. In truth, it is carnage incarnate. So if you meet the devil of which I speak, kill it.
+Consider no other course of action. Do not underestimate this opponent. At best you will have the blink of an eye to strike. Strike first. Strike true. Defy the odds, for they are
+distinctly in its favour. That much I owe the bastard to concede. After all, if there is one rule I hold dear, it's that one must always give the devil his due.
+
+Well, he does speak some truth, but as it seems to be the pattern, not near half of it. The creature inside is Yurgir, an Orthon, one of the generals of hell's armies. And would
+you be surprised to learn that he was contracted by Raphael himself about a hundred years ago after the Sharrans unleashed the shadow on the land? His contract was to kill everyone
+in the Grand Mausoleum:
+
+> Spill all the blood sworn to the night. Silence all prayers; smother each rite. Wander Shar's halls; hungry to slay; Leave no Justiciar alive to obey. Leave none to hear it, then
+be set free; This song is your oath, swear, swear to me.
+
+Everybody in the Mausoleum has been butchered, yet Yurgir remains. Why is that? Raphael tricked him. According to the contract he cannot leave until everyone is dead within the
+halls or by hell's rules he would become Raphael's slave. If we look around hard enough we can find a number of rats and if we happen to kill enough of them, they will start
+attacking us.
+Hundreds upon hundreds of rats. After a while they combine and the final remaining Justiciar in the Mausoleum takes shape. Then to no-one's surprise we can learn that Raphael gave
+the spell to this last Justiciar, when he witnessed all his brethren being butchered by Yurgir. Allowing him to choose the only option he had left, and splitting his mind and body
+into many.
+
+When Raphael finally reveals to us that he wants the Crown of Karsus for the Orphic hammer, we can be pretty sure that whatever may be in the contract, should we take it,
+Raphael would eventually win. As Wyll has warned us, the devil will only require what we are least ready to part with and then more still. We cannot take his deal, we have seen now
+thrice how malicious he is, if we ever needed any convincing of this.
+
+Thankfully we don't have to make a deal with the devil. We can just steal the hammer from his House of Hope, just as the Crown was stolen from Mephistopheles. Easier said than done.
+Penetrating the hells, breaking into a devils home, stealing his most valuable asset. So naturally, as the true heroes we are, that is what we do.
+
+At the beginning of our arguably most perilous quest in the game we meet a character right after entering The House of Hope. A woman half mad, swinging wildly between
+coherence and madness. When asked who she is she says:
+
+> Who am I? It's my favourite question. I scream it into the dark while I sleep, and whisper it to my memories when I wake. I'm the thing that kills you, and the only reason
+you're alive. Made by a promise, undone by the truth. A handshake, a hug, the first beat of a newborn's heart. I am Hope. What little is left of her. A GUTTERING CANDLE IN A
+UNIVERSE OF NIGHT. I'm not much a friend to anyone anymore. But I could use a friend myself. Do you want a friend to guide you through this madhouse?
+
+She is a bit unhinged, not surprising, as we later learn Raphael has captured her long long ago and kept torturing her ever since. Breaking Hope would be the most satisfying thing
+to him, but he just couldn't manage it so far. In her rambling Hope says:
+
+> But I like you. I know I do, I think I do, I hope I do. I just need to ask one question, and I'll know for sure. Can you save me? PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE PLEASE.
+
+When we unquestionably agree she shares the plan:
+
+> All right. You have to listen very very very closely. I will say this only once. Find the KEY. Take the hammer. Smash my chains. Find the key. Take the HAMMER. Smash my chains. Find the key. Take the hammer. Smash my CHAINS.
+
+After reclaiming the hammer and smashing her chains, when we are about to leave Raphael appears, and he isn't very happy.
+
+> There are many things in your world that I loathe. Litters of kittens, chattering children - the noise and the chaos of it all. In my world - in my HOUSE - there is order, and there
+are rules. You have broken the most important rule of all, and committed the cardinal sin. You have brought the chaos of your world into mine. I will not abide it.
+
+Then he addresses Hope as well:
+
+> Oh, Hope, you are such a piteous thing. All it takes is a crumb from the table, and you forget the centuries of starvation. This insolence has earned you centuries more.
+
+And then again to us:
+
+> It's the fatal flaw of mortalkind. Take away their free will, and they call you a tyrant. Allow them to indulge it, and they become tyrants. You would have been heroes if you'd
+only dealt fairly with me. Instead, you're not so different to doomed Karsus, over-reaching your limits, and burning your world to ash.
+
+But Hope interjects:
+
+> WRONG WRONG WRONG. They will save their world and smash you to smithereens.
+
+One of the hardest battles in the game ensues, but with Hope on our side, we win, and can witness something special, after we tell Hope to come with us:
+
+> And go where? I don't think I quite know how to be anywhere else but here anymore. With a lick of paint and a thorough cleaning, this could be a lovely little house. And I
+can hardly leave - after all, who would ever want to think of Hell without Hope?
 
 ### The Emperor
