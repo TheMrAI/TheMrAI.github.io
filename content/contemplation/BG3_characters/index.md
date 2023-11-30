@@ -31,10 +31,16 @@ Let's examine these characters and see who they are. Not surprisingly most of th
 fascinating ways. As if the old saying "Don't judge a book by its cover.", really had something going for it.
 Not all characters will be examined here. This is most likely because there just isn't enough to warrant a separate section, or I simply
 didn't find them that interesting to begin with. For example Jaheira, Minsc and Halsin were all companions with some substance, but they were already fully developed.
-They didn't have a real character arc, nothing that really gripped me. Along similar lines I am categorically uninterested in evil paths that would lead any companions down
-into the abyss. For this reason, I can't comment on what happens if any of them do the worst things they can. Simply didn't see these, and it would pain me to do so.
-Finally, I may be wrong on some of them or lack the complete picture. Only ever had the time to romance Karlach, Lae'zel, Minthara and Gale a bit. Some can be surprisingly
-interesting as romance options rounding out their personalities even more. If I missed something about the others, this may be why.
+They didn't have a real character arc, nothing that really gripped me. Minthara, while fascinating on a first sight, was left utterly incomplete. Which is truly sad. What is
+already there for her hints at a very unusual character. Her story though, sadly never goes anywhere. Lastly, The Emperor will be omitted as well. While he is with us
+the whole game, he doesn't have an arc. The biggest revelation we may learn is that he is a monster too. That he may be helping us, and he will keep to his word, he does
+not do it out of kindness, but pure necessity. If he could, he wouldn't even try to communicate with us, instead he would just dominate us like he did with Duke Stelmane.
+
+I am categorically uninterested in evil paths that would lead any companions down into the abyss. For this reason, I can't comment on what happens if
+any of them do the worst things they can. Simply didn't see these, and it would pain me to do so.
+
+Whenever appropriate, characters will be quoted to convey their story better. These will be always in-game quotes, however sometimes some intermediate dialog will be
+omitted for brevity and flow.
 
 ### Withers
 
@@ -261,39 +267,162 @@ In my mind, however there is only one ending for her. When you convince her, wit
 
 ### Astarion
 
-https://www.youtube.com/watch?v=qX0EYVpGztg
+Astarion, plain and simple, is a sociopath. And as such, although he is capable of empathy and kindness, he can be brutal and uncaring. We should see however, that
+compared to all the other characters from the game, arguably he had it worst. Even worse than perhaps most of them combined. While I have personally found his character
+absolutely appalling to interact with, we really should note this as a real testament to his writing and to his actor's Neil Newbon stellar performance.
+While in real life, we should stay away from such characters, as mean as that sounds, here it is good to take a close look and try to understand how someone can get so twisted.
+Because, as we will learn Astarion isn't really evil by nature, he just got a really, really terrible life.
 
+One of our first meaningful interactions with Astarion is when our avatar wakes up from a nightmare in the middle of the night just to see Astarion's face closing in on its neck,
+fangs barred.
 
+> No no - it's not what it looks like, I swear! I wasn't going to hurt you! I just needed - well, blood.
+
+And his manipulations start:
+
+> I feed on animals! Boars, deer, kobolds - whatever I can get. I'm just too slow right now. Too weak. If I just had a little blood, I could think clearer. Fight better. Please.
+Only be a taste, I swear. I'll be well, you'll be fine, and everything can go back to normal.
+
+Well, you can let him suck a little blood. You can then attempt 3 times to stop him, before he eventually kills you. If you survive in a few days Astarion will start to reveal
+his past, in his slimy, manipulative ways:
+
+> There you are, I was just thinking about you. And that delicious moment we shared the other night.
+
+> The moment when you bit me?
+
+> The very same. I've had this condition for two centuries, but truth be told? You were my first. In all these years, I've only ever fed on beasts. Drinking the blood of thinking
+creatures is a different thing entirely. You were delectable. And now I just can't help but wonder how the others taste.
+
+Throughout the whole game he will talk in this pattern. The slimy, manipulative flattery, followed by some small truth. On some occasions though, he will open up and may reveal
+things that are hard to hear.
+
+> Cazador Szarr is a vampire lord in Baldur's Gate. The patriarch of his coven and a monster obsessed with power. Not political power or military power - I mean power over people.
+The power to control them completely. He turned me nearly two hundred years ago. I became his spawn and he became my tormentor.
+
+When we ask him, whether he was a slave we can finally get a glimpse into his horror:
+
+> A vampire's spawn is less than a slave. They're a puppet. We have no choice but to obey our masters' commands. They speak and our bodies react - it's all part of the deal.
+Sometimes he'd order us to submit to torture. Sometimes he'd have us torture ourselves. Whatever his weathervane mood settled on.
+
+Because of this past, Astarion is the only companion who is actually okay being infected with a mind-flayer parasite. He is seriously considering dealing with Raphael, just so he
+never has to go back to Cazador.
+
+> I won't lie, it's tempting. If I keep the tadpole, I risk transforming into a grotesque monster. If I lose the tadpole, Cazador has control of me, body and soul, and I return
+to the shadows. It's grim either way, so why not sell what's left of my soul to a devil? Better he has it than Cazador.
+
+Astarion doesn't even remember how he looks or what his original eye-color was:
+
+> I... I don't know. I can't remember. My face is just some dark shape in my past. Another thing I've lost.
+
+He would also reveal a number of important points about himself and his actions while talking about how does one become a vampire spawn:
+
+> It's simple. Just find a vampire that will drink your blood and turn you into a vampire spawn: their obedient puppet. In theory, the next step is to drink their blood. Once you've done
+that, you're free and a true vampire. People think the biggest threat to a vampire is a cleric with a stake. It's not. The biggest threat to a vampire is another vampire. They're scheming,
+paranoid, power-hungry beasts. So why would any vampire give up control over a spawn to create a competitor? Trust me. It doesn't happen.
+
+From this we can also see he is very confused. On the one hand he says power rules and on the other he describes how detestable the ones in power are.
+
+After saving the Druid's Grove, during the celebration he will say:
+
+> Never thought I'd be the one they toast for saving so many lives. And now that I'm here... I hate it. This is awful.
+
+He is in so much pain. He does not know right from wrong. To him, killing the goblins would be the same as killing the tieflings, he just sees bodies. When we learn the tadpoles are
+controlled by a power in Moonrise, he remarks:
+
+> Imagine, the entire cult under our thumb. I'm just saying there's an opportunity before us. If we can control the tadpoles, we can keep ourselves safe and enjoy a little world
+domination on the side. You can't tell me that doesn't sound fun.
+
+He doesn't even notice it, but he talks about his plans as he has described his master's actions. Others be damned, if I am on top, it will be good for me and that is all that matters.
+
+As his torment seemingly has no end, we can observe him touching huge scars on his back. He can't check it in the mirror, and he can't trace it by hand, but he knows it means something.
+
+> So... I was wondering if maybe - perhaps - you might be able to... Can you read what's on my damned back? Please.
+
+The narrator helpfully explains: *The jagged script is definitely Infernal, the language of the Hells, but you can't make out its meaning.*
+
+If we draw the symbols on his back into the dirt he will say:
+
+> Two centuries carrying this, and I can finally see it.
+
+This says a lot about his life. For 200 years he wore a brand he knew means something, but there was no-one around him, who he could trust to take a look at it. But it gets worse, I am
+afraid.
+
+> Cazador sired seven spawn - me and my six 'brothers and sisters'. He always insisted we were family - even when he was carving scars into our flesh. I was one of his first,some
+of the others came years later. He was a monster to us all, but did take special pleasure in my pain. He said my screams sounded sweetest. And now that I'm gone... I don't know.
+I pity the other six...
+
+There is only one person who can help him with his scar. The devil Raphel. If we kill Yurgir as, he asked, he happily shares what the scars on his back mean:
+
+> I discovered all there is to know about those scars of yours - it's rather grim tale, even for my tastes. Carved into that ivory skin of yours is one part of an infernal contract
+between the archdevil Mephistopheles and your former master, Cazador Szarr. In full, the contract states that Cazador will be granted the knowledge of an infernal ritual so
+vile it has never been performed. The Rite of Profane Ascension. It promises to be a marvellous ceremony. Very elaborate, incredibly ancient, and entirely diabolical. If he completes
+the rite, he will become a new kind of being - the Vampire Ascendant. All the strengths of his vampiric form will be amplified, and alongside them he will enjoy the luxuries of
+the living. The arousals and appetites of man will return to him, and unlike Astarion, he will have no need of a parasite to protect him from the sun. But the ritual has its price,
+as all worthwhile things do. Lord Cazador will need to sacrifice a number of souls, including all of his vampiric spawn, if he is to ascend. Imagine how he felt, then, when one
+of those precious spawn simply disappeared into thin air.
+
+What would you do, if you were in Astarion's place? Now that you have learned you were kept for the slaughter. As a key ingredient the vengeful vampire lord would hunt you
+until the ends of the world. Your only option is to attack and defeat him, free your brethren and end this torment for you all. Not Astarion. He is contemplating taking over
+the ritual, so he can ascend, so he can become all powerful, so he may never be oppressed again. The twisted logic he employs is somewhat correct, but when he tries to justify
+sacrificing his spawn companions, we can really see, how damaged he has gotten:
+
+> I don't relish it, but my siblings lured thousands of people to their deaths over the years. I doubt Baldur's Gate would miss them.
+
+Isn't this exactly what Astarion has done too? His moral compass is in place, he can tell right from wrong, but by Cazador's influence he believes, if you are the most powerful
+that absolves you from the morality of your actions. While this may or may not be true, no meaningful life could be lead this way. It only leads to the cycle of pain continuing.
+
+In Moonrise towers, Araj Oblodra entirely ignores Astarion. To her, a master of the sanguine arts, a vampire spawn is a servant to its master, and she believes that to be us.
+To fulfill her lifelong dream she asks our avatar if our vampire spawn would bite her. In return for being bitten she would give us a special potion of power. What's the harm right?
+Easy trade, but Astarion protests. He doesn't want to bite her, because there is something wrong with her blood and it would taste disgusting. There are basically 3 options.
+We tell Astarion to do it, remark that the potion could be useful, but we don't want to force him, or say that it is okay, he won't do it. From these 3 only the third will result in
+Astarion not drinking her blood. Even for the second one he would force himself to do it. This comes from his slave mentality, which he confirms if we let himself reject the offer:
+
+> I spent two hundred years using my body to lure pretty things back for my Master. What I wanted, how I felt about what I was doing, it never mattered. You could have asked me to
+do the same - to throw myself at her, what I wanted be damned. But you didn't. And I'm grateful.
+
+It is worth pointing out, that we aren't Astarion's master and we have never commanded him to do anything prior to this interaction. Yet, de-facto in his mind we are the master now
+and he would do as he was told.
+
+Yet, as you might imagine this doesn't fix him, when we reach Baldur's Gate he will remind us of his torment:
+
+> The problem with what Cazador has done is that he did it to me. If the time comes, and I can stay one move ahead of him, I'll take his place before his blood can hit the floor.
+What's a handful of the wretch's servants? If they're anything like me when I was enslaved, they're all but begging for death anyway. After two hundred years of shit, pure shit, I think
+I deserve something better. All I'm saying is: let's be clever about it. If an opportunity arises for me to become a more magnificent bastard that I already am, why turn it down? If we
+track down my old comrades - the other spawn - we may discover more... and be finely positioned for yours truly to ascend.
+
+<https://youtu.be/9O54rjYXaxM?t=7008>
 
 When we reach Cazador's dungeon there, we find many horrors. One of which is the skeletal head of Cazador's old master, Vellioth. The fragment of a mind left within the skull
 shares something horrific:
 
-> Vellioth's recalls Cazador, his lessons learned, killing him in the Rite of Perfect Slaugher. How they both laughed! Veillioth recalls Cayador boiling the flesh from his skull
+> Vellioth's recalls Cazador, his lessons learned, killing him in the Rite of Perfect Slaughter. How they both laughed! Veillioth recalls Cazador boiling the flesh from his skull
 and then, to mock him, clamping his Schooling Scroll in Vellioth's jaws.
 
-Here Astarion learns the true extent of suffering they have brought upon this world when he meets Sebastian, one of the first of his victims.
-
-Sebastian tells Astarion that he was the first and last person he ever kissed, reminiscing about his last moments before his abduction. In shock Astarion asks:
+Here Astarion learns the true extent of suffering they have brought upon this world when we find the prisoners. Seven thousands of them. One, Sebastian, enlightens us. He tells
+Astarion that he was the first and last person he ever kissed, reminiscing about his last moments before his abduction. In shock Astarion asks:
 
 > You should be dead. Why didn't Cazador feed on you?
 
-> He made me a spawn. Left me her to rot. But I can't rot - I can't die. How long has it been? - Sebactian
+> He made me a spawn. Left me her to rot. But I can't rot - I can't die. How long has it been?
 
-> One hundred and seventy years. You were one of my first too. - Astarion
+> One hundred and seventy years. You were one of my first too.
 
 And thus Astarion learns the full truth. Previously he was only a murderer bringing food to his master. Now he is an accomplice in the centuries old suffering of thousands.
 
 After finally killing Cazador, Astarion is faced with yet another brutal choice. Save seven thousand spawns, many of which he brought to his master, or kill them all.
 Releasing them would unleash seven thousand souls many of which have been tormented for more than a century. The mind cannot comprehend their suffering and the subsequent
-madness that they lived through. So he, only has one choice. Kill them all.
+madness that they lived through. They can't ever see the sunlight, cannot ever eat normal food. As long as they live, their bodies will hunger for blood of the living. Some may
+curve their urges, but many will not. So he, only has one choice, really. Kill them all.
 
 After this, Ulma, the leader of the Gur's forgives him and offers a few words of encouragement:
 
 > For us, destroying evil is a simple choice. We are born to do it - trained to do it. But to face your kin? To face everything you know and still make that choice.
-There is nothing simple there.
+There is nothing simple there. It is a tragedy so many had to die, but had they lived they would have caused a thousand more tragedies. You did not choose an easy path, but you chose
+the correct one.
 
-> It is a tragedy so many had to die, but had they lived they would have caused a thousand more tragedies. You did not choose an easy path, but you chose the correct
-one.
+In this ending Astarion has failed in his quest for power. He remained a spawn, and he will remain eternally bound to his hunger and the world of the night. On the other hand,
+even if he can't see himself in a mirror, if he could, now he could look himself in the eyes. While he didn't become a vampire, he saved the one thing that remained to him after all
+of his torment. His soul.
 
 ### Shadowheart
 
@@ -382,6 +511,7 @@ resist illithid control - which Vlaakith only pretends to know, is how I've been
 Well, Lae'zel is not pleased with the results and demands to enter our memories, so she can see for herself.
 
 > Vlaakith tacki na'zin. I see only - only madness. Vlaakith bears the full might of Tu'narath's arms, and the covenant of the great Mother Gith! Tsk'va! We are leaving this place
+
 - now.
 
 She sees the twinkle of truth despite her indoctrination. Even though, understandably the revelations shook her:
@@ -428,9 +558,7 @@ way.
 
 It is time we met with Voss again. We meet him pleading to the devil Raphael. Begging to give him the Orphic Hammer, the only tool that can break infernal chains, the only tool
 that could free Orpheus. What does the devil want in return? The Crown of Karsus would be sufficient. Why? He is not even subtle about it, to dominate and unite all the hells
-under his command. He promises under his rule the hells would not leak out into the living, but after all we have seen, who would ever trust a devil?
-
-
+under his command. He promises under his rule the hells would not leak out into the living world, but after all we have seen, who would ever trust a devil?
 
 Before the final battles against the elder brain would commence, Lae'zel will wake us again, at dawn, with something that we must see.
 
@@ -445,23 +573,31 @@ the between and beyonds. Between war and peace, beyond passion and obsession. Mo
 Lae'zel has come full circle. She understood that life was about more than just combat and service, she understood that love is not weakness but strength, and most importantly, she
 understood that she doesn't have to be alone. That she shouldn't be.
 
-One way or another we get the hammer and with it, we can free Orpheus, at which point The Emperor forsakes us. Orpheus isn't too happy about how things stand. The Netherbrain is 
-beyond our capabilities
-and someone has to become an illithid.
+One way or another we get the hammer and with it, we can free Orpheus, at which point The Emperor forsakes us. Orpheus isn't too happy about how things stand. The Netherbrain is
+beyond our capabilities and someone has to become an illithid.
 
 After defeating the Netherbrain there are a number of endings for Lae'zel. She leaves alone or with Orpheus to liberate her people, or stays with you. In my mind either you
 or Orpheus had to become a mind flayer so is best for Lae'zel to go and liberate her people. Before she says a few final words for you:
 
 > Zhak von'n'fynh duj - source of my joy. Without you, I wouldn't have known warmth - only ice and fire. I can never forget you. Your name will be etched in our slates. You will
-be called Mla'ghir -liberator.
+be called Mla'ghir - liberator.
 
 ### The Dark Urge
+
+The Dark Urge is a special one. Unlike all the other characters the Dark Urge cannot be a companion. It can only be a player character, and if not selected as one, it will never
+appear in the game. It only has a past of mistakes that haunts them every step of the way and an urge pushing for him to commit heinous acts. What it did, or who it was is a mystery
+as it doesn't remember. All it really has, is the here and now. It can make choices now, regardless of its past or perhaps despite it.
+
+Since there is really no character there, we can't do for it what we did for the others. The Dark Urge, in my mind, can only be interpreted as a metaphor. Each of us, have
+some part we aren't proud of, each of us have our demons we have to battle every day, and it seems to me that in this regard for sure we all are a little like the Dark Urge. We have
+a past we cannot change, but we also have the here and now that we can. If you haven't already I implore you, try the Dark Urge and just substitute your demons to the ones
+it is fighting.
+
+As an example I will share you mine. For one, it may help to see this and second I would like to remember this journey as well.
 
 > As it was, so it is again. A hero has risen from a legacy of death.
 
 ## Notable non companion characters
-
-### Jaheira & Minsk
 
 ### The Moonmaiden & Dame Aylin
 
@@ -473,7 +609,7 @@ siphon her life force and extend his life to eternity. So he could play a god.
 
 > My, my what manner of place is this? A path to redemption, or a road to damnation? Hard to say, for your journey is just beginning.
 
-Are the first things Raphael says when we first meet him. Just by his mannerisms one can tell he is up to no good. Then we get transported into his home, which
+Are the first things Raphael says when we meet him. Just by his mannerisms one can tell he is up to no good. Then we get transported into his home, which
 he has named:
 
 > The House of Hope. Where the tired come to rest, and the famished come to feed - lavishly.
@@ -529,7 +665,7 @@ Raphael would eventually win. As Wyll has warned us, the devil will only require
 thrice how malicious he is, if we ever needed any convincing of this.
 
 Thankfully we don't have to make a deal with the devil. We can just steal the hammer from his House of Hope, just as the Crown was stolen from Mephistopheles. Easier said than done.
-Penetrating the hells, breaking into a devils home, stealing his most valuable asset. So naturally, as the true heroes we are, that is what we do.
+Penetrating the hells, breaking into a devil's home, stealing his most valuable asset. So naturally, as the true heroes we are, that is what we do.
 
 At the beginning of our arguably most perilous quest in the game we meet a character right after entering The House of Hope. A woman half mad, swinging wildly between
 coherence and madness. When asked who she is she says:
@@ -569,5 +705,3 @@ One of the hardest battles in the game ensues, but with Hope on our side, we win
 
 > And go where? I don't think I quite know how to be anywhere else but here anymore. With a lick of paint and a thorough cleaning, this could be a lovely little house. And I
 can hardly leave - after all, who would ever want to think of Hell without Hope?
-
-### The Emperor
