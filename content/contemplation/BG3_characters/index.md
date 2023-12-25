@@ -267,6 +267,8 @@ In my mind, however there is only one ending for her. When you convince her, wit
 
 ### Astarion
 
+> I remember how it hurt when I turned into a vampire. My body writhed and warped while I was utterly helpless, the grip of death owned my heart as it beat its last.
+
 Astarion, plain and simple, is a sociopath. And as such, although he is capable of empathy and kindness, he can be brutal and uncaring. We should see however, that
 compared to all the other characters from the game, arguably he had it worst. Even worse than perhaps most of them combined. While I have personally found his character
 absolutely appalling to interact with, we really should note this as a real testament to his writing and to his actor's Neil Newbon stellar performance.
@@ -383,22 +385,40 @@ do the same - to throw myself at her, what I wanted be damned. But you didn't. A
 It is worth pointing out, that we aren't Astarion's master and we have never commanded him to do anything prior to this interaction. Yet, de-facto in his mind we are the master now
 and he would do as he was told.
 
-Yet, as you might imagine this doesn't fix him, when we reach Baldur's Gate he will remind us of his torment:
+Yet, as you might imagine this doesn't fix him, when we reach Baldur's Gate he will remind us of his madness:
 
 > The problem with what Cazador has done is that he did it to me. If the time comes, and I can stay one move ahead of him, I'll take his place before his blood can hit the floor.
 What's a handful of the wretch's servants? If they're anything like me when I was enslaved, they're all but begging for death anyway. After two hundred years of shit, pure shit, I think
 I deserve something better. All I'm saying is: let's be clever about it. If an opportunity arises for me to become a more magnificent bastard that I already am, why turn it down? If we
 track down my old comrades - the other spawn - we may discover more... and be finely positioned for yours truly to ascend.
 
-<https://youtu.be/9O54rjYXaxM?t=7008>
+It won't be long before Astarion has to face his past, truly understanding his actions. It all starts near Baldur's Gate at the Gur camp, when we meet Ulma, the leader of the Gur's
+who tells us that Astarion stole their children one night. That is why he was hunted by the Gurs. He was to be captured, interrogated and destroyed. However, Ulma is wise and
+has a need of him:
 
-When we reach Cazador's dungeon there, we find many horrors. One of which is the skeletal head of Cazador's old master, Vellioth. The fragment of a mind left within the skull
-shares something horrific:
+> We have tried to save our children once already, attacking Cazador Szarr's palace at first light. Even then, it was too well defended. But if his own spawn approached? Someone
+he thought he could control? He would throw his doors open and welcome you in. And once inside, you could do what we could not. You could save the children you damned.
+
+Astarion has a chance to put some things right, but he insists on taking his master's place and becoming the Vampire Ascendant. As we see he would torture his spawn brother in the
+sun, so he could get to Cazador. He would lie to them, that he would save them when he killed his master. Knowing full well, that they would die in the process. His brethren don't
+believe him, saying that he gave up fighting Cazador a long time ago. When confronted Astarion responds:
+
+> You don't know what it was like. There was no way out. Once - in the first decade of my slavery - I found a darling boy who I couldn't bear to bring back to him. So I ran,
+instead of hurting that sweet man. After Cazador caught me, the bastard sealed me, starving inside a dusty tomb, all on my own, for an entire year. A year of silence. Months
+of scratching my hands raw, trying to carve my way out. More months of not moving at all. Months wishing only for death. Nothing can make up for that. Not even Cazador's death.
+But to steal his life's work... that might be something.
+
+Finally, we learn what Astarion is after. Revenge, but one that is beyond murder. He wants to take from Cazador everything he has. And honestly, can we blame him? Being immortal or
+not, sensory deprivation is by far the most brutal type of torture in the world. You don't need to beat someone or hurt them in any other way, just seal them in a room, with nothing
+to do, just for a few weeks and they will break. Just a few months and their personalities can dissolve. The mind cannot brace the void, and Astarion went through that.
+
+The torment has to end one way or the other, so we assault Cazador's palace. When we reach the dungeon inside, the one that was hidden from all of them, even from Astarion,
+we find many horrors. One of which is the skeletal head of Cazador's old master, Vellioth. The fragment of a mind left within the skull shares something horrific:
 
 > Vellioth's recalls Cazador, his lessons learned, killing him in the Rite of Perfect Slaughter. How they both laughed! Veillioth recalls Cazador boiling the flesh from his skull
 and then, to mock him, clamping his Schooling Scroll in Vellioth's jaws.
 
-Here Astarion learns the true extent of suffering they have brought upon this world when we find the prisoners. Seven thousands of them. One, Sebastian, enlightens us. He tells
+Ever worse yet Astarion learns the true extent of suffering they have brought upon this world when we find the prisoners. Seven thousand of them. One, Sebastian, enlightens us. He tells
 Astarion that he was the first and last person he ever kissed, reminiscing about his last moments before his abduction. In shock Astarion asks:
 
 > You should be dead. Why didn't Cazador feed on you?
@@ -408,13 +428,17 @@ Astarion that he was the first and last person he ever kissed, reminiscing about
 > One hundred and seventy years. You were one of my first too.
 
 And thus Astarion learns the full truth. Previously he was only a murderer bringing food to his master. Now he is an accomplice in the centuries old suffering of thousands.
+All the humans he has ever abducted are here. Imprisoned since their capture, awaiting the moment of their final sacrifice. We find the Gur children too, as spawns,
+but at this point, what did we expect.
 
-After finally killing Cazador, Astarion is faced with yet another brutal choice. Save seven thousand spawns, many of which he brought to his master, or kill them all.
+After finally defeating Cazador, Astarion is must choose between ascending or not. There are 3 options here, he ascends, we forcefully interrupt his ascension, or we convince him
+that he may do better. Convincing him isn't easy, but it is the best outcome for him. Then he is faced with yet another brutal choice. Save seven thousand spawns, many of
+which he brought to his master, or kill them all.
 Releasing them would unleash seven thousand souls many of which have been tormented for more than a century. The mind cannot comprehend their suffering and the subsequent
 madness that they lived through. They can't ever see the sunlight, cannot ever eat normal food. As long as they live, their bodies will hunger for blood of the living. Some may
-curve their urges, but many will not. So he, only has one choice, really. Kill them all.
+curb their urges, but many will not. So he, only has one choice, really. Kill them all.
 
-After this, Ulma, the leader of the Gur's forgives him and offers a few words of encouragement:
+After this, Ulma forgives him and offers a few words of encouragement:
 
 > For us, destroying evil is a simple choice. We are born to do it - trained to do it. But to face your kin? To face everything you know and still make that choice.
 There is nothing simple there. It is a tragedy so many had to die, but had they lived they would have caused a thousand more tragedies. You did not choose an easy path, but you chose
