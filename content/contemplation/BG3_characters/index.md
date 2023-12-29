@@ -444,11 +444,223 @@ After this, Ulma forgives him and offers a few words of encouragement:
 There is nothing simple there. It is a tragedy so many had to die, but had they lived they would have caused a thousand more tragedies. You did not choose an easy path, but you chose
 the correct one.
 
-In this ending Astarion has failed in his quest for power. He remained a spawn, and he will remain eternally bound to his hunger and the world of the night. On the other hand,
+In this ending Astarion has failed in his quest for power. He remained a spawn, and he will be eternally bound to his hunger and the world of the night. On the other hand,
 even if he can't see himself in a mirror, if he could, now he could look himself in the eyes. While he didn't become a vampire, he saved the one thing that remained to him after all
 of his torment. His soul.
 
 ### Shadowheart
+
+Shadoweheart is a half-elf, cleric of Shar. Shar is the **Mistress of the Night**, the **Lady of Loss**, a goddess whose aim is to turn the world into eternal darkness so that nothing may
+exist.
+
+> I am the empty room. The dreamless sleep. The shadow's shadow. There was no pain before my sister set the sun aflame.
+
+Shar's sister is **Selune**, the goddess of the moon, the **Moonmaiden**. As one might guess they are polar opposites. Selune promotes life and piece, Shar does so with darkness and oblivion.
+Based on her affiliation we may expect her to be some backstabbing, lying, thieving good for nothing, but as we may see, she is anything but.
+
+> The night brings comfort. Through loss, we find acceptance. In the arms of the Dark Mother we find peace. Most fear the dark, like children, because in darkness they see their
+fears reflected.
+
+Everything she says makes sense, but it is just so sad. Embracing emptiness and loss. Is really this one should aim for in life? Shadowheart seems to think so:
+
+> But Shar teaches us to step beyond fear. Beyond loss. In darkness we do not hide - we act. Pain. Hope. The promise of better days. All of these are heavy cloaks that bend our
+backs and burden our hearts.
+
+She is often arrogant and defensive when it comes to Shar:
+
+> Well if that troubles you, perhaps you should fetch the bailiff to arrest me... ah, but there's no bailiff here, is there? Just leagues of wilderness and the dangers lurking within.
+We're in this together, but I'll happily go it alone. My faith will keep me company.
+
+While in virtually any other situation she advocates for staying together and not loosing our heads. Throughout the whole journey, she will be Shar this, Shar that, but whenever she
+sees an idol of Selune she will pause and stay silent for a while until, some mark on her hand causes her some pain. This is what happens when we see the first broken statue of
+Selune in the village. When questioned by the pain she says:
+
+> I... I don't know exactly. Lady Shar protects me.
+
+Shar causes you pain to protect her? Hmm. That is a bit suss. If we push her about it:
+
+> The wound on my hand. It never quite heals, and sometimes it causes terrible pain to rip through me. It's my burden though, from Lady Shar. I can feel her influence, somehow...
+
+Why?
+
+> I cannot say - not with what I can recall. But even then, it would not be for me to question her will. Lady Shar has her reasons.
+
+What does it mean?
+
+> It's difficult to say... sometimes I wonder if it's supposed to be guiding me, punishing me, testing me... but perhaps it's none of those. Perhaps it's completely random. I'd like
+to hope there's more to it than that - some meaning that Lady Shar will revel to me, when the time is right. Until then, all I can do is endure. Pain is sacred to followers of Lady Shar.
+Pain will give way to loss, and then to the peace of her eternal darkness. You can tolerate a great deal of suffering so long as it has meaning.
+
+Shadowheart seems to have some sort of amnesia.
+
+> With my memories suppressed, I can't betray Shar's secrets... but I can't remember much of myself either. If I manage to return to Baldur's Gate and fulfil Shar's mission... then my memories will be restored.
+
+She has no memories about herself, what she is doing or why does she have a gith artifact. Which very quickly proves to be invaluable. The moment we try to enter the Goblin camp, we hear a voice in our heads.
+The voice of such overwhelming command that our avatar can barely stay conscious. It is talking about a Prism, which they need to find. The world is receding into darkness when Shadowheart's artifact somehow repels it.
+
+> Don't give me that look. I don't know what just happened any more than you do. We should keep going.
+
+All this darkness talk, yet after we save the tieflings from the Goblins in the Druid's Grove she will be pleased.
+
+> Never gave them much thought. Yet we came through for them. We saved their lives. Odd.
+
+The next revelation comes when we meet the first wolf enemies, as it turns out, she is deathly afraid of them.
+
+> They're ravenous predators with fangs like daggers - it's hardly an irrational fear to harbor. You've been decent to me, so far. Maybe if you can... don't make me face any more of them. At least no alone.
+
+Interesting, the servant of the **Lady of Loss**, cares for others and is afraid of wolves? She would face the wilderness alone, we faced trolls and a goblin horde, but she is afraid of wolves?
+There is something that is amiss here. If she approves of our avatar enough she will share one memory from her far past that couldn't suppressed.
+
+The vision is of a little girl, with a bleeding scar on her face, in a forest, under a moonlit sky, facing down a wolf. But before her inevitable death a group of Shar followers save her. One of them
+kneels down to her.
+
+> She asked me my name. I can't remember what I said. I can't remember anything before those woods. All I know is she saved my life, and gave me a new home. With Lady Shar.
+
+If your avatar is a priest of Selune, or know about history, or read the appropriate books in the game, this scene will remind it of a rite. In which Selune's followers send their children to forest alone, so that they may follow the light
+of the Moonmaiden home. When we tell her this, suspiciously she doesn't revert to her snarky Shar is the best attitude, but disregards it nonetheless.
+
+Our goal is to get to Moonrise towers, to find out who is controlling the parasites and be rid of them. The tower stands in the heart of the Shadow Cursed land. A land decimated by a curse. Everything that the
+darkness touches withers away and eventually dies. Everyone is affected by the Shadowcurse, except for Shadowheart. She claims this is because she is blessed by Shar, that she protects her.
+That very well may be, but the land is destroyed. There is no light, there is no life. Everything that once lived now haunts the plane as a vengeful spirit.
+
+Harpers, Moonrise, Ketheric
+
+She must be chosen for something, but she
+becomes more and more restless.
+
+> I'll admit it, staying true to Lady Shar has proved difficult at times. I've found that my mind is prone to wandering. Wandering to places I shouldn't go, at that. Forbidden thoughts, hidden memories... all that Lady Shar
+would shield me from, until I am ready. Sometimes it feels like there's something just out of reach. Some truth, on the tip of my tongue. And at times, I feel like I can almost voice it. When I shared the memory from my childhood,
+you found it far too easy to make a connection to Selune for my liking. Nothing is simple anymore. Sometimes it feels like all I have are doubts.
+
+Shadowheart is very confused about who she is or should be. On the one hand she tries desperately to time and time again reinforce her ideas about Shar, so that on the other she may doubt them. The exact cycle occurs when
+we reach the Grand Mausoleum, a former Shar enclave, now a tomb, she will bring up one of her biggest dreams. To become a Dark Justiciar, an elite knight of Shar's clergy. For this the initiate has to pass the gauntlet of Shar,
+a host of tests designed to weed out the unworthy, by killing them. Before each trial, one must make a blood sacrifice. Each time Shadowheart would ask you to let her do the honors. This is very important to her.
+
+After we pass the trials, we can enter the inner sanctum, where the Dark Justiciar candidate has to kill a Selunite, as a final show of her devotion to Shar. We find the creature called the Nightsong. A tall woman, covered with
+scars from head to toe, in tattered clothes. When she approaches us phanthasmal hands grip her and hold her back. She is clearly a prisoner. Shadowheart demands the right to seal her fate.
+
+> The fate you seal is your own. To be a Dark Justiciar is to turn your heart from everything but loss. You will know no love, no joy - only servitude. Until, of course, your mistress inevitably discards you. And there is much she does not tell
+you - a terrible blood price that may extend beyond my own death. Well, well, well. What's that I sense? A spear intended for my heart. Empowered by your goddess, aye - empowered to kill the child of a god.
+Do you know what I am, little assassin? For I know you - a lost child, frightened by wolves in the dark. Much has been promised to you, hasn't it? But what has been taken from you? What do you know of your own
+heart - your own life? I sense more in you than you know.
+
+There is a choice before Shadowheart. A choice she was training her whole life, but she is in doubt.
+
+> I... what do you think? What should I do?
+
+If we choose try to tell her what she should do, she will kill the Nightsong. We may convince her not to, by passing a very high check. However, if we
+have been understanding with her so far, questing her, but without judgement, then if we let her make her own choice, we may see a brilliant piece of writing. Because in this case, on her own volition she will
+abandon Shar. Abandon the deity she was raised to praise, the only thing, the only life she has known... Until she met us, and our ragtag group of vagabonds and strays. With us, she saw that there is more to life
+than what her lady claims, and she has always had her doubts. All she needed was a little push and some faith.
+
+> I... I can't believe I just did that. Lady Shar will disown me... what will happen to me?
+
+But the Nightsong immediately comforts her:
+
+> Not what will happen - what will you do. Your past is not yet lost. Your future is not yet fixed. Lay o hand on me in friendship, not-quite-Sharran, and I will fight the battle that has been waiting for me this
+last century. Then - oh then, we will have much to discuss.
+
+Shadowheart complies, and the Nightsong is freed.
+
+> Our Lady of Silver. Hear me!
+She Who Guides, the Moonmaiden Selune -
+MOTHER OF THE SO-CALLED NIGHTSONG.
+THE NIGHTSONG IS NO MORE!
+
+The Nightsong is the daughter of Selune, blessed with immortal life, she was caged in the Shadowfell so that her life force could be siphoned off by Ketheric Thorm. And boy she is pissed. The moment she is released,
+she dons her armor and without a moments' hesitation flies away to kill Ketheric. We hastily escape the Shadowfell, and notice that Shadowheart is stunned. After a few moments she reveals how vengeful her
+goddess can be:
+
+> I tried to leave... but Shar blocked me. Punished me for failing her. I thought I knew the limit of pain that the incurable wound could inflict, but I had no idea. It felt like I was suffering the agony of a
+thousand people, all at once. My blood was boiling, my hair was on fire. I thought I'd claw my face off with the pain... But then she released me - banished me more like. She said I was an outcast, that all of her
+children would know me and revile me.
+
+After we kill Ketheric, Shadowheart can at last get some answers from the Nightsong.
+
+> There is nothing I can tell you that you do not already know yourself. They trained you well, trained you hard. Chiselled away any part of you that did not fit their plan. They made you forget. When you freed me,
+you severed a bond between me and that dog, Thorm. A bond of pain - his, inflicted on me. When I laid eyes on you, I sensed a similar bond. You, tethered to two others, someplace distant. Let me help you
+remember.
+
+We see Shadowheart's earliest vision again. The wolf that tried to kill her? That was her father trying to prevent her abduction by the Sharrans. What is even more surprising is that he is alive somewhere alongside
+Shadowheart's mother.
+
+> No, it can't be. I'm an orphan.
+
+> And who told you that? Your adoptive family? You are not to blame. You were young, impressionable. They took you because they wanted to break and remake you. But you are a child no longer. You are a woman.
+One who knows what must be done. Your parents are with your abductors. You will need to return to their lair. But be warned. You may have once thought of them as comrades, mentors, friends, even lovers. They will
+all be enemies now. You have been forewarned for what is to come, but not yet forearmed.
+
+She presents the Spear of the Night. But how? Shadowheart cast it into the Shadowfell.
+
+> I was able to retrieve it, before it sank too far into Shar's umbral domain. Shar is quick to discard whatever she has no use for. I think you know that well enough. But I felt it call to me as I took flight.
+Whatever Shar calls her own, Selune has equal claim to. They are one and the same. Their power is matched... and mirrored. Take it - you will find it useful. What you do with it... that will be up to you.
+Same as before.
+
+Armed again with Shar's spear, but this time blessed by the Moonmaiden as well, Shadowheart is whole again. The darkness once more returned to balanced by light. Now she knows what needs to be done.
+To Baldur's Gate, to save her parents. There in the House of Grief we finally meet the mother superior, Viconia DeVir. Here we can learn of the true extent of Shar's malice and all of those who follow her.
+Viconia has the audacity to ask us to surrender Shadowheart to her, in exchange for her and Shar's help in the battles to come. After we eventually defeat her, and the whole temple of Shar followers in battle,
+tells Shadowheart the truth about her parents.
+
+> They are right through that door, in the Chamber of Loss. Where they have been all along. you saw them many times, only we made you forget. But they didn't forget. They watched, as we moulded you. They
+watched. They wept. They bled - often at your hand. It may not be a happy reunion, but it will be a memorable one.
+
+> Why? Why me? Why all this effort?
+
+> Lady Shar commanded me. And I obeyed. I do not question - I merely act as she wills me to. I had an enclave in Waterdeep, you know. Much grander than this. Shar ordered me to raze it, kill all who followed
+me - claim they betrayed me, when in fact I slew those who showed nothing but loyalty. Shar had me do that, and I did. To cover my tracks. To usher in you. You became my mission. To take a child of Selune's, and turn
+her over to Lady Shar. To show that all light fades, and darkness will prevail in the end. All this was to make you into what the Dark Lady needed you to be - the planning. The training. Those deaths in
+Waterdeep. It was all to groom you replace me at her right hand side. And still, you threw it away.
+
+Dame Aylin was right. Shar would discard everyone and everything when they are no longer of use. An enclave of devout followers slaughtered, just so she could spite her sister by corrupting one of her followers.
+Worse yet, she forced Shadowheart to torture her parents for decades.
+When we meet her parents in the Chamber of Loss, bound by chains we understand what Shar did with her mark on Shadowheart. The wound that would not heal, that would cause her pain from time to time is her bond
+to her parents. When they are tortured she is as well.
+
+Arnell Hallowleaf and Emmeline Hallowleaf have been bound by chains the depths of the Sharran temple, since Shadowhearts abduction, which was more than forty years ago. They held on in hopes of seeing their
+daughter Jenevelle return. Yes, Shadowhearts true name is Jenevelle Hallowleaf. When we want to free them Shar comes to gloat:
+
+> It is not over. You see? It matters not if you raze this place, if you slay every one of your brothers and sisters. That was never where my power resided. Every time you try to step away from me, every time
+you try to reach for Selune, my hold on you bites deeper. If you had learned, if you had obeyed, there would be no pain. But you struggle on. You make things worse for yourself. And for them.
+
+Shadowheart had enough, it is time to free her parents, Share be damned, but her father interjects:
+
+> You cannot. We are still bound to you. You cannot both free us and free yourself from her curse. The Moonmaiden needs you more than she needs us. You are the future - you must return to the fold. We are the past.
+And our duty is almost done. Shar will never admit defeat - not until she has stolen one last thing from you. We cannot allow your future to be her last prize - not after all your mother and I have endured to see
+you again. Your companion understands, I think. Help her, please. Help her see what must be done.
+
+Shadowheart has a choice to make. Release her parents' spirits back to the Moonmaiden and be free from Shar's curse, or free them, but stay cursed as long as they draw breath.
+
+> No, I can't. I came here for them.
+
+But her incredibly wise father interjects again:
+
+> And you did. You found us. All these years, that dream kept us going, that you would break free. No matter what they made you do to us, we knew you were still in there. You've saved us. Now save yourself.
+You'll be out of Shar's reach, and we'll be at peace.
+
+> But I only just found you again, after all this time. I can't lose you again.
+
+> We'll still be with you. By the Moonmaiden's grace, we'll never be far. Please, Jenevelle.
+
+> Is this truly what you want?
+
+> It is what we need, all of us. You were meant to be a guiding light for Selune's faithful, but they robbed you from us. Now that can be righted, and we can rest.
+
+> Goodbye.
+
+> Not goodbye. Not even close.
+
+Whit some magic from Selune, Shadowheart chooses to free her parents. They turn into tiny little white orbs of light.
+
+> Moon motes. They bring Selune's light to dark places and offer guidance to those in need. My parents are watching over me. Let's leave this place. There's nothing more for me here.
+
+When we ask her how should we call her now? Jenevelle or Shadowheart?
+
+> Shadowheart, still. I can't run away from who I was for all this time. Besides, there's something fitting to it - you can't cast a shadow without some light.
+
+After all this, one night we meet Shadowheart before an abadonded symbol of Selune. She breaks down and cries for the first time she can remember. Loosing her parent right after she has found them...
+Not for long she regains he composure and when asked what happens next she says one nugget of wisdom we all should hear more often.
+
+> We carry on - it's all we can do.
 
 ### Lae'zel of K'liir
 
@@ -498,7 +710,7 @@ If we indulge in her proposition, we will initially see that she only wants sex 
 > Chk. Overheated grappling, that wastefully eats into time better spent resting our muscles.
 
 Lae'zel is ruthless in battle, but does not cling to resentment or seeks needless retribution. We can observe this when her argument with Shadowheart eventually escalates
-into a duel to the death. Since Shadowheart has no real chance against Lae'zel, she tries to murder her in her sleep. If we manage to diffuse the situation, Lae'zel will comment on
+into a duel to the death. Since Shadowheart has no real chance against Lae'zel, she tries to murder her in her sleep. If we manage to defuse the situation, Lae'zel will comment on
 the event as if this were the natural order of the world:
 
 > It is over, where I am concerned. It is through conflict that we strengthen our bonds.
