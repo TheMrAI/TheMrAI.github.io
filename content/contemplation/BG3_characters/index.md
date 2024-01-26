@@ -8,12 +8,12 @@ summary: "An in-depth look at Baldur's Gate 3 story and character design."
 
 # Baldur's Gate 3 Characters & Story
 
-My primary reason for writing about this is to have some closure on Baldur's Gate 3. The game was so good that it consumed my all my free time,
+My primary reason for writing about this is to have some closure on Baldur's Gate 3. The game was so good that it consumed all my free time,
 invaded my dreams and thoughts. It is a sort of mourning, but one that I actually appreciate.
 Maybe you feel the same way, or you are just curious, so I hope this writing will help you out too. If not with closure then perhaps with noticing something
 you may have missed.
 
-I will go through all the main characters and note down how their personalities have presented themselves to me and what I think about them.
+I will go through all the main characters and note down how their personalities have presented themselves to me.
 Won't go into the story itself separately. I think the characters and their reactions to certain events made the story what it was, and they are so
 intertwined, trying to separate them would be folly.
 
@@ -64,7 +64,7 @@ He then served Myrkul as the **Final Scribe**. Furthermore, he was displeased wi
 They were turning death into something to be feared, normalizing un-death and tormenting mortals with their games and schemes. Despite all this he diligently worked and
 recorded the names of the dead. Then **Kelemvor** became the new **God of Death** in place of the **The Dead Three**. **Kelemvor** believed death was natural and that it
 should be as peaceful as possible. His priests/priestesses would roam the lands banishing the undead and easing the passing of all who suffered. Then at the beginning
-of the game Kelemvor sends the **Final Scribe** to aid you. This is not by his choice at all, as he will let you know immediately and just as fast he will start examining you.
+of the game **Kelemvor** sends the **Final Scribe** to aid you. This is not by his choice at all, as he will let you know immediately and just as fast he will start examining you.
 One of the first things he asks upon awakening is:
 
 > What is the worth of a single mortal's life?
@@ -74,7 +74,7 @@ Which is an answer alright, it may ring true too, but it feels a little naive, p
 This seems fairer right? Otherwise, the life of a murderer would have the same value as that of a saint. However, death does not seem to care about such matters. He is eternal and
 endless and to him all life has equal value. An individuals action's may stain their souls and when they face Death he will judge them by that and sort them accordingly. Until the
 moment you die, this **God of Death** cares not for your actions. Until then everything is free game. In other words the message is "No matter your sins, you may redeem yourself.",
-which echoes throughout the whole game. To really see why we need to see the arc all other companions, especially that of the **The Dark Urge**.
+which echoes throughout the whole game. To really see why we need to see the arc all other companions, especially that of **The Dark Urge**.
 
 ### Wyll - The Blade of Frontiers and Mizora
 
@@ -93,9 +93,9 @@ His father is Ulder Ravengard, the Grand Duke of Baldur's Gate. A man respected 
 his father went away on a diplomatic mission while some cultists attempted to conjure Tiamat, the dragon queen, and destroy Baldur's Gate. As devil's do, they use mortals for their
 own purposes and whom better to corrupt then the well-meaning sole son of such a celebrated man. And thus Wyll was given a choice by Mizora the servant of the arch-devil Zariel.
 
-> She will destroy Baldur's Gate. Grant me your soul - and I will give you the power to save it. - Mizora
+> She will destroy Baldur's Gate. Grant me your soul - and I will give you the power to save it.
 
-> She read the terms while two devils stood witness. And I said yes. One soul for one city. - Wyll
+> She read the terms while two devils stood witness. And I said yes. One soul for one city.
 
 He saves the city, eternally condemning his soul to Mizora and Zariel. To torment him ever more, when his father returns Mizora, a devil, awaits him by Wyll's side. Forbidden by
 the pact, to talk about it, Wyll cannot explain what he did or why. His father only sees his son accompanied by a smirking devil. He casts him out. Yet Wyll never harbors
@@ -118,7 +118,7 @@ he just won't do it. He would rather face eternal servitude than to let his fath
 simple, but not for Wyll. Wyll's father has already been sent off to be executed, so the choice wasn't really between killing him and saving him, but letting things take their
 course or performing a miracle.
 
-If Wyll's father is saved (yes we can even if we break Wyll's pact), we get a final mission. To wake the ancient protector of Baldur's Gate, Ansur, a dragon of legend, to be
+If Wyll's father is saved (yes we can save him even if we break Wyll's pact), we get a final mission. To wake the ancient protector of Baldur's Gate, Ansur, a dragon of legend, to be
 called upon the utmost of needs. Ansur would rise from his slumber and protect the city for a single time and depart. We go and find the rotting corpse of the dragon. Killed long
 ago Ansur's spirit corrupted by hatred rises to destroy us. Upon slaying it, Wyll is disappointed that we couldn't gain such a powerful ally, but his father says:
 
@@ -143,7 +143,7 @@ His story is ultimately about a rise and a greater fall. Which may not be that i
 one and given expression through the senses.
 
 Yet we meet him, with most of his powers lost and a magical orb inside him. An orb that needs to be fed with magic, otherwise it will erupt with such power that it would
-level cities. We feed him with magical artifacts from which he can consume the Weave, but soon this proves too little. His time is running out and here we learn of Gale's folly:
+level a city. We feed him with magical artifacts from which he can consume the Weave, but soon this proves too little. His time is running out and here we learn of Gale's folly:
 
 > You see, no matter how powerful a wizard we mortals can become, we never scratch more than the surface of the Weave. Mystra keeps us in check. There are boundaries she doesn't let
 us cross. Yet every time I was with her, I stood on the precipice, gazing into the wonders that lay beyond. I sought to cross her boundaries.
@@ -172,9 +172,9 @@ very fabric of the universe itself. That is why I have come to charge you, Gale,
 
 Gale is expected to voluntarily sacrifice himself, using the orb inside him as a bomb to destroy the Absolute. And for this Elminster puts a spell on Gale, by Mystras bidding, which
 stops the orb from acting up. From this point on Gale doesn't have to consume magical artifacts, he just has to die. We don't know more and Gale doesn't need to know more. He
-accepts his fate. If by his death, Mystra would forgive him, he would sacrifice himself gladly.
+accepts his fate. If by his death, Mystra would forgive him, he would sacrifice gladly himself.
 
-When we first meet this so-called absolute, we learn that it is an elder-brain, a mind-flayer hivemind, dominated by three mortals, using a Netherese artifact, The Crown of Karsus.
+When we first meet this so-called Absolute, we learn that it is an elder-brain, a mind flayer hivemind, dominated by three mortals, using a Netherese artifact, The Crown of Karsus.
 The very crown he used to try and ascend to godhood. The Crown that destroyed a whole civilization and threatened reality itself. If we prevent Gale from blowing himself up here,
 he will start contemplating taking the Crown for himself. In his misguided bitterness he believes that mortals should really achieve power comparable to the gods. So that they
 wouldn't have to be their playthings. Can we blame him? He was cast aside by his goddess when he made a mortal mistake, left to fend for himself until his demise seemed of
@@ -209,7 +209,9 @@ chance at saving creation. In the end, all that Gale ever needed was some faith.
 
 ### Karlach
 
-> Karlach is life itself.
+While others talk about Karlach, I believe in her case it is better if I gave a short description of her:
+
+> Karlach is the essence of life itself. Beat her down and she will spring back up. She would rage against her foes, but not take more than she needs.
 
 She came from absolute poverty, then after she started to build a life for herself, her patron Gortash simply sold her to Zariel, the arch-devil of
 the first layer of hell, Avernus. There they ripped out her heart and replaced it with an infernal engine, so she may fight endlessly in the eternal blood-wars.
@@ -222,7 +224,7 @@ nothing that can be done? Her only option at survival seems to be to return to h
 
 Despite all of this she never gives up and the only thing she wants more than anything is to live. She never allowed herself to be corrupted by her circumstances.
 To be twisted by resentment and grief. In a sense she is incorruptible. She will never join your character in any evil act, in fact she will leave you immediately if you indulge in
-any, if not outright trying to kill you.
+any, if not outright try to kill you.
 
 Understandably she is fueled by hatred against Gortash and seeks vengeance. However, when we finally manage to kill Gortash, Karlach realizes that her revenge was for nothing.
 She will die regardless, her life remains stolen from her and there is nothing left for her. She says:
@@ -255,7 +257,7 @@ That is goddam strength right there! And wisdom too. To face the certainty of yo
 right thing until your final breadth. Every other character sees this too and even Lae'zel can only speak of her admiration towards Karlach. This is how I think we all should aspire
 to become, at least in principle.
 
-There are 3 endings for Karlach. She becomes a mind-flayer and lives, she dies, or she goes back to Avernus. From these three only the last two are interesting. The death one, because
+There are 3 endings for Karlach. She becomes a mind flayer and lives, she dies, or she goes back to Avernus. From these three only the last two are interesting. The death one, because
 it really drills home who she was:
 
 > I never gave up. I did my best. I did my best. It's the one thing I can't beat, isn't it? I wanted to live. In my city. With my friends. But life is for the living.
@@ -271,7 +273,7 @@ In my mind, however there is only one ending for her. When you convince her, wit
 
 Astarion, plain and simple, is a sociopath. And as such, although he is capable of empathy and kindness, he can be brutal and uncaring. We should see however, that
 compared to all the other characters from the game, arguably he had it worst. Even worse than perhaps most of them combined. While I have personally found his character
-absolutely appalling to interact with, we really should note this as a real testament to his writing and to his actor's Neil Newbon stellar performance.
+absolutely appalling to interact with, we really should note this as a real testament to his writing and to his actor's Neil Newbon's stellar performance.
 While in real life, we should stay away from such characters, as mean as that sounds, here it is good to take a close look and try to understand how someone can get so twisted.
 Because, as we will learn Astarion isn't really evil by nature, he just got a really, really terrible life.
 
@@ -301,12 +303,12 @@ things that are hard to hear.
 > Cazador Szarr is a vampire lord in Baldur's Gate. The patriarch of his coven and a monster obsessed with power. Not political power or military power - I mean power over people.
 The power to control them completely. He turned me nearly two hundred years ago. I became his spawn and he became my tormentor.
 
-When we ask him, whether he was a slave we can finally get a glimpse into his horror:
+When we ask him whether he was a slave we can finally get a glimpse into his horror:
 
 > A vampire's spawn is less than a slave. They're a puppet. We have no choice but to obey our masters' commands. They speak and our bodies react - it's all part of the deal.
 Sometimes he'd order us to submit to torture. Sometimes he'd have us torture ourselves. Whatever his weathervane mood settled on.
 
-Because of this past, Astarion is the only companion who is actually okay being infected with a mind-flayer parasite. He is seriously considering dealing with Raphael, just so he
+Because of this past, Astarion is the only companion who is actually okay being infected with a mind flayer parasite. He is seriously considering dealing with Raphael, just so he
 never has to go back to Cazador.
 
 > I won't lie, it's tempting. If I keep the tadpole, I risk transforming into a grotesque monster. If I lose the tadpole, Cazador has control of me, body and soul, and I return
@@ -349,11 +351,11 @@ If we draw the symbols on his back into the dirt he will say:
 This says a lot about his life. For 200 years he wore a brand he knew means something, but there was no-one around him, who he could trust to take a look at it. But it gets worse, I am
 afraid.
 
-> Cazador sired seven spawn - me and my six 'brothers and sisters'. He always insisted we were family - even when he was carving scars into our flesh. I was one of his first,some
+> Cazador sired seven spawn - me and my six 'brothers and sisters'. He always insisted we were family - even when he was carving scars into our flesh. I was one of his first, some
 of the others came years later. He was a monster to us all, but did take special pleasure in my pain. He said my screams sounded sweetest. And now that I'm gone... I don't know.
 I pity the other six...
 
-There is only one person who can help him with his scar. The devil Raphel. If we kill Yurgir as, he asked, he happily shares what the scars on his back mean:
+There is only one person who can help him with his scar. The devil Raphael. If we kill Yurgir as, he asked, he happily shares what the scars on Astarion's back mean:
 
 > I discovered all there is to know about those scars of yours - it's rather grim tale, even for my tastes. Carved into that ivory skin of yours is one part of an infernal contract
 between the archdevil Mephistopheles and your former master, Cazador Szarr. In full, the contract states that Cazador will be granted the knowledge of an infernal ritual so
@@ -370,19 +372,19 @@ sacrificing his spawn companions, we can really see, how damaged he has gotten:
 
 > I don't relish it, but my siblings lured thousands of people to their deaths over the years. I doubt Baldur's Gate would miss them.
 
-Isn't this exactly what Astarion has done too? His moral compass is in place, he can tell right from wrong, but by Cazador's influence he believes, if you are the most powerful
+Isn't this exactly what Astarion has done too? His moral compass isn't fully broken, he can somewhat tell right from wrong, but by Cazador's influence he believes, if you are the most powerful
 that absolves you from the morality of your actions. While this may or may not be true, no meaningful life could be lead this way. It only leads to the cycle of pain continuing.
 
 In Moonrise towers, Araj Oblodra entirely ignores Astarion. To her, a master of the sanguine arts, a vampire spawn is a servant to its master, and she believes that to be us.
 To fulfill her lifelong dream she asks our avatar if our vampire spawn would bite her. In return for being bitten she would give us a special potion of power. What's the harm right?
-Easy trade, but Astarion protests. He doesn't want to bite her, because there is something wrong with her blood and it would taste disgusting. There are basically 3 options.
+Easy trade, but Astarion protests. He doesn't want to bite her, because there is something wrong with her blood, and it would taste disgusting. There are basically 3 options.
 We tell Astarion to do it, remark that the potion could be useful, but we don't want to force him, or say that it is okay, he won't do it. From these 3 only the third will result in
-Astarion not drinking her blood. Even for the second one he would force himself to do it. This comes from his slave mentality, which he confirms if we let himself reject the offer:
+Astarion not drinking her blood. Even for the second one he would force himself to do it. This comes from his slave mentality, which he confirms if we let him reject the offer:
 
 > I spent two hundred years using my body to lure pretty things back for my Master. What I wanted, how I felt about what I was doing, it never mattered. You could have asked me to
 do the same - to throw myself at her, what I wanted be damned. But you didn't. And I'm grateful.
 
-It is worth pointing out, that we aren't Astarion's master and we have never commanded him to do anything prior to this interaction. Yet, de-facto in his mind we are the master now
+It is worth pointing out, that we aren't Astarion's master, and we have never commanded him to do anything prior to this interaction. Yet, de-facto in his mind we are the master now
 and he would do as he was told.
 
 Yet, as you might imagine this doesn't fix him, when we reach Baldur's Gate he will remind us of his madness:
@@ -400,7 +402,7 @@ has a need of him:
 he thought he could control? He would throw his doors open and welcome you in. And once inside, you could do what we could not. You could save the children you damned.
 
 Astarion has a chance to put some things right, but he insists on taking his master's place and becoming the Vampire Ascendant. As we see he would torture his spawn brother in the
-sun, so he could get to Cazador. He would lie to them, that he would save them when he killed his master. Knowing full well, that they would die in the process. His brethren don't
+sunlight, so he could get to Cazador. He would lie to them, that he would save them when he killed his master. Knowing full well, that they would die in the process. His brethren don't
 believe him, saying that he gave up fighting Cazador a long time ago. When confronted Astarion responds:
 
 > You don't know what it was like. There was no way out. Once - in the first decade of my slavery - I found a darling boy who I couldn't bear to bring back to him. So I ran,
@@ -431,7 +433,7 @@ And thus Astarion learns the full truth. Previously he was only a murderer bring
 All the humans he has ever abducted are here. Imprisoned since their capture, awaiting the moment of their final sacrifice. We find the Gur children too, as spawns,
 but at this point, what did we expect.
 
-After finally defeating Cazador, Astarion is must choose between ascending or not. There are 3 options here, he ascends, we forcefully interrupt his ascension, or we convince him
+After finally defeating Cazador, Astarion must choose between ascending or not. There are 3 options here, he ascends, we forcefully interrupt his ascension, or we convince him
 that he may do better. Convincing him isn't easy, but it is the best outcome for him. Then he is faced with yet another brutal choice. Save seven thousand spawns, many of
 which he brought to his master, or kill them all.
 Releasing them would unleash seven thousand souls many of which have been tormented for more than a century. The mind cannot comprehend their suffering and the subsequent
@@ -445,7 +447,7 @@ There is nothing simple there. It is a tragedy so many had to die, but had they 
 the correct one.
 
 In this ending Astarion has failed in his quest for power. He remained a spawn, and he will be eternally bound to his hunger and the world of the night. On the other hand,
-even if he can't see himself in a mirror, if he could, now he could look himself in the eyes. While he didn't become a vampire, he saved the one thing that remained to him after all
+even if he can't see himself in a mirror, if he could, now he could look himself in the eyes. While he didn't become a vampire, he saved the last thing that remained to him after all
 of his torment. His soul.
 
 ### Shadowheart
@@ -456,7 +458,7 @@ exist.
 > I am the empty room. The dreamless sleep. The shadow's shadow. There was no pain before my sister set the sun aflame.
 
 Shar's sister is **Selune**, the goddess of the moon, the **Moonmaiden**. As one might guess they are polar opposites. Selune promotes life and piece, Shar does so with darkness and oblivion.
-Based on her affiliation we may expect her to be some backstabbing, lying, thieving good for nothing, but as we may see, she is anything but.
+Based on her affiliation we may expect Shadowheart to be some backstabbing, lying, thieving good for nothing, but as we may see, she is anything but.
 
 > The night brings comfort. Through loss, we find acceptance. In the arms of the Dark Mother we find peace. Most fear the dark, like children, because in darkness they see their
 fears reflected.
@@ -496,7 +498,7 @@ Shadowheart seems to have some sort of amnesia.
 > With my memories suppressed, I can't betray Shar's secrets... but I can't remember much of myself either. If I manage to return to Baldur's Gate and fulfil Shar's mission... then my memories will be restored.
 
 She has no memories about herself, what she is doing or why does she have a gith artifact. Which very quickly proves to be invaluable. The moment we try to enter the Goblin camp, we hear a voice in our heads.
-The voice of such overwhelming command that our avatar can barely stay conscious. It is talking about a Prism, which they need to find. The world is receding into darkness when Shadowheart's artifact somehow repels it.
+The voice of such overwhelming authority that our avatar can barely stay conscious. It is talking about a Prism, which they need to find. The world is receding into darkness when Shadowheart's artifact somehow repels it.
 
 > Don't give me that look. I don't know what just happened any more than you do. We should keep going.
 
@@ -506,10 +508,10 @@ All this darkness talk, yet after we save the tieflings from the Goblins in the 
 
 The next revelation comes when we meet the first wolf enemies, as it turns out, she is deathly afraid of them.
 
-> They're ravenous predators with fangs like daggers - it's hardly an irrational fear to harbor. You've been decent to me, so far. Maybe if you can... don't make me face any more of them. At least no alone.
+> They're ravenous predators with fangs like daggers - it's hardly an irrational fear to harbor. You've been decent to me, so far. Maybe if you can... don't make me face any more of them. At least not alone.
 
 Interesting, the servant of the **Lady of Loss**, cares for others and is afraid of wolves? She would face the wilderness alone, we faced trolls and a goblin horde, but she is afraid of wolves?
-There is something that is amiss here. If she approves of our avatar enough she will share one memory from her far past that couldn't suppressed.
+There is something that is amiss here. If she approves of our avatar enough she will share one memory from her far past that couldn't be suppressed.
 
 The vision is of a little girl, with a bleeding scar on her face, in a forest, under a moonlit sky, facing down a wolf. But before her inevitable death a group of Shar followers save her. One of them
 kneels down to her.
@@ -523,16 +525,13 @@ Our goal is to get to Moonrise towers, to find out who is controlling the parasi
 darkness touches withers away and eventually dies. Everyone is affected by the Shadowcurse, except for Shadowheart. She claims this is because she is blessed by Shar, that she protects her.
 That very well may be, but the land is destroyed. There is no light, there is no life. Everything that once lived now haunts the plane as a vengeful spirit.
 
-Harpers, Moonrise, Ketheric
-
-She must be chosen for something, but she
-becomes more and more restless.
+She must be chosen for something, but she becomes more and more restless.
 
 > I'll admit it, staying true to Lady Shar has proved difficult at times. I've found that my mind is prone to wandering. Wandering to places I shouldn't go, at that. Forbidden thoughts, hidden memories... all that Lady Shar
 would shield me from, until I am ready. Sometimes it feels like there's something just out of reach. Some truth, on the tip of my tongue. And at times, I feel like I can almost voice it. When I shared the memory from my childhood,
 you found it far too easy to make a connection to Selune for my liking. Nothing is simple anymore. Sometimes it feels like all I have are doubts.
 
-Shadowheart is very confused about who she is or should be. On the one hand she tries desperately to time and time again reinforce her ideas about Shar, so that on the other she may doubt them. The exact cycle occurs when
+Shadowheart is very confused about who she is or should be. On the one hand she tries desperately time and time again reinforce her ideas about Shar, so that on the other she may doubt them. The exact cycle occurs when
 we reach the Grand Mausoleum, a former Shar enclave, now a tomb, she will bring up one of her biggest dreams. To become a Dark Justiciar, an elite knight of Shar's clergy. For this the initiate has to pass the gauntlet of Shar,
 a host of tests designed to weed out the unworthy, by killing them. Before each trial, one must make a blood sacrifice. Each time Shadowheart would ask you to let her do the honors. This is very important to her.
 
@@ -557,7 +556,7 @@ than what her lady claims, and she has always had her doubts. All she needed was
 
 But the Nightsong immediately comforts her:
 
-> Not what will happen - what will you do. Your past is not yet lost. Your future is not yet fixed. Lay o hand on me in friendship, not-quite-Sharran, and I will fight the battle that has been waiting for me this
+> Not what will happen - what will you do. Your past is not yet lost. Your future is not yet fixed. Lay your hand on me in friendship, not-quite-Sharran, and I will fight the battle that has been waiting for me this
 last century. Then - oh then, we will have much to discuss.
 
 Shadowheart complies, and the Nightsong is freed.
@@ -567,7 +566,7 @@ She Who Guides, the Moonmaiden Selune -
 MOTHER OF THE SO-CALLED NIGHTSONG.
 THE NIGHTSONG IS NO MORE!
 
-The Nightsong is the daughter of Selune, blessed with immortal life, she was caged in the Shadowfell so that her life force could be siphoned off by Ketheric Thorm. And boy she is pissed. The moment she is released,
+The Nightsong, Dame Aylin, is the daughter of Selune, blessed with immortal life, she was caged in the Shadowfell so that her life force could be siphoned off by Ketheric Thorm. And boy she is pissed. The moment she is released,
 she dons her armor and without a moments' hesitation flies away to kill Ketheric. We hastily escape the Shadowfell, and notice that Shadowheart is stunned. After a few moments she reveals how vengeful her
 goddess can be:
 
@@ -596,12 +595,12 @@ She presents the Spear of the Night. But how? Shadowheart cast it into the Shado
 Whatever Shar calls her own, Selune has equal claim to. They are one and the same. Their power is matched... and mirrored. Take it - you will find it useful. What you do with it... that will be up to you.
 Same as before.
 
-Armed again with Shar's spear, but this time blessed by the Moonmaiden as well, Shadowheart is whole again. The darkness once more returned to balanced by light. Now she knows what needs to be done.
-To Baldur's Gate, to save her parents. There in the House of Grief we finally meet the mother superior, Viconia DeVir. Here we can learn of the true extent of Shar's malice and all of those who follow her.
+Armed again with Shar's spear, but this time blessed by the Moonmaiden as well, Shadowheart is whole again. The darkness once more balanced by light. Now she knows what needs to be done.
+To Baldur's Gate, to save her parents. There in the House of Grief we meet the mother superior, Viconia DeVir. Here we can learn of the true extent of Shar's malice and all of those who follow her.
 Viconia has the audacity to ask us to surrender Shadowheart to her, in exchange for her and Shar's help in the battles to come. After we eventually defeat her, and the whole temple of Shar followers in battle,
 tells Shadowheart the truth about her parents.
 
-> They are right through that door, in the Chamber of Loss. Where they have been all along. you saw them many times, only we made you forget. But they didn't forget. They watched, as we moulded you. They
+> They are right through that door, in the Chamber of Loss. Where they have been all along. You saw them many times, only we made you forget. But they didn't forget. They watched, as we moulded you. They
 watched. They wept. They bled - often at your hand. It may not be a happy reunion, but it will be a memorable one.
 
 > Why? Why me? Why all this effort?
@@ -616,13 +615,13 @@ Worse yet, she forced Shadowheart to torture her parents for decades.
 When we meet her parents in the Chamber of Loss, bound by chains we understand what Shar did with her mark on Shadowheart. The wound that would not heal, that would cause her pain from time to time is her bond
 to her parents. When they are tortured she is as well.
 
-Arnell Hallowleaf and Emmeline Hallowleaf have been bound by chains the depths of the Sharran temple, since Shadowhearts abduction, which was more than forty years ago. They held on in hopes of seeing their
-daughter Jenevelle return. Yes, Shadowhearts true name is Jenevelle Hallowleaf. When we want to free them Shar comes to gloat:
+Arnell Hallowleaf and Emmeline Hallowleaf have been bound by chains in the depths of the Sharran temple, since Shadowhearts abduction, which was more than forty years ago. They held on in hopes of seeing their
+daughter Jenevelle return. Yes, Shadowheart's true name is Jenevelle Hallowleaf. When we want to free them Shar comes to gloat:
 
 > It is not over. You see? It matters not if you raze this place, if you slay every one of your brothers and sisters. That was never where my power resided. Every time you try to step away from me, every time
 you try to reach for Selune, my hold on you bites deeper. If you had learned, if you had obeyed, there would be no pain. But you struggle on. You make things worse for yourself. And for them.
 
-Shadowheart had enough, it is time to free her parents, Share be damned, but her father interjects:
+Shadowheart had enough, it is time to free her parents, Shar be damned, but her father interjects:
 
 > You cannot. We are still bound to you. You cannot both free us and free yourself from her curse. The Moonmaiden needs you more than she needs us. You are the future - you must return to the fold. We are the past.
 And our duty is almost done. Shar will never admit defeat - not until she has stolen one last thing from you. We cannot allow your future to be her last prize - not after all your mother and I have endured to see
@@ -671,8 +670,8 @@ The Githyanki people hate the mind flayer race with a vengeance. They have been 
 the ability to disrupt the mind flayer hivemind communication network. With this power the Githyanki finally broke free, and they have single-handedly ended the
 mind flayer empire that has subjugated the known universe. However, to ensure their victory and to give their race an edge for all the fights to come, mother Gith has made a pact
 , with the archdevil Tiamat, the dragon queen, allowing the Githyanki to ride her red dragons into battle whenever the need arose. The details of the pact are not know, but
-mother Gith was never heard from again. In her place Tiamat's envoy proclaimed the first Vlaakith, and their line has been ruling the Githyanki ever since. Matriarchs of the Githyanki people, their words are gospel.
-Fullfiling a Vlaakith's demands is as if one served mother Gith herself.
+mother Gith was never heard from again. In her place Tiamat's envoy proclaimed themselves the first Vlaakith, and their line has been ruling the Githyanki ever since.
+Matriarchs of the Githyanki people, their words are gospel. Fullfiling a Vlaakith's demands is as if one served mother Gith herself.
 Thousands of years have passed, yet the Githyanki could not step beyond their hatred. They have organized their society
 around military proves. Only the strongest may and should survive. Weakness of any kind is unacceptable and is punishable by death. Killing a ghaik, a mindflayer in their tongue,
 is a rite of passage into adulthood. They follow the 10'000 protocols with religious fervor, specifying how a Githyanki should behave and should believe.
@@ -680,7 +679,7 @@ is a rite of passage into adulthood. They follow the 10'000 protocols with relig
 The current Vlaakith is the 157th in line and is called Vlaakith the Undying or the Lich Queen. According to the Githyanki she has ascended mortality and claimed
 undeath, and has reigned for a thousand years. And there is no greater honor for a Githyanki then to ascend and become part of the personal guard of a Vlaakith.
 
-When we meet Lae'zel we have already been infected by a Mindflayer parasite and would turn into full fledged Mindflayers in a matter of days through a process called
+When we meet Lae'zel we have already been infected by a mind flayer parasite and would turn into full fledged mind flayers in a matter of days through a process called
 ceromorphosis:
 
 > It starts with a fever and memory loss. Then you start to hallucinate. Your hair falls out and you bleed from every orifice. Your bones will change form. Your jaw will
@@ -715,7 +714,7 @@ the event as if this were the natural order of the world:
 
 > It is over, where I am concerned. It is through conflict that we strengthen our bonds.
 
-Eventually we find a githyanki patrol and observe how they have ruthlessly murdered a bunch of people in search of a weapon. Lae'zel unfazed approaches then to inquire about
+Eventually we find a githyanki patrol and observe how ruthlessly they murdered a bunch of people in search of a weapon. Lae'zel unfazed approaches then to inquire about
 the nearest créche. The leader of the patrol, Kith'rak Voss, Knight Supreme. The queen's silver, the queen's sword berates her immediately, basically telling her she should be
 grateful she is still alive (just for talking to him, without permission) then describes that they are looking
 for a weapon polyhedric in shape, that is likely with the ones who survived the nautoloid crash. In short, they are looking for us and Shadowheart's artifact. You would think
@@ -737,8 +736,8 @@ Inquisitor's come.
 Then, if we seek out this inquisitor, he will demand that we hand over the artifact. Lae'zel initially wants to comply, but if we remind her of the zaith'isk, she will choose
 to stand by us knowing full well, this may be our final moments. Then we may speak with an apparition of Vlaakith, who is not a little bit bothered by us slaughtering her
 inquisitor. Here we learn that the artifact is The Astral Prism, an ancient gith artifact from the times when they have defeated the Illithid Empire. Vlaakith claims there is
-a presence in the prism, an agent of the Grand Design whom we must kill it, in exchange she will cleanse and ascend Lae'zel. We enter the prism and meet the Dream Visitor. The entity
-who has been protecting us from the Absolute all this time. Upon talking to the Dream Visitor we will learn that Vlaakith wants it dead:
+a presence in the prism, an agent of the Grand Design whom we must kill, in exchange she will cleanse and ascend Lae'zel. We enter the prism and meet the Dream Visitor. The entity
+who has been protecting us from the Absolute all this time. Upon talking to the Dream Visitor we will learn why Vlaakith wants it dead:
 
 > Vlaakith is lying to her people. She pretends to know how Gith destroyed the mind flayer empire. In truth, she knows nothing. If the Illithid Empire were ever to return, she
 would be incapable of stopping them. And if her people found out about her impotence, there would be mutiny, revolution, the end of her rule. But that very power - the power to
@@ -746,9 +745,7 @@ resist illithid control - which Vlaakith only pretends to know, is how I've been
 
 Well, Lae'zel is not pleased with the results and demands to enter our memories, so she can see for herself.
 
-> Vlaakith tacki na'zin. I see only - only madness. Vlaakith bears the full might of Tu'narath's arms, and the covenant of the great Mother Gith! Tsk'va! We are leaving this place
-
-- now.
+> Vlaakith tacki na'zin. I see only - only madness. Vlaakith bears the full might of Tu'narath's arms, and the covenant of the great Mother Gith! Tsk'va! We are leaving this place - now.
 
 She sees the twinkle of truth despite her indoctrination. Even though, understandably the revelations shook her:
 
@@ -761,7 +758,8 @@ us. He isn't ready to tell us what this entity is, but if it chose us, Kith'rak 
 
 Then we also get confirmation on what we have already seen:
 
-> Lies, Lae'zel - every last one. There is no purification, no ascension. The zaith'isk does not purify - it extracts memory and kills the infected. Nor does the lich queen glorify the ascended. She feeds on most all of them to grow her power and pursue godhood.
+> Lies, Lae'zel - every last one. There is no purification, no ascension. The zaith'isk does not purify - it extracts memory and kills the infected. Nor does the lich queen glorify
+the ascended. She feeds on most all of them to grow her power and pursue godhood.
 
 Finally, Lae'zel starts to understand:
 
@@ -813,7 +811,7 @@ One way or another we get the hammer and with it, we can free Orpheus, at which 
 beyond our capabilities and someone has to become an illithid.
 
 After defeating the Netherbrain there are a number of endings for Lae'zel. She leaves alone or with Orpheus to liberate her people, or stays with you. In my mind either you
-or Orpheus had to become a mind flayer so is best for Lae'zel to go and liberate her people. Before she says a few final words for you:
+or Orpheus had to become a mind flayer so is best for Lae'zel to go and liberate her people. Before she says a few final words to you:
 
 > Zhak von'n'fynh duj - source of my joy. Without you, I wouldn't have known warmth - only ice and fire. I can never forget you. Your name will be etched in our slates. You will
 be called Mla'ghir - liberator.
@@ -821,25 +819,63 @@ be called Mla'ghir - liberator.
 ### The Dark Urge
 
 The Dark Urge is a special one. Unlike all the other characters the Dark Urge cannot be a companion. It can only be a player character, and if not selected as one, it will never
-appear in the game. It only has a past of mistakes that haunts them every step of the way and an urge pushing for him to commit heinous acts. What it did, or who it was is a mystery
-as it doesn't remember. All it really has, is the here and now. It can make choices now, regardless of its past or perhaps despite it.
+appear in the game. It only has a past of mistakes that haunts them every step of the way and an urge pushing them to commit heinous acts. What it did, or who it was is a mystery
+as it doesn't remember. All it really has, is the here and now. It can make choices now, regardless of its past or perhaps despite of it.
 
 Since there is really no character there, we can't do for it what we did for the others. The Dark Urge, in my mind, can only be interpreted as a metaphor. Each of us, have
-some part we aren't proud of, each of us have our demons we have to battle every day, and it seems to me that in this regard for sure we all are a little like the Dark Urge. We have
-a past we cannot change, but we also have the here and now that we can. If you haven't already I implore you, try the Dark Urge and just substitute your demons to the ones
+some part we aren't proud of, each of us have our demons we have to battle every day, and it seems to me that in this regard for sure we all are a little like The Dark Urge. We have
+a past we cannot change, but we also have the here and now that we can. If you haven't already I implore you, try The Dark Urge and just substitute your demons to the ones
 it is fighting.
 
-As an example I will share you mine. For one, it may help to see this and second I would like to remember this journey as well.
+As an example I will share you mine. For one, it may help to see this and second I would like to remember this journey as well. I had a hard life, my dad is an alcoholic and
+left me when my parents divorced when I was eight. My mother was overprotective of me. I could never go anywhere alone or could stay for long. Couldn't really make friends,
+because this was so inconvenient. Then eventually gave up on even trying. Depression gripped me and I have spent more than 15 years alone either wishing I would just die already
+or in apathy. Always the questions at the back of my mind would scratch away at my sanity. Why do I have to suffer? Never hurt anybody. Never stole, never cheated. Why
+can't I have something? Why did I deserve any of this to happen? Like so I carry decades or resentment, hatred and anger. Nay, fury. Never hurt anybody, but had the urge to do so
+many times it is beyond remembrance. I could imagine hurting people in such frighteing detail, I could almost feel the scenes unfolding before my minds eyes.
+Yet, I have never failed. I refused to indulge the demon at every turn and I will continue to do so until the day I die. There is no path based on hatred that could ever lead
+anywhere worth exploring. My hatred is real, and it is okay, but I am the one making the choices here and I choose to struggle on, despite all my deprivation.
+
+This is why when I saw The Dark Urge have the urges to hurt somebody, or do something vile it clicked with me immediatelly. In fact I choose The Dark Urge on my first playthrough,
+which, because of this will stay with me forever. I knew I would resist the urge whatever may come, whatever sacrifices I would have to make. Never indulged in any, and when
+I was forced to hurt Alfira, I waited for the others judgement. Should I falter, I should bear all the consequences. Made the character really mine.
+
+During the story, we will learn, all of this is our creation. We were the ones who stole the Crown of Karsus. We are the ones who have enslaved the Elder Brain. We planned to infect
+everybody with a tadpole so that we could make an illithid army so that we could subjugate the universe.
+All of this was our doing, in the service of Bhaal, The Lord of Murder. We are the greatest monster of them all. But we were deceived. Orin the Red, another Bhaal cultist, stabbed
+us in the had, so that she could take our place. That is why we don't know anything about our past.
+
+Eventually we meet Orin, and she demands a duel to the death. After we defeat her an apparation of Bhaal appears in a pool of blood and demands that we make a choice. Either
+accept his gift and become his murdere or reject him. As you may have expected there was but one choice for me. And I have rejected him. Bhaal in his vengeance ripped out my soul.
+I died, and I was okay with it. Didn't think the game was about to truly end, but if it were, that would have been okay too. Instead something happened, so satisfying,
+that I will never forget it.
+
+The narrator spoke in her lovely voice:
+
+> For the first time in over a century, silenve falls over the Bhaal Temple. No chants, no screams, no prayers. In the end, your own death brought you more joy than any you
+wrought on this land. You are slipping into peaceful oblivion. But your journey is not over.
+
+Then Whitters appears, who has never even left our camp before:
+
+> Thou has defied Bhaal, thy liege and father, and in doing so hast earned a place among champions and heroes. But, alas, thy courage was in opposition to the divine cosmology that bound
+thee to the Lord of Murder. Thou art now faithless - godless - and doomed to wander the Fugue Plane for eternity. I will not permit that, though all the powers of life and death dictate
+that it should be so. I, too, still hold some power, and I invest a portion of it in thee, who hath challenged the gods and now liveth to tell of it. Thy fight is not over, and it is thy fight,
+for one who can look upon Bhaal and oppose him can survive any crisis. So rise, Challenger of Gods, and prepare for battle once more. Death will not claim thee whilst I endure.
+
+When we ask him how is this even possible, he says:
+
+> Bhaal tried to extinguish thee, but his wrath is imprecise. He only succeeded in killing the part of thee he knew. The Urge that drove thee to terrible acts. The spark of brutality that made
+thee his. But there is a new part of you that hath grown during thy travels. That part, Bhaal could not extinguish. And so instead of destroying thee, he hath made thee anew. The heart of
+a saviour hath overshadowed the mind of a murderer. Thou has vanquished thine Urge. Today, thou art born anew. Greet the bloodless dawn, child of none.
+
+Can't describe to you how cathartic this moment was for me. While I don't believe in gods or fate, the general ideas resonate with me. I like to believe that there is divinity in the world, that
+it is all around us and we only need to choose to aim for it.
 
 > As it was, so it is again. A hero has risen from a legacy of death.
 
+Frankly, this last sentence Withers spoke is true for the human race in general. From time to time, from the legacy of death, a hero rises to put things right.
+
 ## Notable non companion characters
-
-### The Moonmaiden & Dame Aylin
-
-, and this will culminate in a scene
-with Lorroakan. A wizzard, much like Gale of great talent, but unlike him, one that only serves himself. Lorroakan aims to bind Dayme Aylin back into servitude, so he could
-siphon her life force and extend his life to eternity. So he could play a god.
 
 ### Raphael & Hope
 
@@ -941,3 +977,17 @@ One of the hardest battles in the game ensues, but with Hope on our side, we win
 
 > And go where? I don't think I quite know how to be anywhere else but here anymore. With a lick of paint and a thorough cleaning, this could be a lovely little house. And I
 can hardly leave - after all, who would ever want to think of Hell without Hope?
+
+## Summary
+
+As you may have seen, even with my shoddy writing, the characters and the story are amazingly well done. They are all archetipical. Not sure the writers aimed at this or not, either way they have achieved a feet
+not often seen. In fact I don't think I have witnessed such literaly depth since The Lord of The Rings. Truly if a story could/should continue, this is one I would like to experience.
+
+Now that I am done writing this, which took me at least 60 hours spread over 2 months I have to say, I loved every moment of it. Loved every character, even Astarion, because every one of them, had some lesson
+hidden embededd into them. Every one of them stood for something. Somehow I can't help but cry when I re-read their stories. Who they are, what they have done and why. It feels so real. While it wasn't that deeply integrated
+Karlach's story touched me the most. Maybe because on some level I had a similar journey.
+
+However, even though it isn't even really part of the main narrative, I truly believe, the story of Hope and Raphael is by far the best one of them all. In fact I think, it is one of the best if not the best piece of writing
+I have ever had the pleasure to enjoy.
+
+With this, thank you Larian Studios and a special thanks to all the writers! You all have done something spectacular!
