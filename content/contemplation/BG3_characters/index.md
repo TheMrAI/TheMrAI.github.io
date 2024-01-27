@@ -2,8 +2,8 @@
 layout: page
 title: Baldur's Gate 3 Characters & Story
 date: "2023-10-24"
-draft: true
-summary: "An in-depth look at Baldur's Gate 3 story and character design."
+draft: false
+summary: "Or more precisely my memory of Baldur's Gate 3 characters."
 ---
 
 # Baldur's Gate 3 Characters & Story
@@ -32,7 +32,7 @@ fascinating ways. As if the old saying "Don't judge a book by its cover.", reall
 Not all characters will be examined here. This is most likely because there just isn't enough to warrant a separate section, or I simply
 didn't find them that interesting to begin with. For example Jaheira, Minsc and Halsin were all companions with some substance, but they were already fully developed.
 They didn't have a real character arc, nothing that really gripped me. Minthara, while fascinating on a first sight, was left utterly incomplete. Which is truly sad. What is
-already there for her hints at a very unusual character. Her story though, sadly never goes anywhere. Lastly, The Emperor will be omitted as well. While he is with us
+already there for her, hints at a very unusual character. Her story though, sadly never goes anywhere. Lastly, The Emperor will be omitted as well. While he is with us
 the whole game, he doesn't have an arc. The biggest revelation we may learn is that he is a monster too. That he may be helping us, and he will keep to his word, he does
 not do it out of kindness, but pure necessity. If he could, he wouldn't even try to communicate with us, instead he would just dominate us like he did with Duke Stelmane.
 
@@ -829,7 +829,7 @@ it is fighting.
 
 As an example I will share you mine. For one, it may help to see this and second I would like to remember this journey as well. I had a hard life, my dad is an alcoholic and
 left me when my parents divorced when I was eight. My mother was overprotective of me. I could never go anywhere alone or could stay for long. Couldn't really make friends,
-because this was so inconvenient. Then eventually gave up on even trying. Depression gripped me and I have spent more than 15 years alone either wishing I would just die already
+because this was so shameful. Then, eventually gave up on even trying. Depression gripped me and I have spent more than 15 years alone either wishing I would just die already
 or in apathy. Always the questions at the back of my mind would scratch away at my sanity. Why do I have to suffer? Never hurt anybody. Never stole, never cheated. Why
 can't I have something? Why did I deserve any of this to happen? Like so I carry decades or resentment, hatred and anger. Nay, fury. Never hurt anybody, but had the urge to do so
 many times it is beyond remembrance. I could imagine hurting people in such frighteing detail, I could almost feel the scenes unfolding before my minds eyes.
@@ -843,16 +843,16 @@ I was forced to hurt Alfira, I waited for the others judgement. Should I falter,
 During the story, we will learn, all of this is our creation. We were the ones who stole the Crown of Karsus. We are the ones who have enslaved the Elder Brain. We planned to infect
 everybody with a tadpole so that we could make an illithid army so that we could subjugate the universe.
 All of this was our doing, in the service of Bhaal, The Lord of Murder. We are the greatest monster of them all. But we were deceived. Orin the Red, another Bhaal cultist, stabbed
-us in the had, so that she could take our place. That is why we don't know anything about our past.
+us in the head, so that she could take our place. That is why we don't know anything about our past.
 
-Eventually we meet Orin, and she demands a duel to the death. After we defeat her an apparation of Bhaal appears in a pool of blood and demands that we make a choice. Either
-accept his gift and become his murdere or reject him. As you may have expected there was but one choice for me. And I have rejected him. Bhaal in his vengeance ripped out my soul.
+Eventually we meet Orin, and she demands a duel to the death. After we defeat her an apparition of Bhaal addresses us from a pool of blood and demands that we make a choice. Either
+accept his gift and become his murderer once more or reject him. As you may have expected there was but one choice for me. And I have rejected him. Bhaal in his vengeance ripped out my soul.
 I died, and I was okay with it. Didn't think the game was about to truly end, but if it were, that would have been okay too. Instead something happened, so satisfying,
 that I will never forget it.
 
 The narrator spoke in her lovely voice:
 
-> For the first time in over a century, silenve falls over the Bhaal Temple. No chants, no screams, no prayers. In the end, your own death brought you more joy than any you
+> For the first time in over a century, silence falls over the Bhaal Temple. No chants, no screams, no prayers. In the end, your own death brought you more joy than any you
 wrought on this land. You are slipping into peaceful oblivion. But your journey is not over.
 
 Then Whitters appears, who has never even left our camp before:
@@ -988,6 +988,6 @@ hidden embededd into them. Every one of them stood for something. Somehow I can'
 Karlach's story touched me the most. Maybe because on some level I had a similar journey.
 
 However, even though it isn't even really part of the main narrative, I truly believe, the story of Hope and Raphael is by far the best one of them all. In fact I think, it is one of the best if not the best piece of writing
-I have ever had the pleasure to enjoy.
+I have ever had the pleasure enjoying.
 
 With this, thank you Larian Studios and a special thanks to all the writers! You all have done something spectacular!
