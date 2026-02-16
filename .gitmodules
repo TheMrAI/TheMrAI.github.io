@@ -1,6 +1,3 @@
-[submodule "themes/ananke"]
-	path = themes/ananke
-	url = https://github.com/theNewDynamic/gohugo-theme-ananke.git
 [submodule "static/pico"]
 	path = static/pico
 	url = git@github.com:picocss/pico.git
