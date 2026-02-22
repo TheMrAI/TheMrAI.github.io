@@ -1,4 +1,4 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Longest Common Subsequence &#9775; MrAI</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="How to solve the &rsquo;longest common subsequence&rsquo; problem. Here we examine a method for solving it recursively (naively) and how to solve it efficiently with dynamic programming."><link rel="shortcut icon" href=https://themrai.github.io/favicon.png type=image/x-icon><link rel=stylesheet href=https://themrai.github.io/pico/css/pico.min.css></head><body class=body><main class=container><nav><ul><li><a href=/>MrAI</a></li></ul><ul><li><a href=/algorithms/>Algorithms</a></li><li><a href=/contemplation/>Contemplation</a></li><li><a href=/tinkering/>Tinkering</a></li></ul></nav><article><p>The textbook example (literally) problem is the Longest Common Subsequence. Found
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Longest Common Subsequence &#9775; MrAI</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="How to solve the &rsquo;longest common subsequence&rsquo; problem. Here we examine a method for solving it recursively (naively) and how to solve it efficiently with dynamic programming."><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"]]},loader:{load:["ui/safe"]}}</script><link rel="shortcut icon" href=https://themrai.github.io/favicon.png type=image/x-icon><link rel=stylesheet href=https://themrai.github.io/pico/css/pico.min.css></head><body class=body><main class=container><nav><ul><li><a href=/>MrAI</a></li></ul><ul><li><a href=/algorithms/>Algorithms</a></li><li><a href=/contemplation/>Contemplation</a></li><li><a href=/tinkering/>Tinkering</a></li></ul></nav><article><p>The textbook example (literally) problem is the Longest Common Subsequence. Found
 in <strong>Introduction to Algorithms, Third Edition by Thomas H. Cormen, Charles E.
 Leiserson, Ronald L. Rivest, Clifford Stein</strong> Chapter 15.4. Perhaps not the most
 difficult problem, but one that illustrates the usefulness of dynamic programming
@@ -10,19 +10,19 @@ sequence of indexes [i₁, i₂, i₃, &mldr;, iₗ] such that for all k=1, 2, &
 X[iₖ] = Zₖ.</p><p>Example:
 X = &ldquo;abcpotcd&rdquo;
 Y = &ldquo;decpote&rdquo;
-then the longes common subsequence will be: Z = &ldquo;cpot&rdquo;.</p><h2 id=recursive-solution>Recursive solution</h2><p>We have two sequences as inputs <strong>X</strong> and <strong>Y</strong> and we wish to find the longest
+then the longest common subsequence will be: Z = &ldquo;cpot&rdquo;.</p><h2 id=recursive-solution>Recursive solution</h2><p>We have two sequences as inputs <strong>X</strong> and <strong>Y</strong> and we wish to find the longest
 sequence of characters that follow each other and are subsequences for both inputs.
 For input sequences <strong>X</strong> and <strong>Y</strong> suppose that we have indexes <strong>i</strong> and <strong>j</strong>,
-where <strong>i</strong> indexes <strong>X</strong> and <strong>j</strong> indexes <strong>Y</strong>. Let <strong>Xi</strong> and
-<strong>Yj</strong> denote the prefix for each sequence until (including) the
+where <strong>i</strong> indexes <strong>X</strong> and <strong>j</strong> indexes <strong>Y</strong>. Let <strong>\(X_i\)</strong> and
+<strong>\(Y_j\)</strong> denote the prefix for each sequence until (including) the
 indicated index. The solution we are looking for can be rephrased now as the
-longest common sequence for <strong>Xn</strong> and <strong>Ym</strong>.</p><p>With this phrasing we can define a recursive solution.</p><p>The longest common subsequence for prefixes <strong>Xn</strong> and <strong>Ym</strong>
-(the whole sequences) can only be one of the following:</p><ul><li>if X[n] equals Y[n], then LCS(Xn-1, Ym-1) + <strong>1</strong></li><li>if X[n] does not equal Y[n], then either LCS(Xn-1, Ym) or
-LCS(Xn, Ym-1), which one is bigger, in case they are equal
+longest common sequence for <strong>\(X_n\)</strong> and <strong>\(Y_m\)</strong>.</p><p>With this phrasing we can define a recursive solution.</p><p>The longest common subsequence for prefixes <strong>\(X_n\)</strong> and <strong>\(Y_m\)</strong>
+(the whole sequences) can only be one of the following:</p><ul><li>if X[n] equals Y[n], then LCS(\(X_{n-1}\), \(Y_{m-1}\)) + <strong>1</strong></li><li>if X[n] does not equal Y[n], then either LCS(\(X_{n-1}\), \(Y_m\)) or
+LCS(\(X_n\), \(Y_{m-1}\)), which one is bigger, in case they are equal
 either one is fine</li></ul><p>In other words either <strong>X</strong> matches on the last character with the last character
 of <strong>Y</strong> in which case we increase the previously found value by one or choose the
-longer LCS between prefix pairs of LCS(Xn-1, Ym) and
-LCS(Xn, Ym-1).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>LCS(X, i, Y, j):
+longer LCS between prefix pairs of LCS(\(X_{n-1}\), \(Y_m\)) and
+LCS(\(X_n\), \(Y_{m-1}\)).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>LCS(X, i, Y, j):
 </span></span><span style=display:flex><span>    if i == 0 or j == 0
 </span></span><span style=display:flex><span>        return 0
 </span></span><span style=display:flex><span>    if X[i] == Y[j]
@@ -30,9 +30,9 @@ LCS(Xn, Ym-1).</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;backg
 </span></span><span style=display:flex><span>    else
 </span></span><span style=display:flex><span>        return max(LCS(X, i-1, Y, j), LCS(X, i, Y, j-1))
 </span></span></code></pre></div><p>Where <strong>max</strong> denotes a function choosing the maximum value between its two
-arguments or either one (because they are equal).</p><h3 id=performance>Performance</h3><p>𝒪(2n+m), because for each subsequence of <strong>X</strong> (which is 2n)
-we have to check each subsequence of <strong>Y</strong> (which is 2m), thus
-2n * 2m = 2n+m.</p><p>Obviously an exponential running time is rather undesirable. Dynamic programming to
+arguments or either one (because they are equal).</p><h3 id=performance>Performance</h3><p>\(𝒪(2_{n+m})\), because for each subsequence of <strong>X</strong> (which is \(2_n\))
+we have to check each subsequence of <strong>Y</strong> (which is \(2_m\)), thus
+\(2_n * 2_m = 2_{n+m}\).</p><p>Obviously an exponential running time is rather undesirable. Dynamic programming to
 the rescue!</p><h2 id=dynamic-programming>Dynamic programming</h2><p>First we must check if dynamic programming is applicable. Two requirements must be
 satisfied:</p><ul><li>The problem has to have an <strong>optimal substructure</strong></li><li>The solution must be constructed of <strong>overlapping subproblems</strong></li></ul><h3 id=optimal-substructure>Optimal substructure</h3><p>The algorithm makes a choice between LCS(X, i-1, Y, j-1), LCS(X, i-1, Y, j) and
 LCS(X, i, Y, j-1). The first one may not seem like a choice, because it does not
@@ -43,17 +43,17 @@ They do not use up resources from one another. Just because LCS(X, i-1, Y, j)
 would find a subsequence it does not mean that LCS(X, i, Y, j-1) cannot find
 the exact same subsequence. In other words both solutions exist independently,
 because the existence of one does not contradict the existence of the other.</li><li>Assume that one of our three choices is optimal.</li><li>There are 3 possible choices:<ul><li>X[i] == Y[j], which means the characters match and we count it, and with
-that we have an LCS for sequences Xi and Yj. Let&rsquo;s
-assume that Xi-1 and Yj-1 do not form an LCS and there
+that we have an LCS for sequences \(X_i\) and \(Y_j\). Let&rsquo;s
+assume that \(X_{i-1}\) and \(Y_{j-1}\) do not form an LCS and there
 is a better choice, increasing the total LCS length by at least another one.
-That would mean that LCS for Xi and Yj increases by more
+That would mean that LCS for \(X_i\) and \(Y_j\) increases by more
 than one. That is however impossible, because we can only match on one
-character pair at a time, thus the length cannot increase by more than one.</li><li>X[i] != Y[j], and Xi-1 and Yj forms an LCS for
-Xi and Yj. Lets assume that Xi-1 and Yj isn&rsquo;t optimal and there exists a longer solution. That would entail that
-the LCS for Xi and Yj increases by at least one. That
+character pair at a time, thus the length cannot increase by more than one.</li><li>X[i] != Y[j], and \(X_{i-1}\) and \(Y_j\) forms an LCS for
+\(X_i\) and \(Y_j\). Lets assume that \(X_{i-1}\) and \(Y_j\) isn&rsquo;t optimal and there exists a longer solution. That would entail that
+the LCS for \(X_i\) and \(Y_j\) increases by at least one. That
 however contradicts the original statement that X[i] != Y[j]. The length
-cannot increase as there are no available character pair to increase it by.</li><li>X[i] != Y[j], and Xi and Yj-1 forms and LCS for
-Xi and Yj. This is symmetric to the previous one.</li></ul></li></ol><p>With this we see that LCS exhibits the optimal substructure property.</p><h3 id=overlapping-subproblems>Overlapping subproblems</h3><p>This problem is indeed constructed of overlapping subproblems. The recursive
+cannot increase as there are no available character pair to increase it by.</li><li>X[i] != Y[j], and \(X_i\) and \(Y_{j-1}\) forms and LCS for
+\(X_i\) and \(Y_j\). This is symmetric to the previous one.</li></ul></li></ol><p>With this we see that LCS exhibits the optimal substructure property.</p><h3 id=overlapping-subproblems>Overlapping subproblems</h3><p>This problem is indeed constructed of overlapping subproblems. The recursive
 solution displays it clearly if we examine the possible branches it can take.
 Let&rsquo;s assume we are at LCS(X, i, Y, j). It can call LCS(X, i-1, Y, j-1) or
 LCS(X, i-1, Y, j) and LCS(X, i, Y, j-1). The last two would eventually have to
@@ -61,7 +61,7 @@ evaluate LCS(X, i-1, Y, j-1) as well, which is a subproblem the algorithm had ha
 to evaluate on the previous iteration.</p><figure><img src=/algorithms/longest_common_subsequence/lcs_overlapping_subproblems.png><figcaption><h4>LCS overlapping subproblems illustration</h4></figcaption></figure><p>With both requirements satisfied for dynamic programming we can finally apply it.</p><h3 id=top-down>Top-down</h3><p>The Top-down solution is in essence exactly the same as the recursive solution. The
 only difference is that <strong>memoization</strong> has been added. So previously seen
 subproblems will not be evaluated multiple times.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>LCS(X, i, Y, j, memo):
-</span></span><span style=display:flex><span>    if {&lt;i, j} in memo
+</span></span><span style=display:flex><span>    if {i, j} in memo
 </span></span><span style=display:flex><span>        return memo[i, j]
 </span></span><span style=display:flex><span>    if i == 0 or j == 0
 </span></span><span style=display:flex><span>        memo[i, j] = 0
