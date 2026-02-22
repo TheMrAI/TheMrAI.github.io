@@ -29,3 +29,11 @@ For starting the local webserver and also including drafts
 ```
 hugo serve -D
 ```
+
+# Mathematical expressions
+
+To properly render mathematical expressions **Latex** is used with the
+[MathJax](https://www.mathjax.org/) extension.
+
+Block expressions are delimited with
+'\[' and '\]' while inline with '\(' and '\)'.

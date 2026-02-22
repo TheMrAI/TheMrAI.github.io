@@ -23,9 +23,9 @@ named linear programming.
 
 Dynamic programming is not an algorithm that solves a problem. It is a design
 technique that speeds up a specific set of problems. When properly applied it can
-transform algorithms from exponential 𝒪(xⁿ) to polynomial 𝒪(n<sup>x</sup>) time
+transform algorithms from exponential \(𝒪(x^n)\) to polynomial \(𝒪(n^x)\) time
 complexity for a comparably small, but usually not negligible space requirement of
-around 𝒪(n<sup>x</sup>).
+around \(𝒪(n^x)\).
 
 It is most commonly used for optimization problems. In these problems the goal is
 to either maximize of minimize the value function in question. The result is
@@ -39,8 +39,8 @@ be applied:
 
 ### Optimal substructure
 
-If an optimal solution to the problem consists of <u>independent</u> and
-<u>optimal solutions</u> to its subproblems then we say the problem exhibits an
+If an optimal solution to the problem consists of \(\underline{independent}\) and
+\(\underline{optimal}\) solutions to its subproblems then we say the problem exhibits an
 optimal substructure.
 
 There are 3 steps used while testing for optimal substructure:
@@ -88,7 +88,7 @@ The steps for applying dynamic programming:
 The problem we are trying to solve should lead us to an observation such as this:
 
 "To solve (optimize) **problem** **X** I have to make a globally optimal **choice**
-while considering the result of all **subproblems X<sub>i</sub>** for any of which
+while considering the result of all **subproblems \(X_i\)** for any of which
 I do not know the answers for."
 
 In other words we can define how an optimal solution will look like from the

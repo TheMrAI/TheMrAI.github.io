@@ -27,32 +27,32 @@ X[iₖ] = Zₖ.
 Example:
 X = "abcpotcd"
 Y = "decpote"
-then the longes common subsequence will be: Z = "cpot".
+then the longest common subsequence will be: Z = "cpot".
 
 ## Recursive solution
 
 We have two sequences as inputs **X** and **Y** and we wish to find the longest
 sequence of characters that follow each other and are subsequences for both inputs.
 For input sequences **X** and **Y** suppose that we have indexes **i** and **j**,
-where **i** indexes **X** and **j** indexes **Y**. Let **X<sub>i</sub>** and
-**Y<sub>j</sub>** denote the prefix for each sequence until (including) the
+where **i** indexes **X** and **j** indexes **Y**. Let **\(X_i\)** and
+**\(Y_j\)** denote the prefix for each sequence until (including) the
 indicated index. The solution we are looking for can be rephrased now as the
-longest common sequence for **X<sub>n</sub>** and **Y<sub>m</sub>**.
+longest common sequence for **\(X_n\)** and **\(Y_m\)**.
 
 With this phrasing we can define a recursive solution.
 
-The longest common subsequence for prefixes **X<sub>n</sub>** and **Y<sub>m</sub>**
+The longest common subsequence for prefixes **\(X_n\)** and **\(Y_m\)**
  (the whole sequences) can only be one of the following:
 
-- if X[n] equals Y[n], then LCS(X<sub>n-1</sub>, Y<sub>m-1</sub>) + **1**
-- if X[n] does not equal Y[n], then either LCS(X<sub>n-1</sub>, Y<sub>m</sub>) or
-LCS(X<sub>n</sub>, Y<sub>m-1</sub>), which one is bigger, in case they are equal
+- if X[n] equals Y[n], then LCS(\(X_{n-1}\), \(Y_{m-1}\)) + **1**
+- if X[n] does not equal Y[n], then either LCS(\(X_{n-1}\), \(Y_m\)) or
+LCS(\(X_n\), \(Y_{m-1}\)), which one is bigger, in case they are equal
 either one is fine
 
 In other words either **X** matches on the last character with the last character
 of **Y** in which case we increase the previously found value by one or choose the
-longer LCS between prefix pairs of LCS(X<sub>n-1</sub>, Y<sub>m</sub>) and
-LCS(X<sub>n</sub>, Y<sub>m-1</sub>).
+longer LCS between prefix pairs of LCS(\(X_{n-1}\), \(Y_m\)) and
+LCS(\(X_n\), \(Y_{m-1}\)).
 
 ```text
 LCS(X, i, Y, j):
@@ -69,9 +69,9 @@ arguments or either one (because they are equal).
 
 ### Performance
 
-𝒪(2<sup>n+m</sup>), because for each subsequence of **X** (which is 2<sup>n</sup>)
-we have to check each subsequence of **Y** (which is 2<sup>m</sup>), thus
-2<sup>n</sup> * 2<sup>m</sup> = 2<sup>n+m</sup>.
+\(𝒪(2_{n+m})\), because for each subsequence of **X** (which is \(2_n\))
+we have to check each subsequence of **Y** (which is \(2_m\)), thus
+\(2_n * 2_m = 2_{n+m}\).
 
 Obviously an exponential running time is rather undesirable. Dynamic programming to
 the rescue!
@@ -100,19 +100,19 @@ because the existence of one does not contradict the existence of the other.
 2. Assume that one of our three choices is optimal.
 3. There are 3 possible choices:
     - X[i] == Y[j], which means the characters match and we count it, and with
-    that we have an LCS for sequences X<sub>i</sub> and Y<sub>j</sub>. Let's
-    assume that X<sub>i-1</sub> and Y<sub>j-1</sub> do not form an LCS and there
+    that we have an LCS for sequences \(X_i\) and \(Y_j\). Let's
+    assume that \(X_{i-1}\) and \(Y_{j-1}\) do not form an LCS and there
     is a better choice, increasing the total LCS length by at least another one.
-    That would mean that LCS for X<sub>i</sub> and Y<sub>j</sub> increases by more
+    That would mean that LCS for \(X_i\) and \(Y_j\) increases by more
     than one. That is however impossible, because we can only match on one
     character pair at a time, thus the length cannot increase by more than one.
-    - X[i] != Y[j], and X<sub>i-1</sub> and Y<sub>j</sub> forms an LCS for
-    X<sub>i</sub> and Y<sub>j</sub>. Lets assume that X<sub>i-1</sub> and Y<sub>j</sub> isn't optimal and there exists a longer solution. That would entail that
-    the LCS for X<sub>i</sub> and Y<sub>j</sub> increases by at least one. That
+    - X[i] != Y[j], and \(X_{i-1}\) and \(Y_j\) forms an LCS for
+    \(X_i\) and \(Y_j\). Lets assume that \(X_{i-1}\) and \(Y_j\) isn't optimal and there exists a longer solution. That would entail that
+    the LCS for \(X_i\) and \(Y_j\) increases by at least one. That
     however contradicts the original statement that X[i] != Y[j]. The length
     cannot increase as there are no available character pair to increase it by.
-    - X[i] != Y[j], and X<sub>i</sub> and Y<sub>j-1</sub> forms and LCS for
-    X<sub>i</sub> and Y<sub>j</sub>. This is symmetric to the previous one.
+    - X[i] != Y[j], and \(X_i\) and \(Y_{j-1}\) forms and LCS for
+    \(X_i\) and \(Y_j\). This is symmetric to the previous one.
 
 With this we see that LCS exhibits the optimal substructure property.
 
@@ -137,7 +137,7 @@ subproblems will not be evaluated multiple times.
 
 ```text
 LCS(X, i, Y, j, memo):
-    if {<i, j} in memo
+    if {i, j} in memo
         return memo[i, j]
     if i == 0 or j == 0
         memo[i, j] = 0
