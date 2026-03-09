@@ -259,4 +259,34 @@ My lord, if there is a heaven, this would surely make the angels cry. What we se
 materials assigned to them. The nasty green is the color of the single spotlight in the scene, which has no falloff at all.
 All floating in the void of black space. Absolutely marvelous, and humbling in a sense. So much work for so little.
 
+There is a big question that remains though. Is what we see actually correct? How to confirm that? Better yet, how can
+we confirm in the future if what we do is correct? No easy answer, but there is a reasonably good alternative.
+Just reproduce the desired scene in [Godot](https://godotengine.org/). See if that produces the same result.
+
+{{< figure src="godot_reproduction.png" title="Godot reproduction">}}
+
+Ehh, it looks rather different doesn't it? Why can this be? In my short experience, if the image doesn't look as expected likely
+some vector or another is incorrect. In this case I happened to remember that to avoid some problems for the cube, in the
+beginning some tricks were applied. The cube is generated centered at the origo, then each of it's points is just a unit length
+position vector from the center. The trick was that I simply used the points as normal vectors as well. Worked okay, but it had this
+effect where the sides of the cube appear to be curved. This is because along the surface of the cube the normal vectors are interpolated
+between the vertices. This is such a common technique that **WebGPU** does this interpolation by default.
+
+{{< figure src="normals.png" title="Normals issue">}}
+
+The above demonstrates the suspected issue. We have a triangle with vertices **A**, **B** and **C**. For simplicity let's look
+at the triangle so that only the **A** - **C** side is visible. With green arrows the normal and yellow the interpolated normal vectors can be seen.
+In the incorrect setup, the top drawing, the normals are tilted, so the interpolated ones will describe an arc. This arced surface is also
+highlighted by the orange curve above. The expected outcome is the lower image, where all the normals are completely parallel to one another.
+
+But as we have learned from our lesson, quickly test our theory within **Godot**, by using the vertex positions as normals and see what we
+get.
+
+{{< figure src="godot_reproduction_confirmation.png" title="Godot theory confirmation">}}
+
+Excellent, the cube looks exactly as within our engine, with the incorrect normals, so the theory has been confirmed. The plane became different, because in **Godot**
+I have only written one shader which is shared between the cube and the plane. This discrepancy can be ignored.
+
+[video about navigating around the cube]
+
 ### FPS counter
