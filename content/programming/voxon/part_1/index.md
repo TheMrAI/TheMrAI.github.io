@@ -58,8 +58,8 @@ The adoption is a little bit slow, not entirely sure what the reason may be.
 The API with a good engine is definitely extremely performant. The above mentioned two examples run much better on
 Vulkan than they did on DirectX.
 
-Nevertheless, as start I won't be starting out with Vulkan. Too complex for a complete beginner, and we will see there
-are demons aplenty to tackle. Likely in the future, when other issues have been ironed out, support for Vulkan will
+Nevertheless, as a start I won't be starting out with Vulkan. Too complex for a complete beginner, and we will see there
+are daemons aplenty to tackle. Likely in the future, when other issues have been ironed out, support for Vulkan will
 be added as well.
 
 ### [WebGPU](https://webgpu.org/)
@@ -168,9 +168,9 @@ In both cases the `Y` vector is pointing up, the `Z` vector is pointing towards 
 For the right handed system the `X` vector will be pointing right, while in the left it will point
 to the left.
 You can always easily remember which one is which if you use your hands where the thumb, index and middle
-finger will always represent the: `X`, `Z` and `Y` axis.
+finger will always represent the: `X`, `Y` and `Z` axis.
 
-[todo finger image]
+{{< figure src="right-handed.png" title="Right handed Y up coordinate system" >}}
 
 Now why is the `Y` vector up and the `Z` pointing towards you? That I do not know. Probably, someone had to
 choose something in the beginning and it made sense.
@@ -232,6 +232,8 @@ know if you haven't seen how it works.
 
 After discussing all the non technical aspects here is the state of the engine:
 [v0.0](https://github.com/TheMrAI/engine/releases/tag/v0.0)
+(and after all the bugs have been fixed that you will observe below:
+[v0.1](https://github.com/TheMrAI/engine/releases/tag/v0.01))
 
 I have glossed over a lot of details that I don't think are important for me to duplicate here as they can be
 seen from the code and are explained better elsewhere.
@@ -287,6 +289,49 @@ get.
 Excellent, the cube looks exactly as within our engine, with the incorrect normals, so the theory has been confirmed. The plane became different, because in **Godot**
 I have only written one shader which is shared between the cube and the plane. This discrepancy can be ignored.
 
-[video about navigating around the cube]
+### Demo
+
+Finally, at long last, observe the engine in all it's glory!
+
+{{< youtube XCghqhq0G7g >}}
 
 ### FPS counter
+
+To be able to develop any type of decent idea about performance a simple FPS counter has been implemented.
+Nothing special, just a ring buffer with a 1000 sample slots.
+
+In `develop` build we get
+```text
+Avg. FPS: 2743.96
+1% low: 1985.52
+0.1% low: 1391.16
+```
+
+which is truly rather disappointing for such a simple scene.
+**FPS** means **frames per second** and in general, a steady 60 FPS is targeted for a good experience.
+It is a good metric for showing how smooth the overall gameplay is, but alone it fails at describing an effect
+called **micro stuttering**, during which for just a few frames the FPS drastically drops, leading to perceivable stutter.
+To be able to measure this the 1% and 0.1% low average FPS counts are introduced as well. They simply answer the question:
+"What would be our average FPS count if we only took the slowest 1% or 0.1% of the frametimes?"
+If these values remain close to the average FPS count, we know that the game will be stutter free.
+To learn more about the topic see [Inside the second: FPS & a new look at game benchmarking](https://techreport.com/review/inside-the-second-a-new-look-at-game-benchmarking/) and
+[What Are 1% & 0.1% Lows?](https://www.youtube.com/watch?v=uXepIWi4SgM).
+(Recently there are discussions about [FPS Benchmarks Are Flawed: Introducing Animation Error | Engineering Discussion](https://www.youtube.com/watch?v=C_RO8bJop8o), but
+I don't intend to get into that at this time.)
+
+In `release` build:
+```text
+Avg. FPS: 11373.37
+1% low: 8939.11
+0.1% low: 8312.07
+```
+
+The `release` build looks a lot better. Ten thousand FPS is acceptable, but I have a sneaking suspicion that it should go still a bit faster.
+Maybe with **Vulkan** it could, non the less, based on the data 99.9 % of the frametimes are faster than 120'307 ns, ~ 120 μs or 0.120 ms.
+For reference if we were targeting a 60 FPS, our budget for a frametime would be ~16.5 ms.
+It will be interesting to see how much certain features will cost in the future.
+
+You may be wondering: "If we have so much FPS why is the demonstration video so choppy?"
+Well, in truth, not entirely sure yet. I think it has to do with the movements. Just panning is very smooth, similarly with rotation,
+but if you combine the two it can get choppy. Based on the snippets I have read here an there it is likely, because I don't use any type of
+interpolation between the movements. So the sharp change in a direction and/or rotation will appear unnaturally fast.
