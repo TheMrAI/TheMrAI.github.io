@@ -3,7 +3,7 @@ layout: page
 title: Giveth me triangles!
 date: "2025-11-20"
 summary: "Setting up the basic game engine project and drawing with the GPU."
-draft: true
+draft: false 
 ---
 
 The start wasn't trivial at all. You could think that since GPUs have been
@@ -233,7 +233,9 @@ know if you haven't seen how it works.
 After discussing all the non technical aspects here is the state of the engine:
 [v0.0](https://github.com/TheMrAI/engine/releases/tag/v0.0)
 (and after all the bugs have been fixed that you will observe below:
-[v0.1](https://github.com/TheMrAI/engine/releases/tag/v0.01))
+[v0.01](https://github.com/TheMrAI/engine/releases/tag/v0.01))
+
+Reproductions in Godot [v0.01](https://github.com/TheMrAI/voxon_reference/releases/tag/v0.01) scene **v0_0**
 
 I have glossed over a lot of details that I don't think are important for me to duplicate here as they can be
 seen from the code and are explained better elsewhere.

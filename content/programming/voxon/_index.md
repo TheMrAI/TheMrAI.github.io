@@ -2,7 +2,7 @@
 layout: page
 title: Voxon
 summary: "A mixed principle game engine."
-draft: true
+draft: false
 ---
 
 ## Why
