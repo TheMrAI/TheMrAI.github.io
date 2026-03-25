@@ -51,9 +51,16 @@ void vertex() {
 }
 
 void fragment() {
-	ALBEDO = texture(plane_texture, UV).rgb;
+	vec3 sample = texture(plane_texture, UV).rgb;
+	// force SRGB color
+	ALBEDO = mix(pow((sample + vec3(0.055)) * (1.0 / (1.0 + 0.055)), vec3(2.4)), sample * (1.0 / 12.92), lessThan(sample,vec3(0.04045)));
 }
 ```
+
+The only "hack" that needed to be added was forcing the sRGB color space. Not entirely sure what that piece of code does, less so why, but seems to produce
+the expected result. Without it, the textures will not appear as they should and would have this washed out appearance to them.
+
+{{<figure src="few_textures_without_srgb.png" title="Without forced sRGB">}}
 
 This way, hopefully, we can relatively easily reproduce the results.
 
@@ -147,6 +154,7 @@ which the GPU handles? A texture sampler is a built-in hardware component as it 
 is stored in GPU memory in a way that accelerates its access.
 
 For example a simple 4x4 matrix like this:
+
 ```text
 i\j 0 1 2 3 
 0   a b c d
@@ -156,12 +164,14 @@ i\j 0 1 2 3
 ```
 
 In the most common, row major sequential memory layout format, it would look like this:
+
 ```text
 a b c d
 e f g h
 i j k l
 m n o p
 ```
+
 For demonstration purposes a line break was inserted at the end of each row. In practice this would
 just be a continuous piece of memory.
 
@@ -173,7 +183,7 @@ This layout is very good for iterating the rows of the matrix very fast, because
 memory, a number of following elements will be loaded into the cache as well.
 
 Textures though aren't accessed in a sequential manner. A **sampler** has to be able to access the neighboring
-texels at a given coordinate very fast. A **texel** is a pixel of a texture.
+**texels** at a given coordinate very fast. A **texel** is a pixel of a texture.
 Instead of a sequential memory layout a [Z-order curve](https://en.wikipedia.org/wiki/Z-order_curve) is used.
 
 Using Z-order curve memory layout the above matrix would look like this in memory:
@@ -182,7 +192,7 @@ Using Z-order curve memory layout the above matrix would look like this in memor
 a b e f c d g h i j m n k l o p
 ```
 
-More on GPU cache locality and can be found at [Gpu cache hierarchy](https://charlesgrassi.dev/blog/gpu-cache-hierarchy/).
+More on GPU cache locality can be found at [Gpu cache hierarchy](https://charlesgrassi.dev/blog/gpu-cache-hierarchy/).
 
 ### Loading the plane texture
 
@@ -204,7 +214,7 @@ for the **texture_01.png** it would be **3 channels 24 bits per pixel**, for the
 It seems the alpha channel is missing from **texture_01.png**. WebGPU has no support for textures with ['rgb' format](https://www.w3.org/TR/webgpu/#texture-formats-tier1) where
 each channel takes up 8 bits only, the closest is "rgba8unorm" or "rgba-8unorm-srgb". This would not be a problem, as it should
 not be too big of an issue to add an alpha channel for every pixel with the maximum value of 255 signaling that it should be
-fully opaque. Another problem arises! **texture_01.png** does not store the pixels as RGB, it stores them in a format called [Indexed](https://www.w3.org/TR/2003/REC-PNG-20031110/#3Abbreviations).
+fully opaque. Another problem arises! **texture_01.png** does not store the pixels as RGB color values, it stores them in a format called [Indexed](https://www.w3.org/TR/2003/REC-PNG-20031110/#3Abbreviations).
 This simply means that somewhere within the png, a section called a **pallet** is allocated which stores all the distinct pixel colors within the image,
 and the pixels just index into this array.
 This still could have, been okay, still could have produced the appropriate format, but the data [png](https://docs.rs/png/0.18.1/png/index.html)
@@ -226,6 +236,32 @@ For all our troubles we get the scene:
 
 {{< figure src="plane_textured_noisy.png" title="Uhh">}}
 
+This doesn't look quite right. The high frequency information from the texture is lost. One thing we need to change is use a `linear` blending, but
+that won't solve our problems either.
+
+{{< figure src="plane_textured_linear.png" title="Linear interpolation">}}
+
+As it can be seen the lines became smoother, but the texturing still falls apart completely after a certain distance from the camera.
+The issues is, as with many things in graphics, the discrepancy between the sampling frequency and the frequency of the data within the texture
+we are sampling. In our case the texture is mostly high frequency data, in layman terms lines or hard/crisp edges.
+The further away the texture, the more unlikely is, that our low frequency sampling will be able to gather the requisite information.
+The result is that seemingly randomly the lines in the texture disappear.
+
+[todo sampling demonstration example]
+
+The sampling problem, lays within the domain of digital signal processing, about which whole books have been written about. However, in computer
+graphics tricks and shortcuts are more important if they are performant and get us 90% the way there than the actually correct solution.
+And it so happens there is a rather simple solution to this issue. It is called [mimpmaps](https://en.wikipedia.org/wiki/Mipmap).
+The idea is staggeringly simple. We don't want to increase the sampling rate, because that is costly. Instead we can generate smaller
+and smaller textures, constantly smearing the image a bit more and more. Then the further the to be textured point is from the camera the more
+smeared texture we use.
+In practice this means that high frequency information slowly turns into low frequency information, which can be sampled well with a low frequency.
+
+{{< figure src="plane_textured_mipmap.png" title="Mipmapping">}}
+
+If we look at the line starting from the bottom center of the screen, we can observe that as it gets further away from us, it gets wider and blurrier.
+Not ideal, but it is cheap to compute, and in practice it sells the illusion very well.
+
 ### UV coordinates
 
 https://www.lightmap.co.uk/blog/whatisanhdrimap/
@@ -234,9 +270,110 @@ https://www.cgibackgrounds.com/blog/what-is-an-hdri
 
 ## The cube texture
 
-If you have heard about textures before you have probably heard about an UV map. Most likely you have seen one for a cube
+If you have heard about textures before you have probably heard about an UV maps/UV wrapping. Most likely you have seen one for a cube
 and now you may be wondering why does the one above look like it does.
 
 [[todo cube map demo]]
 
-## The skybox
+Because that is not how it is done in practice as it is very wasteful. It can work of course, but just observe how much of the image is wasted
+for nothing at all.
+The proper way of doing it is by **texture atlases**. Don't be alarmed, a texture atlas is nothing but a texture, into which other smaller textures
+have been aggregated into.
+
+{{<figure src="cube_atlas.png" title="Cube texture">}}
+
+When we map it onto our cube we get:
+
+{{<figure src="cube_textured.png" title="Textured cube">}}
+
+Which is good, but unfortunately not perfect. As described before mipmaps are necessary for any half decent texture sampling, but this also causes
+an issue.
+
+{{< figure src="cube_mipmap_error.png" title="Atlas mipmap error" >}}
+
+Because all the textures are merged into one atlas, when the mipmaps are generated they will get mixed together along the boundaries, not to mention
+the sample on the edges will sample into the neighbours as well. Which can lead to all kind of unwanted artifacts like the one above. The red pixels
+are blended into the edges of the blue and green sides.
+
+There are ways of mitigating this, for example described in [Texture atlases, wrapping and mip mapping](https://0fps.net/2013/07/09/texture-atlases-wrapping-and-mip-mapping/),
+but for the time being such optimizations will be omitted. Our goal for now is to have the same scene as in the Godot example, which exhibits the exact
+same behaviour.
+
+## The Skybox
+
+First it is best to clean up some definitions. Especially if one is new to these technologies it is very confusing how they are mixed up left and right.
+
+### HDR, HDRI definitions
+
+[Kloofendal 48d Partly Cloudy (Pure Sky)](https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky) is an **image** created using **HDRI (High dynamic
+range imaging)**. It uses **HDR (High dynamic range)** to more naturally capture the wildly differing luminosity values in a scene.
+It is not HDR, it uses HDR (high dynamic range) instead of SDR (standard dynamic range).
+It is not an HDRI image. HDRI is the technology/methotology for capturing it
+([How to Create High Quality HDR Environments](https://blog.polyhaven.com/how-to-create-high-quality-hdri/) if you want to read more). There is no correct way to
+referring to their type, in leu of a proper one, often their extension is used which is either **.HDR** or **.EXR**, or this mouthful appears
+**HDRI image** (high dynamic range imaging image). The situation is a tad bit unfortunate, but it is what it is.
+
+Another misnomer is that Skybox-es are often just equated with an HDRI image. Skyboxes often use HDRI images as textures, but any other object could use
+an HDRI image as well. It is simply more prevalent that the skybox is an HDRI image, because that alone can help light the scene appropriately.
+
+### Skybox implementation
+
+There are two ways of implementing a skybox I have found so far.
+
+Either using cubemaps or a single image using equirectangular projection.
+They are rather similar in their basic concept.
+Take the camera, project a number of rays from the eye through the center of each pixel on the **Z near**-plane,
+find the direction of these rays, then sample the texture that has been conveniently placed in model space using these
+directions.
+
+Here is where we can again be grateful for the absolute brilliance of the people coming before us and marvel at the elegance by which this issue
+has been solved. In practice we don't project any rays at all, but the result will be exactly the same. 
+
+#### Equirectangular projection
+
+Our chosen skybox texture [Kloofendal 48d Partly Cloudy (Pure Sky)](https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky) is an
+HDRI image, produced using equirectangular projection. 
+
+{{< figure src="sky_equirectangular.png" title="Equirectangular projection">}}
+
+When first seeing such an image it is a bit difficult to understand what is that you are actually seeing, it looks a bit warped and just wrong.
+Even though you have seen such projections before, if you have seen a map of Earth. Chances are, it was made using equirectangular projection.
+The picture of Earth doesn't bother you, because while it is not correct, it is likely the only projection you have seen, so it appears correct
+by default. In contrast this sky texture does not as the characteristical warping/streching, especially close to the top and bottom of the image,
+makes it feel wrong. Such a projection is not really made for our minds, but if we were to wrap it back onto a sphere it would appear "correctly".
+
+[Equrectangular projection](https://en.wikipedia.org/wiki/Equirectangular_projection) describes the math behind the transformation.
+Conceptually it is even simpler. Imagine there is a unit sphere centered at origo, where a camera is located at as well.
+This camera rotate clockwise on the Y axis (or an axis of you choosing really) and scan whatever it sees, through the points of the unit sphere
+and write it to a 2D texture. During this scanning it always scan exactly Pi radians (180 degrees) vertically and 2*Pi radians (360 degrees)
+horizontally. Producing an image which is 2*Pi wide and Pi tall. In other words twice as wide as it is tall, 2:1. (Apparently there are equirectangular
+projections that only use half of the vertical resolution, resulting in a ratio of 4:1.)
+
+[todo: demonstration of this scanning]
+
+Such images seem to be a good candidate for a skymaps/environmental maps as they encode into a single texture the whole range of surrounding visuals.
+This is why I would have preferred to use one as it is, but after the curvebals coming from just reading a *.PNG* image, it seemed to make more
+sense not to try and battle the hdr file formats *.HDR* or *.EXR*. Not to mention the challenges that may arise from having to handle
+the extended brightness ranges encoded in such an image.
+For these reasons, it was decided that instead an older technology of cubemaps will be used.
+
+#### Skybox using a cubemap
+
+A cubemap is nothing really just a simple axis aligned cube, that has been textured according to the requirements of our
+graphics API.
+In our case WebGPU, defines the requirements on a cubemap texture like so:
+
+{{< figure src="cubemap_faces.png" title="Cubemap faces" >}}
+
+Which means that it needs exactly six textures of the same width and height in the order for the cube's sides. In
+this case: +X, -X, +Y, -Y, +Z, -Z. That is a 2D array texture. This is not a 3D texture, even though we have a 3rd
+dimension. These are separate textures, that can be simply sampled by a vector directly, due to the built in hardware support.
+
+Using the tool [panorama-to-cubemap](https://greggman.github.io/panorama-to-cubemap/) we could turn our **EXR** equirectangular
+skymap texture into a cubemap:
+
+{{< figure src="sky_sdr_cubemap.png" title="Sky cubemap">}}
+
+Notice that if you were to fold up the cube map, it would would look like and be oriented exactly the same as the cube in our
+scene. +Z facing the camera, +X going right and +Y up. The right-handed Y up coordinate system, with the standard camera direction
+looking down into the -Z direction.
