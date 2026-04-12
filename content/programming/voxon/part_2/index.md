@@ -163,7 +163,7 @@ i\j 0 1 2 3
 3   m n o p
 ```
 
-In the most common, row major sequential memory layout format, it would look like this:
+In the most common, row major sequential memory layout format would look like this:
 
 ```text
 a b c d
@@ -247,38 +247,62 @@ we are sampling. In our case the texture is mostly high frequency data, in layma
 The further away the texture, the more unlikely is, that our low frequency sampling will be able to gather the requisite information.
 The result is that seemingly randomly the lines in the texture disappear.
 
-[todo sampling demonstration example]
+For a little bit of clarification it is prudent to first understand why the term **texel** exists. Why is there a need to be able to
+differentiate between the **pixel** on the screen and the pixel on a texture (**texel**). If you just open up a texture, to be displayed
+by some image viewing program, what is the difference between the **pixels** and **texels**? Nothing. They are the exact same thing.
+As long as their ratio is 1:1, where one texel is used to create one pixels worth of information. Most often than not though, this is not the
+case and either more or less texels are required to produce a single pixel. **Texels** are the inputs, fed into a **sampler** to produce
+the output **pixel**. Which pixels (in this case texels) then can be used to be fed into another sampler to produce another set of pixels.
+The real difference between the two is, which one did you start and end with, because of this some will mix the terminology, but as you can
+see, in this case it is more about clarifying the usage not the concept.
+More about texture basics in this wonderful article: [WebGPU Textures](https://webgpufundamentals.org/webgpu/lessons/webgpu-textures.html)
+
+For example in our case that white line in the middle of the screen slowly disappears, because the sampling will simply start missing the information.
+As the texture is sampled from further and further away, the width of the line, relative to the screen pixels will diminish, to the point that
+they are missed entirely. Take a look at the below example which is a closeup of the vanishing middle line in question on a pixel scale.
+
+{{< figure src="texels_to_pixels.png" >}}
+
+The green line represents, the projected pixel locations from the screen, onto the sampled texture. We are closest to the camera on the right and
+get farther away to the left. This line is slanted, due to the perspective projection. As an object gets further and further away from us, it appears
+to shrink in our view. This shrinkage, from the perspective of the texture will appear is if it was sampled by diverging lines, which originate from
+the camera.
+The yellow rectangle, is drawn between the centers of the four closest pixels that will be sampled for generating the pixel color.
+As it can be seen with this exaggerated example the samples drift away from the information we are seeking.
+In an ideal world, you would just expand the sampled area more and more, the further you get from the camera to compensate for this, but this is
+unfeasible in practice.
 
 The sampling problem, lays within the domain of digital signal processing, about which whole books have been written about. However, in computer
 graphics tricks and shortcuts are more important if they are performant and get us 90% the way there than the actually correct solution.
 And it so happens there is a rather simple solution to this issue. It is called [mimpmaps](https://en.wikipedia.org/wiki/Mipmap).
 The idea is staggeringly simple. We don't want to increase the sampling rate, because that is costly. Instead we can generate smaller
-and smaller textures, constantly smearing the image a bit more and more. Then the further the to be textured point is from the camera the more
+and smaller textures, constantly smearing the image a bit more and more. Then the further the textured point is from the camera the more
 smeared texture we use.
-In practice this means that high frequency information slowly turns into low frequency information, which can be sampled well with a low frequency.
+In practice this means that high frequency information slowly turns into low frequency information, which can be sampled better with lower frequency.
+
+{{< figure src="mipmapped_texels_to_pixels.png" >}}
+
+After a given distance, not the original texture is sampled, but the next mipmap level. This is blurrier, lower resolution, so the high frequency
+crisp white line is greyer and wider overall. In this example the line became much greyer (the effect is the result of the filtering used
+while downsampling, in this case a bilinear filter was used), and because the resolution is half of the original texture, each pixel takes up for times
+as much space in the UV coordinates. As a result the 2 pixel wide line is now 4 and the sampler manages to hit texels with the relevant information.
 
 {{< figure src="plane_textured_mipmap.png" title="Mipmapping">}}
 
 If we look at the line starting from the bottom center of the screen, we can observe that as it gets further away from us, it gets wider and blurrier.
 Not ideal, but it is cheap to compute, and in practice it sells the illusion very well.
 
-### UV coordinates
-
-https://www.lightmap.co.uk/blog/whatisanhdrimap/
-https://www.cgibackgrounds.com/blog/what-is-an-hdri
-
-
 ## The cube texture
 
+{{<figure src="cube_uv_map.png" title="Cube UV map">}}
+
 If you have heard about textures before you have probably heard about an UV maps/UV wrapping. Most likely you have seen one for a cube
-and now you may be wondering why does the one above look like it does.
+already which looks like the one above. This UV map represents where the faces of the cube would be on the texture. Notice that this is a bit wasteful though
+as most of the texture space is not used for the cube. About half of the whole texture is wasted.
 
-[[todo cube map demo]]
-
-Because that is not how it is done in practice as it is very wasteful. It can work of course, but just observe how much of the image is wasted
-for nothing at all.
-The proper way of doing it is by **texture atlases**. Don't be alarmed, a texture atlas is nothing but a texture, into which other smaller textures
-have been aggregated into.
+It works of course and probably very useful while prototyping given that [Blender](https://www.blender.org/) can generate these for you.
+We will be doing it a bit differently by using **texture atlases**. Don't be alarmed, a texture atlas is nothing but a texture, into which other smaller textures
+have been aggregated together.
 
 {{<figure src="cube_atlas.png" title="Cube texture">}}
 
@@ -308,10 +332,9 @@ First it is best to clean up some definitions. Especially if one is new to these
 [Kloofendal 48d Partly Cloudy (Pure Sky)](https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky) is an **image** created using **HDRI (High dynamic
 range imaging)**. It uses **HDR (High dynamic range)** to more naturally capture the wildly differing luminosity values in a scene.
 It is not HDR, it uses HDR (high dynamic range) instead of SDR (standard dynamic range).
-It is not an HDRI image. HDRI is the technology/methotology for capturing it
-([How to Create High Quality HDR Environments](https://blog.polyhaven.com/how-to-create-high-quality-hdri/) if you want to read more). There is no correct way to
-referring to their type, in leu of a proper one, often their extension is used which is either **.HDR** or **.EXR**, or this mouthful appears
-**HDRI image** (high dynamic range imaging image). The situation is a tad bit unfortunate, but it is what it is.
+HDRI is the technology/methotology for capturing it ([How to Create High Quality HDR Environments](https://blog.polyhaven.com/how-to-create-high-quality-hdri/)
+if you want to read more). There is no correct way to referring to their type, in leu of a proper one, often their extension is used which is either
+**.HDR** or **.EXR**, or this mouthful appears **HDRI image** (high dynamic range imaging image). The situation is a tad bit unfortunate, but it is what it is.
 
 Another misnomer is that Skybox-es are often just equated with an HDRI image. Skyboxes often use HDRI images as textures, but any other object could use
 an HDRI image as well. It is simply more prevalent that the skybox is an HDRI image, because that alone can help light the scene appropriately.
@@ -337,22 +360,25 @@ HDRI image, produced using equirectangular projection.
 {{< figure src="sky_equirectangular.png" title="Equirectangular projection">}}
 
 When first seeing such an image it is a bit difficult to understand what is that you are actually seeing, it looks a bit warped and just wrong.
-Even though you have seen such projections before, if you have seen a map of Earth. Chances are, it was made using equirectangular projection.
-The picture of Earth doesn't bother you, because while it is not correct, it is likely the only projection you have seen, so it appears correct
-by default. In contrast this sky texture does not as the characteristical warping/streching, especially close to the top and bottom of the image,
-makes it feel wrong. Such a projection is not really made for our minds, but if we were to wrap it back onto a sphere it would appear "correctly".
+Even though you have seen such projections before if you have seen a map of Earth. Chances are, it was made using equirectangular projection.
+The picture of Earth doesn't bother you, because while it does not represent reality, it is likely the only projection you have seen of it,
+so it appears correct by default. The projection itself is heavily distorted though. Take Greenland for [example](https://thetruesize.com/#?borders=1~!MTcyNzk3MTA.NzM3NzQ2Mg*Mjg4MzcxNzk(MzEwODcxNzk~!GL*NzA4MTUzMw.Njg4NjAwOA)NA).
+On an equirectangular projection it looks as big the whole of North America, but its actual size is closer to the size of just Mexico.
+The projection will distort more and more towards the top and bottom of the projection.
+This is why this sky texture feels wrong. While you have seen many maps of Earth with its warped appearance and have gotten used to it,
+you have seen much more of the sky, without ever seeing such distortions.
 
 [Equrectangular projection](https://en.wikipedia.org/wiki/Equirectangular_projection) describes the math behind the transformation.
 Conceptually it is even simpler. Imagine there is a unit sphere centered at origo, where a camera is located at as well.
-This camera rotate clockwise on the Y axis (or an axis of you choosing really) and scan whatever it sees, through the points of the unit sphere
-and write it to a 2D texture. During this scanning it always scan exactly Pi radians (180 degrees) vertically and 2*Pi radians (360 degrees)
-horizontally. Producing an image which is 2*Pi wide and Pi tall. In other words twice as wide as it is tall, 2:1. (Apparently there are equirectangular
-projections that only use half of the vertical resolution, resulting in a ratio of 4:1.)
+This camera rotates clockwise on the Y axis (or an axis of you choosing really) and scans whatever it sees, through the points of the unit sphere
+and write it onto a 2D texture. During this scanning it always scans exactly `π` radians (180 degrees) vertically and `2*π` radians (360 degrees)
+horizontally. Producing an image which is `2*π` wide and `π` tall. In other words twice as wide as it is tall, `2:1`. (Apparently there are equirectangular
+projections that only use half of the vertical resolution, resulting in a ratio of `4:1`.)
 
-[todo: demonstration of this scanning]
+{{< figure src="equirectangular.png" title="Sphere-Plane" >}}
 
 Such images seem to be a good candidate for a skymaps/environmental maps as they encode into a single texture the whole range of surrounding visuals.
-This is why I would have preferred to use one as it is, but after the curvebals coming from just reading a *.PNG* image, it seemed to make more
+This is why I would have preferred to use one as it is, but after the curveballs coming from just reading a *.PNG* image, it seemed to make more
 sense not to try and battle the hdr file formats *.HDR* or *.EXR*. Not to mention the challenges that may arise from having to handle
 the extended brightness ranges encoded in such an image.
 For these reasons, it was decided that instead an older technology of cubemaps will be used.
@@ -368,6 +394,8 @@ In our case WebGPU, defines the requirements on a cubemap texture like so:
 Which means that it needs exactly six textures of the same width and height in the order for the cube's sides. In
 this case: +X, -X, +Y, -Y, +Z, -Z. That is a 2D array texture. This is not a 3D texture, even though we have a 3rd
 dimension. These are separate textures, that can be simply sampled by a vector directly, due to the built in hardware support.
+Also do not confuse it with the UV map of a cube, shown before. That is a method for wrapping a single texture onto a cube,
+while a "cubemap" is a way of texturing each individual face of the cube with a separate texture.
 
 Using the tool [panorama-to-cubemap](https://greggman.github.io/panorama-to-cubemap/) we could turn our **EXR** equirectangular
 skymap texture into a cubemap:
@@ -377,3 +405,100 @@ skymap texture into a cubemap:
 Notice that if you were to fold up the cube map, it would would look like and be oriented exactly the same as the cube in our
 scene. +Z facing the camera, +X going right and +Y up. The right-handed Y up coordinate system, with the standard camera direction
 looking down into the -Z direction.
+
+{{< figure src="skymap_as_cubemap.png" title="On the cube">}}
+
+This could be our skybox looked at from the outside, but it is not. You would have to be an extremely vigilant reader to notice
+that the clouds don't appear in the order they should. The source of the confusion is orientation. The HDRI image we use as a skybox
+was taken as a sequence of pictures sampling the space **around** it. It was looking at the scene from the *inside outward*.
+The orientation of the cubemap textures expects *outside in* perspective. This will result in the inversion of the coordinate system.
+In our case we used a **right handed Y up** coordinate system for the world and we will need a **left handed Y up** coordinate system
+for sampling the cubemap.
+
+{{< figure src="skymap_as_cubemap_inverted_hand.png" title="Inverted handedness">}}
+
+This may still be rather confusing to understand, unless you have very good spatial reasoning abilities. For one I do not, and
+was thinking of a way of trying to explain it properly why the inversion needs to happen, but alas, the problems true understanding is
+simply beyond me.
+
+Looking at the skybox from the outside is nice and all, but what we really need is to ensure that it will be everywhere around us, always
+in the proper orientation.
+
+The shader code for this is less than barely 50 lines of actual code: [skybox.wgsl](https://github.com/TheMrAI/engine/blob/v0.2/voxon/src/skybox.wgsl).
+What it does is very simple and beautiful. Firstly, it ensures that the skybox always appears behind everything.
+It does this by generating a triangle which completely covers the whole viewing area. This triangle is perpendicular to the viewing direction
+and is placed right at the farthest end of the normalized device coordinate space. In case of WebGPU, this will be at Z = 1. 
+
+Now it needs to sample the skybox in the appropriate orientation. From the previous step, we will have vectors `<X, Y, 1>` where both `X` and `Y`, can
+range between [-1.0, 1.0].
+If we create a **view projection matrix** that does not contain the translation of the camera, we will have a transformation that takes the world space,
+rotates it around the origo and then projects it, arriving in at the normalized device coordinates.
+What we want is to go into the opposite direction. We want to know that from our normalized device coordinates, in what direction each fragment would
+be in world space. This is simply the inverse of the **view projection matrix**. By applying it, normalizing the resulting vectors, we can now
+just simply sample the cubemap textures as before.
+
+Then if we further restrict the draw call for the skybox to be the only call that can write to depth of one, there can never be anything that can appear behind
+the skybox. As everything else can only occupy depths of <1.0.
+
+It is truly amazing how much linear algebra can accomplish.
+
+## Engine state
+
+Putting all that behind us, we have arrived at the current engine state, achieving our goal for this iteration!
+
+{{< figure src="engine_state.png" title="Engine state" >}}
+
+If we compare it with the Godot based reference
+
+{{< figure src="few_textures.png" title="Godot reference" >}}
+
+we can see that the two are nearly identical. There are three differences that stand out.
+Godot manages to have a better resolution for the cube texture, while also avoiding most
+noises from the texture atlas mipmap artifacts. Lastly there is some kind of "fade out"/"red shifting"
+effect for the plane texture in the Godot representation. The closer the horizon, the redder the plane
+texture seems. Not sure why this may be, maybe missed some flag or some such while writing the
+shader for Godot.
+
+Code available at: [v0.2](https://github.com/TheMrAI/engine/tree/v0.2) <- I know, we jumped from v0.01 to v0.2, but
+it made more sense to do this correction now, so that part_1, part_2 .. part_x can nicely align with v0.x tags.
+
+
+
+### FPS counter
+
+In the previous chapter we had the following FPS metrics:
+
+`develop` build
+```text
+Avg. FPS: 2743.96
+1% low: 1985.52
+0.1% low: 1391.16
+```
+
+`release` build
+```text
+Avg. FPS: 11373.37
+1% low: 8939.11
+0.1% low: 8312.07
+```
+
+Now we have:
+
+`develop` build
+```text
+Avg. FPS: 2547.60
+1% low: 1929.50
+0.1% low: 1263.82
+```
+
+`release` build
+```text
+Avg. FPS: 10790.21
+1% low: 6418.93
+0.1% low: 2536.53
+```
+
+Of course the metrics fluctuate somewhat and the above measurements are just a single snapshot, we
+can see that about ~200 FPS was lost in develop and ~600 FPS in release build.
+
+Not sure what the drop means, not sure the measurement is meaningful, none the less here it is.
