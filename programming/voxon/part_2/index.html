@@ -1,0 +1,218 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Make it prettier &#9775; MrAI</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Rework the scene with simple textures"><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"]]},loader:{load:["ui/safe"]}}</script><link rel="shortcut icon" href=https://themrai.github.io/favicon.png type=image/x-icon><link rel=stylesheet href=https://themrai.github.io/pico/css/pico.min.css></head><body class=body><main class=container><nav><ul><li><a href=/>MrAI</a></li></ul><ul><li><a href=/contemplation/>Contemplation</a></li><li><a href=/programming/>Programming</a></li><li><a href=/tinkering/>Tinkering</a></li></ul></nav><article><p>In the previous post a lot of things have happened and went sideways, making
+the whole process a lot slower than it needed to be. Acceptable outcome, since
+many moving parts had to work before something could actually happen.</p><p>This time around we are a bit better off and can afford to plan a bit ahead and test things
+out with Godot beforehand.</p><p>The goal is to make the overall scene a bit more presentable. While originally I wanted to
+proceed with light and shadow implementations, eventually decided against it. The reason is
+that there is a more fundamental concept in graphics that is much more valuable.</p><h2 id=textures>Textures</h2><p>Textures are a simple concept, brilliantly utilized in multiple ways. A chunk of memory
+organized into an array (1D texture), a matrix (2D texture) or 3D.
+A texture can be used to wrap an image around an object, define normals for the object,
+motion vectors, material properties and so on.
+They are fundamental for shadow algorithms, light baking and complex material properties.</p><p>To demonstrate how massively they can improve the visual experience observe the below comparison.</p><p><figure><img src=../part_1/godot_reproduction.png><figcaption><h4>Previous state</h4></figcaption></figure><figure><img src=/programming/voxon/part_2/few_textures.png><figcaption><h4>Just a few textures</h4></figcaption></figure></p><p>Before we had a light which produced a green .. err .. glow I suppose. Now, the light
+has been removed and a texture was added to the ground plane, the cube and the sky.
+The absence of shadows makes the image a bit unnerving, but this is all we will need.</p><p>The only other thing needed again was a simple Godot <a href=https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/spatial_shader.html#doc-spatial-shader>spatial shader</a>
+which circumvented basically all of Godot&rsquo;s shading and lightning system ensuring that the only thing
+used for &ldquo;coloring&rdquo; a pixel was just a texture.</p><pre tabindex=0><code class=language-gdshader data-lang=gdshader>shader_type spatial;
+
+render_mode unshaded;
+
+uniform sampler2D plane_texture;
+uniform vec2 uv_scale;
+
+void vertex() {
+	UV = UV * uv_scale;
+}
+
+void fragment() {
+	vec3 sample = texture(plane_texture, UV).rgb;
+	// force SRGB color
+	ALBEDO = mix(pow((sample + vec3(0.055)) * (1.0 / (1.0 + 0.055)), vec3(2.4)), sample * (1.0 / 12.92), lessThan(sample,vec3(0.04045)));
+}
+</code></pre><p>The only &ldquo;hack&rdquo; that needed to be added was forcing the sRGB color space. Not entirely sure what that piece of code does, less so why, but seems to produce
+the expected result. Without it, the textures will not appear as they should and would have this washed out appearance to them.</p><figure><img src=/programming/voxon/part_2/few_textures_without_srgb.png><figcaption><h4>Without forced sRGB</h4></figcaption></figure><p>This way, hopefully, we can relatively easily reproduce the results.</p><h3 id=sources>Sources</h3><p>All textures are open source under the <a href=https://creativecommons.org/publicdomain/zero/1.0/>CCO 1.0 Universal</a> license.
+You can use them for free, for commercial products as well, without any restrictions.
+Attributions are not required, but it is the least we can do to the artists/original sources.</p><p>The skybox is <a href=https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky>Kloofendal 48d Partly Cloudy (Pure Sky)</a>, from
+<a href=https://polyhaven.com/>Poly Haven</a>. Extremely high quality textures, for completely free!</p><p>The ground texture is taken from the <a href=https://kenney-assets.itch.io/prototype-textures>Prototype Textures</a> pack.</p><p>The cube texture was made by hand, but you may use it under the <a href=https://creativecommons.org/publicdomain/zero/1.0/>CCO 1.0 Universal</a>
+license as well.</p><figure><img src=/programming/voxon/part_2/cube_atlas.png><figcaption><h4>Cube texture</h4></figcaption></figure><p>The following posts were invaluable in understanding what the basic concepts were and how one should think about them:</p><ul><li><a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-textures.html>WebGPU Textures</a></li><li><a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-importing-textures.html>WebGPU Loading Images into Textures</a></li><li><a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-cube-maps.html>WebGPU Cubemaps</a></li><li><a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-environment-maps.html>WebGPU Environment Maps</a></li></ul><p>We will walk the same road, but only focusing on higher level abstractions and understanding.</p><h2 id=the-process>The process</h2><p>First, the light and any related code has been removed, and the fragment shader now simply returns a 20% grey color for
+any pixel. The plane was scaled to be 100x100 meters big and with this, the basic setup of our example scene has been achieved.</p><figure><img src=/programming/voxon/part_2/stripped_scene.png><figcaption><h4>Scene</h4></figcaption></figure><p>Next a simplest 2x2 texture was made to be used for the plane of the format:</p><pre tabindex=0><code>green, blue
+blue, green
+</code></pre><p>This texture is repeated 50 times for the plane, resulting in a checkerboard pattern, where each rectangle is
+exactly a meter wide/tall. Observe below how the 2x2 cube is exactly a green and blue rectangle wide.</p><figure><img src=/programming/voxon/part_2/checkerboarded.png><figcaption><h4>Checkerboard</h4></figcaption></figure><p>These scales are very important, especially in such barren scenes, as they act as a reference for scale and orientation.</p><p>One thing that surprised me is that a <strong>texture</strong> and a <strong>sampler</strong> are special resources which cannot be handled as simple uniforms
+with WebGPU.</p><p>Initially, this was what I wanted to do:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>struct</span> Entity {
+</span></span><span style=display:flex><span>    world: mat4x4f,
+</span></span><span style=display:flex><span>    normal: mat3x3f,
+</span></span><span style=display:flex><span>    texture_sampler: sampler,
+</span></span><span style=display:flex><span>    texture: texture_2d<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>,
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@group</span>(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@binding</span>(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span><span style=color:#f92672>&lt;</span>uniform<span style=color:#f92672>&gt;</span> entity: Entity;
+</span></span></code></pre></div><p>This though is simply not possible, because a <strong>texture</strong> and the <strong>sampler</strong> is a different type of resource, and even though
+it doesn&rsquo;t change for a draw call (hence I thought it could be a uniform), it must be bound separately.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>struct</span> Entity {
+</span></span><span style=display:flex><span>    world: mat4x4f,
+</span></span><span style=display:flex><span>    normal: mat3x3f,
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@group</span>(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@binding</span>(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span><span style=color:#f92672>&lt;</span>uniform<span style=color:#f92672>&gt;</span> entity: Entity;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@group</span>(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@binding</span>(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> texture_sampler: sampler;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@group</span>(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@binding</span>(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span> texture: texture_2d<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>;
+</span></span></code></pre></div><p>Why exactly this may be is not clear. Perhaps because there are specialized internal representations and/or specific hardware elements
+which the GPU handles? A texture sampler is a built-in hardware component as it has to be extremely fast, similarly a texture
+is stored in GPU memory in a way that accelerates its access.</p><p>For example a simple 4x4 matrix like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>i\j 0 1 2 3 
+</span></span><span style=display:flex><span>0   a b c d
+</span></span><span style=display:flex><span>1   e f g h
+</span></span><span style=display:flex><span>2   i j k l
+</span></span><span style=display:flex><span>3   m n o p
+</span></span></code></pre></div><p>In the most common, row major sequential memory layout format would look like this:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>a b c d
+</span></span><span style=display:flex><span>e f g h
+</span></span><span style=display:flex><span>i j k l
+</span></span><span style=display:flex><span>m n o p
+</span></span></code></pre></div><p>For demonstration purposes a line break was inserted at the end of each row. In practice this would
+just be a continuous piece of memory.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>a b c d e f g h i j k l m n o p
+</span></span></code></pre></div><p>This layout is very good for iterating the rows of the matrix very fast, because by loading a line into
+memory, a number of following elements will be loaded into the cache as well.</p><p>Textures though aren&rsquo;t accessed in a sequential manner. A <strong>sampler</strong> has to be able to access the neighboring
+<strong>texels</strong> at a given coordinate very fast. A <strong>texel</strong> is a pixel of a texture.
+Instead of a sequential memory layout a <a href=https://en.wikipedia.org/wiki/Z-order_curve>Z-order curve</a> is used.</p><p>Using Z-order curve memory layout the above matrix would look like this in memory:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>a b e f c d g h i j m n k l o p
+</span></span></code></pre></div><p>More on GPU cache locality can be found at <a href=https://charlesgrassi.dev/blog/gpu-cache-hierarchy/>Gpu cache hierarchy</a>.</p><h3 id=loading-the-plane-texture>Loading the plane texture</h3><p>You would think that just loading a <a href=https://en.wikipedia.org/wiki/PNG>PNG</a> should be easy right?
+It is a just a simple file format that has been around forever. Tried loading the texture:</p><figure><img src=/programming/voxon/part_2/texture_01.png><figcaption><h4>Plane texture</h4></figcaption></figure><p>with the <a href=https://docs.rs/png/0.18.1/png/index.html>png</a> rust library.
+It loaded, but something didn&rsquo;t seem right, WebGPU would not accept it.
+Tried loading the wgpu logo, following the <a href=https://github.com/gfx-rs/wgpu/blob/0ca8ba04acbca7caa964d64492da0e831d9da35c/examples/features/src/bunnymark/mod.rs#L241>wgpu bunnymark example</a>
+and that worked.</p><figure><img src=/programming/voxon/part_2/logo.png><figcaption><h4>Wgpu logo</h4></figcaption></figure><p>If I were to open the two textures with <strong>Krita</strong> it would say they have the format: <strong>RGB/Alpha (8-bit integer/channel)</strong>, using the
+<strong>sRGB-elle-V2-srgbtrc.icc</strong> profile. On the other hand, when they were to be opened with <a href=https://zed.dev/>Zed</a>,
+for the <strong>texture_01.png</strong> it would be <strong>3 channels 24 bits per pixel</strong>, for the <strong>logo.png</strong> <strong>4 channels, 32 bits per pixel</strong>.
+It seems the alpha channel is missing from <strong>texture_01.png</strong>. WebGPU has no support for textures with <a href=https://www.w3.org/TR/webgpu/#texture-formats-tier1>&lsquo;rgb&rsquo; format</a> where
+each channel takes up 8 bits only, the closest is &ldquo;rgba8unorm&rdquo; or &ldquo;rgba-8unorm-srgb&rdquo;. This would not be a problem, as it should
+not be too big of an issue to add an alpha channel for every pixel with the maximum value of 255 signaling that it should be
+fully opaque. Another problem arises! <strong>texture_01.png</strong> does not store the pixels as RGB color values, it stores them in a format called <a href=https://www.w3.org/TR/2003/REC-PNG-20031110/#3Abbreviations>Indexed</a>.
+This simply means that somewhere within the png, a section called a <strong>pallet</strong> is allocated which stores all the distinct pixel colors within the image,
+and the pixels just index into this array.
+This still could have been okay, still could have produced the appropriate format, but the data <a href=https://docs.rs/png/0.18.1/png/index.html>png</a>
+provided for <strong>texture_01.png</strong> made no sense.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Info { width: 1024, height: 1024, color_type: Indexed, ..., palette: Some([89, 89, 91, 107, 107, 109, 91, 91, 93, 71, 71, 73, 255, 255, 255, 51, 51, 53]), ... }
+</span></span><span style=display:flex><span>Buffer: [68, 68, 68, 68, 68, 68, ... ]
+</span></span></code></pre></div><p>Where we see the palette contains 6 distinct 3*8 bit colors, confirming the &ldquo;24 bits per pixel&rdquo; reported by Zed (not sure Krita meant though). What doesn&rsquo;t make sense is that the buffer contains values that don&rsquo;t look
+like indexes. And this is the point where the investigation stops. Not sure if the png library is buggy or not, the issue can be sidestepped by loading the image into Krita and saving it as
+a PNG with the default settings (Force convert to sRGB, Store alpha channel (transparency)). This way its format will be exactly what we need <strong>RGBA 8 bit per channel</strong>.</p><p>To us this is only interesting if you want to do it by hand. Didn&rsquo;t encounter any issues with the textures while constructing the reference scene in Godot, so there is nothing wrong with them,
+but it seems to be very important to know what exactly is in a PNG, before one can use it to directly communicate with the GPU.</p><p>For all our troubles we get the scene:</p><figure><img src=/programming/voxon/part_2/plane_textured_noisy.png><figcaption><h4>Uhh</h4></figcaption></figure><p>This doesn&rsquo;t look quite right. The high frequency information from the texture is lost. One thing we need to change is use a <code>linear</code> blending, but
+that won&rsquo;t solve our problems either.</p><figure><img src=/programming/voxon/part_2/plane_textured_linear.png><figcaption><h4>Linear interpolation</h4></figcaption></figure><p>As it can be seen the lines became smoother, but the texturing still falls apart completely after a certain distance from the camera.
+The issue is, as with many things in graphics, the discrepancy between the sampling frequency and the frequency of the data within the texture
+we are sampling. In our case the texture is mostly high frequency data, in layman terms lines or hard/crisp edges.
+The further away the texture, the more unlikely is, that our low frequency sampling will be able to gather the requisite information.
+The result is that seemingly randomly the lines in the texture disappear.</p><p>For a little bit of clarification it is prudent to first understand why the term <strong>texel</strong> exists. Why is there a need to be able to
+differentiate between the <strong>pixel</strong> on the screen and the pixel on a texture (<strong>texel</strong>). If you just open up a texture, to be displayed
+by some image viewing program, what is the difference between the <strong>pixels</strong> and <strong>texels</strong>? Nothing. They are the exact same thing.
+As long as their ratio is 1:1, where one texel is used to create one pixels worth of information. Most often than not though, this is not the
+case and either more or less texels are required to produce a single pixel. <strong>Texels</strong> are the inputs, fed into a <strong>sampler</strong> to produce
+the output <strong>pixel</strong>. Which pixels (in this case texels) then can be used to be fed into another sampler to produce another set of pixels.
+The real difference between the two is, which one did you start and end with, because of this some will mix the terminology, but as you can
+see, in this case it is more about clarifying the usage not the concept.
+More about texture basics in this wonderful article: <a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-textures.html>WebGPU Textures</a></p><p>For example in our case that white line in the middle of the screen slowly disappears, because the sampling will simply start missing the information.
+As the texture is sampled from further and further away, the width of the line, relative to the screen pixels will diminish, to the point that
+they are missed entirely. Take a look at the below example which is a closeup of the vanishing middle line in question on a pixel scale.</p><figure><img src=/programming/voxon/part_2/texels_to_pixels.png></figure><p>The green line represents, the projected pixel locations from the screen, onto the sampled texture. We are closest to the camera on the right and
+get farther away to the left. This line is slanted, due to the perspective projection. As an object gets further and further away from us, it appears
+to shrink in our view. This shrinkage, from the perspective of the texture will appear is if it was sampled by diverging lines, which originate from
+the camera.
+The yellow rectangle, is drawn between the centers of the four closest pixels that will be sampled for generating the pixel color.
+As it can be seen with this exaggerated example the samples drift away from the information we are seeking.
+In an ideal world, you would just expand the sampled area more and more, the further you get from the camera to compensate for this, but this is
+unfeasible in practice.</p><p>The sampling problem, lays within the domain of digital signal processing, about which whole books have been written about. However, in computer
+graphics tricks and shortcuts are more important if they are performant and get us 90% the way there than the actually correct solution.
+And it so happens there is a rather simple solution to this issue. It is called <a href=https://en.wikipedia.org/wiki/Mipmap>mimpmaps</a>.
+The idea is staggeringly simple. We don&rsquo;t want to increase the sampling rate, because that is costly. Instead we can generate smaller
+and smaller textures, constantly smearing the image a bit more and more. Then the further the textured point is from the camera the more
+smeared texture we use.
+In practice this means that high frequency information slowly turns into low frequency information, which can be sampled better with lower frequency.</p><figure><img src=/programming/voxon/part_2/mipmapped_texels_to_pixels.png></figure><p>After a given distance, not the original texture is sampled, but the next mipmap level. This is blurrier, lower resolution, so the high frequency
+crisp white line is greyer and wider overall. In this example the line became much greyer (the effect is the result of the filtering used
+while downsampling, in this case a bilinear filter was used), and because the resolution is half of the original texture, each pixel takes up four times
+as much space in the UV coordinates. As a result the 2 pixel wide line is now 4 and the sampler manages to hit texels with the relevant information.</p><figure><img src=/programming/voxon/part_2/plane_textured_mipmap.png><figcaption><h4>Mipmapping</h4></figcaption></figure><p>If we look at the line starting from the bottom center of the screen, we can observe that as it gets further away from us, it gets wider and blurrier.
+Not ideal, but it is cheap to compute, and in practice it sells the illusion very well.</p><h2 id=the-cube-texture>The cube texture</h2><figure><img src=/programming/voxon/part_2/cube_uv_map.png><figcaption><h4>Cube UV map</h4></figcaption></figure><p>If you have heard about textures before you have probably heard about UV maps/UV wrapping. Most likely you have seen one for a cube
+already which looks like the one above. This UV map represents where the faces of the cube would be on the texture. Notice that this is a bit wasteful though
+as most of the texture space is not used for the cube. About half of the whole texture is wasted.</p><p>It works of course and probably very useful while prototyping given that <a href=https://www.blender.org/>Blender</a> can generate these for you.
+We will be doing it a bit differently by using <strong>texture atlases</strong>. Don&rsquo;t be alarmed, a texture atlas is nothing but a texture, into which other smaller textures
+have been aggregated together.</p><figure><img src=/programming/voxon/part_2/cube_atlas.png><figcaption><h4>Cube texture</h4></figcaption></figure><p>When we map it onto our cube we get:</p><figure><img src=/programming/voxon/part_2/cube_textured.png><figcaption><h4>Textured cube</h4></figcaption></figure><p>Which is good, but unfortunately not perfect. As described before mipmaps are necessary for any half decent texture sampling, but this also causes
+an issue.</p><figure><img src=/programming/voxon/part_2/cube_mipmap_error.png><figcaption><h4>Atlas mipmap error</h4></figcaption></figure><p>Because all the textures are merged into one atlas, when the mipmaps are generated they will get mixed together along the boundaries, not to mention
+the sample on the edges will sample into the neighbours as well. Which can lead to all kind of unwanted artifacts like the one above. The red pixels
+are blended into the edges of the blue and green sides.</p><p>There are ways of mitigating this, for example described in <a href=https://0fps.net/2013/07/09/texture-atlases-wrapping-and-mip-mapping/>Texture atlases, wrapping and mip mapping</a>,
+but for the time being such optimizations will be omitted. Our goal for now is to have the same scene as in the Godot example, which exhibits the exact
+same behaviour.</p><h2 id=the-skybox>The Skybox</h2><p>First it is best to clean up some definitions. Especially if one is new to these technologies. It is very confusing how they are mixed up left and right.</p><h3 id=hdr-hdri-definitions>HDR, HDRI definitions</h3><p><a href=https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky>Kloofendal 48d Partly Cloudy (Pure Sky)</a> is an <strong>image</strong> created using <strong>HDRI (High dynamic
+range imaging)</strong>. It uses <strong>HDR (High dynamic range)</strong> to more naturally capture the wildly differing luminosity values in a scene.
+It is not HDR, it uses HDR (high dynamic range) instead of SDR (standard dynamic range).
+HDRI is the technology/methotology for capturing it (<a href=https://blog.polyhaven.com/how-to-create-high-quality-hdri/>How to Create High Quality HDR Environments</a>
+if you want to read more). There is no correct way to referring to their type, in leu of a proper one, often their extension is used which is either
+<strong>.HDR</strong> or <strong>.EXR</strong>, or this mouthful appears <strong>HDRI image</strong> (high dynamic range imaging image). The situation is a tad bit unfortunate, but it is what it is.</p><p>Another misnomer is that Skybox-es are often just equated with an HDRI image. Skyboxes often use HDRI images as textures, but any other object could use
+an HDRI image as well. It is simply more prevalent that the skybox is an HDRI image, because that alone can help light the scene appropriately.</p><h3 id=skybox-implementation>Skybox implementation</h3><p>There are two ways of implementing a skybox I have found so far.</p><p>Either using cubemaps or a single image using equirectangular projection.
+They are rather similar in their basic concept.
+Take the camera, project a number of rays from the eye through the center of each pixel on the <strong>Z near</strong>-plane,
+find the direction of these rays, then sample the texture that has been conveniently placed in model space using these
+directions.</p><p>Here is where we can again be grateful for the absolute brilliance of the people coming before us and marvel at the elegance by which this issue
+has been solved. In practice we don&rsquo;t project any rays at all, but the result will be exactly the same.</p><h4 id=equirectangular-projection>Equirectangular projection</h4><p>Our chosen skybox texture <a href=https://polyhaven.com/a/kloofendal_48d_partly_cloudy_puresky>Kloofendal 48d Partly Cloudy (Pure Sky)</a> is an
+HDRI image, produced using equirectangular projection.</p><figure><img src=/programming/voxon/part_2/sky_equirectangular.png><figcaption><h4>Equirectangular projection</h4></figcaption></figure><p>When first seeing such an image it is a bit difficult to understand what is that you are actually seeing, it looks a bit warped and just wrong.
+Even though you have seen such projections before if you have seen a map of Earth. Chances are, it was made using equirectangular projection.
+The picture of Earth doesn&rsquo;t bother you, because while it does not represent reality, it is likely the only projection you have seen of it,
+so it appears correct by default. The projection itself is heavily distorted though. Take Greenland for <a href="https://thetruesize.com/#?borders=1~!MTcyNzk3MTA.NzM3NzQ2Mg*Mjg4MzcxNzk(MzEwODcxNzk~!GL*NzA4MTUzMw.Njg4NjAwOA)NA">example</a>.
+On an equirectangular projection it looks as big the whole of North America, but its actual size is closer to the size of just Mexico.
+The projection will distort more and more towards the top and bottom of the projection.
+This is why this sky texture feels wrong. While you have seen many maps of Earth with its warped appearance and have gotten used to it,
+you have seen much more of the sky, without ever seeing such distortions.</p><p><a href=https://en.wikipedia.org/wiki/Equirectangular_projection>Equrectangular projection</a> describes the math behind the transformation.
+Conceptually it is even simpler. Imagine there is a unit sphere centered at origo, where a camera is located at as well.
+This camera rotates clockwise on the Y axis (or an axis of you choosing really) and scans whatever it sees, through the points of the unit sphere
+and write it onto a 2D texture. During this scanning it always scans exactly <code>π</code> radians (180 degrees) vertically and <code>2*π</code> radians (360 degrees)
+horizontally. Producing an image which is <code>2*π</code> wide and <code>π</code> tall. In other words twice as wide as it is tall, <code>2:1</code>. (Apparently there are equirectangular
+projections that only use half of the vertical resolution, resulting in a ratio of <code>4:1</code>.)</p><figure><img src=/programming/voxon/part_2/equirectangular.png><figcaption><h4>Sphere-Plane</h4></figcaption></figure><p>Such images seem to be a good candidate for a skymaps/environmental maps as they encode into a single texture the whole range of surrounding visuals.
+This is why I would have preferred to use one as it is, but after the curveballs coming from just reading a <em>.PNG</em> image, it seemed to make more
+sense not to try and battle the hdr file formats <em>.HDR</em> or <em>.EXR</em>. Not to mention the challenges that may arise from having to handle
+the extended brightness ranges encoded in such an image.
+For these reasons, it was decided that instead an older technology of cubemaps will be used.</p><h4 id=skybox-using-a-cubemap>Skybox using a cubemap</h4><p>A cubemap is nothing really just a simple axis aligned cube, that has been textured according to the requirements of our
+graphics API.
+In our case WebGPU, defines the requirements on a cubemap texture like so:</p><figure><img src=/programming/voxon/part_2/cubemap_faces.png><figcaption><h4>Cubemap faces</h4></figcaption></figure><p>Which means that it needs exactly six textures of the same width and height in the order for the cube&rsquo;s sides. In
+this case: +X, -X, +Y, -Y, +Z, -Z. That is a 2D array texture. This is not a 3D texture, even though we have a 3rd
+dimension. These are separate textures, that can be simply sampled by a vector directly, due to the built in hardware support.
+Also do not confuse it with the UV map of a cube, shown before. That is a method for wrapping a single texture onto a cube,
+while a &ldquo;cubemap&rdquo; is a way of texturing each individual face of the cube with a separate texture.</p><p>Using the tool <a href=https://greggman.github.io/panorama-to-cubemap/>panorama-to-cubemap</a> we could turn our <strong>EXR</strong> equirectangular
+skymap texture into a cubemap:</p><figure><img src=/programming/voxon/part_2/sky_sdr_cubemap.png><figcaption><h4>Sky cubemap</h4></figcaption></figure><p>Notice that if you were to fold up the cube map, it would would look like and be oriented exactly the same as the cube in our
+scene. +Z facing the camera, +X going right and +Y up. The right-handed Y up coordinate system, with the standard camera direction
+looking down into the -Z direction.</p><figure><img src=/programming/voxon/part_2/skymap_as_cubemap.png><figcaption><h4>On the cube</h4></figcaption></figure><p>This could be our skybox looked at from the outside, but it is not. You would have to be an extremely vigilant reader to notice
+that the clouds don&rsquo;t appear in the order they should. The source of the confusion is orientation. The HDRI image we use as a skybox
+was taken as a sequence of pictures sampling the space <strong>around</strong> it. It was looking at the scene from the <em>inside outward</em>.
+The orientation of the cubemap textures expects <em>outside in</em> perspective. This will result in the inversion of the coordinate system.
+In our case we used a <strong>right handed Y up</strong> coordinate system for the world and we will need a <strong>left handed Y up</strong> coordinate system
+for sampling the cubemap.</p><figure><img src=/programming/voxon/part_2/skymap_as_cubemap_inverted_hand.png><figcaption><h4>Inverted handedness</h4></figcaption></figure><p>This may still be rather confusing to understand, unless you have very good spatial reasoning abilities. For one I do not, and
+was thinking of a way of trying to explain it properly why the inversion needs to happen, but alas, the problems true understanding is
+simply beyond me.</p><p>Looking at the skybox from the outside is nice and all, but what we really need is to ensure that it will be everywhere around us, always
+in the proper orientation.</p><p>The shader code for this is less than barely 50 lines of actual code: <a href=https://github.com/TheMrAI/engine/blob/v0.2/voxon/src/skybox.wgsl>skybox.wgsl</a>.
+What it does is very simple and beautiful. Firstly, it ensures that the skybox always appears behind everything.
+It does this by generating a triangle which completely covers the whole viewing area. This triangle is perpendicular to the viewing direction
+and is placed right at the farthest end of the normalized device coordinate space. In case of WebGPU, this will be at Z = 1.</p><p>Now it needs to sample the skybox in the appropriate orientation. From the previous step, we will have vectors <code>&lt;X, Y, 1></code> where both <code>X</code> and <code>Y</code>, can
+range between [-1.0, 1.0].
+If we create a <strong>view projection matrix</strong> that does not contain the translation of the camera, we will have a transformation that takes the world space,
+rotates it around the origo and then projects it, arriving in at the normalized device coordinates.
+What we want is to go into the opposite direction. We want to know that from our normalized device coordinates, in what direction each fragment would
+be in world space. This is simply the inverse of this modified <strong>view projection matrix</strong>. By applying it, normalizing the resulting vectors, we can now
+just simply sample the cubemap textures as before.</p><p>Then if we further restrict the draw call for the skybox to be the only call that can write to depth of one, there can never be anything that can appear behind
+the skybox. As everything else can only occupy depths of &lt;1.0.</p><p>It is truly amazing how much a little linear algebra can accomplish.</p><h2 id=engine-state>Engine state</h2><p>Putting all that behind us, we have arrived at the current engine state, achieving our goal for this iteration!</p><figure><img src=/programming/voxon/part_2/engine_state.png><figcaption><h4>Engine state</h4></figcaption></figure><p>If we compare it with the Godot based reference:</p><figure><img src=/programming/voxon/part_2/few_textures.png><figcaption><h4>Godot reference</h4></figcaption></figure><p>We can see that the two are nearly identical. There are three differences that stand out.
+Godot manages to have a better resolution for the cube texture, while also avoiding most
+noises from the texture atlas mipmap artifacts. Lastly there is some kind of &ldquo;fade out&rdquo;/&ldquo;red shifting&rdquo;
+effect for the plane texture in the Godot representation. The closer the horizon, the redder the plane
+texture seems. Not sure why this may be, maybe missed some flag or some such while writing the
+shader for Godot.</p><p>Code available at: <a href=https://github.com/TheMrAI/engine/tree/v0.2>v0.2</a> &lt;- I know, we jumped from v0.01 to v0.2, but
+it made more sense to do this correction now, so that part_1, part_2 .. part_x can nicely align with v0.x tags.</p><p>Reference implementation done in Godot: <a href=https://github.com/TheMrAI/voxon_reference/tree/v0.2>v0.2</a></p><h3 id=fps-counter>FPS counter</h3><p>In the previous chapter we had the following FPS metrics:</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 2743.96
+</span></span><span style=display:flex><span>1% low: 1985.52
+</span></span><span style=display:flex><span>0.1% low: 1391.16
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 11373.37
+</span></span><span style=display:flex><span>1% low: 8939.11
+</span></span><span style=display:flex><span>0.1% low: 8312.07
+</span></span></code></pre></div><p>Now we have:</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 2547.60
+</span></span><span style=display:flex><span>1% low: 1929.50
+</span></span><span style=display:flex><span>0.1% low: 1263.82
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 10790.21
+</span></span><span style=display:flex><span>1% low: 6418.93
+</span></span><span style=display:flex><span>0.1% low: 2536.53
+</span></span></code></pre></div><p>Of course the metrics fluctuate somewhat and the above measurements are just a single snapshot, we
+can see that about ~200 FPS was lost in develop and ~600 FPS in release build.</p><p>Not sure what the drop means, not sure the measurement is meaningful, none the less here it is.</p></article><footer><nav aria-label=breadcrumb><ul><li><a href=/>Home</a></li><li><a href=/programming>Programming</a></li><li><a href=/programming/voxon>Voxon</a></li><li><a href=/programming/voxon/part_2>Part 2</a></li></ul></nav></footer></main></body></html>
