@@ -458,6 +458,8 @@ effect for the plane texture in the Godot representation. The closer the horizon
 texture seems. Not sure why this may be, maybe missed some flag or some such while writing the
 shader for Godot.
 
+{{< youtube FUZN-NRPtgU >}}
+
 Code available at: [v0.2](https://github.com/TheMrAI/engine/tree/v0.2) <- I know, we jumped from v0.01 to v0.2, but
 it made more sense to do this correction now, so that part_1, part_2 .. part_x can nicely align with v0.x tags.
 
