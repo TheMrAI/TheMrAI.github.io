@@ -3,7 +3,7 @@ layout: page
 title: Make it prettier
 date: "2026-03-16"
 summary: "Rework the scene with simple textures"
-draft: true 
+draft: false
 ---
 
 In the previous post a lot of things have happened and went sideways, making
@@ -34,7 +34,7 @@ Before we had a light which produced a green .. err .. glow I suppose. Now, the 
 has been removed and a texture was added to the ground plane, the cube and the sky.
 The absence of shadows makes the image a bit unnerving, but this is all we will need.
 
-The only other thing we needed again was a simple Godot [spatial shader](https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/spatial_shader.html#doc-spatial-shader)
+The only other thing needed again was a simple Godot [spatial shader](https://docs.godotengine.org/en/stable/tutorials/shaders/shader_reference/spatial_shader.html#doc-spatial-shader)
 which circumvented basically all of Godot's shading and lightning system ensuring that the only thing
 used for "coloring" a pixel was just a texture.
 
@@ -84,10 +84,9 @@ The following posts were invaluable in understanding what the basic concepts wer
 - [WebGPU Textures](https://webgpufundamentals.org/webgpu/lessons/webgpu-textures.html)
 - [WebGPU Loading Images into Textures](https://webgpufundamentals.org/webgpu/lessons/webgpu-importing-textures.html)
 - [WebGPU Cubemaps](https://webgpufundamentals.org/webgpu/lessons/webgpu-cube-maps.html)
-- [iWebGPU Environment Maps](https://webgpufundamentals.org/webgpu/lessons/webgpu-environment-maps.html)
+- [WebGPU Environment Maps](https://webgpufundamentals.org/webgpu/lessons/webgpu-environment-maps.html)
 
-We will go through the same topics and concepts, but only limited to the extent that it was necessary for duplicating
-the target scene.
+We will walk the same road, but only focusing on higher level abstractions and understanding.
 
 ## The process
 
@@ -217,7 +216,7 @@ not be too big of an issue to add an alpha channel for every pixel with the maxi
 fully opaque. Another problem arises! **texture_01.png** does not store the pixels as RGB color values, it stores them in a format called [Indexed](https://www.w3.org/TR/2003/REC-PNG-20031110/#3Abbreviations).
 This simply means that somewhere within the png, a section called a **pallet** is allocated which stores all the distinct pixel colors within the image,
 and the pixels just index into this array.
-This still could have, been okay, still could have produced the appropriate format, but the data [png](https://docs.rs/png/0.18.1/png/index.html)
+This still could have been okay, still could have produced the appropriate format, but the data [png](https://docs.rs/png/0.18.1/png/index.html)
 provided for **texture_01.png** made no sense.
 
 ```text
@@ -242,7 +241,7 @@ that won't solve our problems either.
 {{< figure src="plane_textured_linear.png" title="Linear interpolation">}}
 
 As it can be seen the lines became smoother, but the texturing still falls apart completely after a certain distance from the camera.
-The issues is, as with many things in graphics, the discrepancy between the sampling frequency and the frequency of the data within the texture
+The issue is, as with many things in graphics, the discrepancy between the sampling frequency and the frequency of the data within the texture
 we are sampling. In our case the texture is mostly high frequency data, in layman terms lines or hard/crisp edges.
 The further away the texture, the more unlikely is, that our low frequency sampling will be able to gather the requisite information.
 The result is that seemingly randomly the lines in the texture disappear.
@@ -284,7 +283,7 @@ In practice this means that high frequency information slowly turns into low fre
 
 After a given distance, not the original texture is sampled, but the next mipmap level. This is blurrier, lower resolution, so the high frequency
 crisp white line is greyer and wider overall. In this example the line became much greyer (the effect is the result of the filtering used
-while downsampling, in this case a bilinear filter was used), and because the resolution is half of the original texture, each pixel takes up for times
+while downsampling, in this case a bilinear filter was used), and because the resolution is half of the original texture, each pixel takes up four times
 as much space in the UV coordinates. As a result the 2 pixel wide line is now 4 and the sampler manages to hit texels with the relevant information.
 
 {{< figure src="plane_textured_mipmap.png" title="Mipmapping">}}
@@ -296,7 +295,7 @@ Not ideal, but it is cheap to compute, and in practice it sells the illusion ver
 
 {{<figure src="cube_uv_map.png" title="Cube UV map">}}
 
-If you have heard about textures before you have probably heard about an UV maps/UV wrapping. Most likely you have seen one for a cube
+If you have heard about textures before you have probably heard about UV maps/UV wrapping. Most likely you have seen one for a cube
 already which looks like the one above. This UV map represents where the faces of the cube would be on the texture. Notice that this is a bit wasteful though
 as most of the texture space is not used for the cube. About half of the whole texture is wasted.
 
@@ -325,7 +324,7 @@ same behaviour.
 
 ## The Skybox
 
-First it is best to clean up some definitions. Especially if one is new to these technologies it is very confusing how they are mixed up left and right.
+First it is best to clean up some definitions. Especially if one is new to these technologies. It is very confusing how they are mixed up left and right.
 
 ### HDR, HDRI definitions
 
@@ -434,13 +433,13 @@ range between [-1.0, 1.0].
 If we create a **view projection matrix** that does not contain the translation of the camera, we will have a transformation that takes the world space,
 rotates it around the origo and then projects it, arriving in at the normalized device coordinates.
 What we want is to go into the opposite direction. We want to know that from our normalized device coordinates, in what direction each fragment would
-be in world space. This is simply the inverse of the **view projection matrix**. By applying it, normalizing the resulting vectors, we can now
+be in world space. This is simply the inverse of this modified **view projection matrix**. By applying it, normalizing the resulting vectors, we can now
 just simply sample the cubemap textures as before.
 
 Then if we further restrict the draw call for the skybox to be the only call that can write to depth of one, there can never be anything that can appear behind
 the skybox. As everything else can only occupy depths of <1.0.
 
-It is truly amazing how much linear algebra can accomplish.
+It is truly amazing how much a little linear algebra can accomplish.
 
 ## Engine state
 
@@ -448,11 +447,11 @@ Putting all that behind us, we have arrived at the current engine state, achievi
 
 {{< figure src="engine_state.png" title="Engine state" >}}
 
-If we compare it with the Godot based reference
+If we compare it with the Godot based reference:
 
 {{< figure src="few_textures.png" title="Godot reference" >}}
 
-we can see that the two are nearly identical. There are three differences that stand out.
+We can see that the two are nearly identical. There are three differences that stand out.
 Godot manages to have a better resolution for the cube texture, while also avoiding most
 noises from the texture atlas mipmap artifacts. Lastly there is some kind of "fade out"/"red shifting"
 effect for the plane texture in the Godot representation. The closer the horizon, the redder the plane
@@ -462,7 +461,7 @@ shader for Godot.
 Code available at: [v0.2](https://github.com/TheMrAI/engine/tree/v0.2) <- I know, we jumped from v0.01 to v0.2, but
 it made more sense to do this correction now, so that part_1, part_2 .. part_x can nicely align with v0.x tags.
 
-
+Reference implementation done in Godot: [v0.2](https://github.com/TheMrAI/voxon_reference/tree/v0.2)
 
 ### FPS counter
 
