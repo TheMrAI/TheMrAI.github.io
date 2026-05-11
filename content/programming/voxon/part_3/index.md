@@ -159,23 +159,86 @@ Components:
 - 's' smoothing group (we can ignore this)
 
 That is all. First all the data is specified and put into their respective buffers, then the faces index these buffers using the format **vertex index/uv coordinate index/normal index**.
-For some reason the indexes are counted from 1 instead of 0, but apart from that this is it. (We ignore here of course that some vectors have optional components, that faces don't have
-to specify only the position, etc..)
+For some reason the indexes are counted from 1 instead of 0, but apart from that, this is it. (We ignore here of course that some vectors have optional components, that faces don't have
+to specify everything only the position, that you can use negative indexes, that it isn't strictly specified that every vertex has to be defined at the beginning etc..)
 
 When we implement the parser and import **Suzanne**, we get this
 
-{{<figure src="suzanne_first_import.png">}}
+{{<figure src="suzanne_first_import.png" title="Suzanne">}}
 
-What we see is **Suzanne** textured as the plane. This is not what we want but it is good demonstrating another problem. That of complexity. To render the plane, we needed
-buffers to write the vertex positions/normals/texture coordinates into. Another buffer to index this buffer. A texture, that we had to mipmap, for which we had to allocate
+What we see is **Suzanne** textured as the plane. This is not what we want but it is good demonstration of another problem. That of complexity. To render the plane, we needed
+buffers to write the vertex positions/normals/texture coordinates into. Another buffer to index these buffers. A texture, that we had to mipmap, for which we had to allocate
 another buffer. Then to access that texture we needed a sampler. A similar problem for rendering the cube, which also uses a different kind of texturing pattern.
 The skybox is completely different as well. Now we want to render without textures by using some simple shaders instead. Managing all this is rather difficult. More difficult
-it will get still, when later on we want to actually add materials, lights, shadows etc.. Based on the combinations of the required features for rendering a given object
+it will get still when later on we want to actually add materials, lights, shadows etc.. Based on the combinations of the required features for rendering a given object
 different pipelines, shaders and configurations must be set up.
+
 In some engines this means that they have billions of shader pipelines. All tailored for a given permutation of features. In others they have a few "ubershaders" which handle
 most of the possible configurations. In the earlier days the first approach was more prevalent, because the GPU was a very limited resource, it didn't like branches too much and the
 register pressure was too high. To squeeze out all the performance it was more economical to generate custom setups for each task (the graphics weren't on today's complexity we might add).
 This way one could avoid writing branches, as it was known exactly what will happen, before the code was even written.
-Since then the GPUs have evolved a bit and are much better at branching. The graphics pipelines also got much more complex, to the point that the aformentioned possibly billions of
-combinations are more of a detriment than a handy optimization. With so many possibilities and switching between different executions it is extremely difficult if not completely
-impossible to retain any type of cache coherency. When that is gone, performance can drop thousand folds. Hence ubershaders were born.
+Since then the GPUs have evolved a bit and are much better at branching. The graphics pipelines also got much more complex, to the point that the aforementioned possibly billions of
+combinations are more of a detriment than a handy optimization. With so many possibilities and switching between different executions it is extremely difficult to retain any decent
+cache coherency. This is truly a huge engineering problem and it is already causing problems for me. Never the less we must soldier on for a good while longer, while incrementally
+refactoring sections if they become very troublesome.
+
+### Implementing the "normal debug" shader precursor
+
+After refactoring the main scene, separating out the plane and cube as the textured objects and building out a whole new pipeline for the "debug shader", finally Suzanne should
+be shaded properly!
+
+{{< youtube fZZsfGmxSR0 >}}
+
+Oh no, that isn't quite right. When the camera orbits Suzanne blue sections turn green and green sections turn blue. How can this be? Deliberately restricted the implementation of
+the shader, to always produce the same result regardless of the cameras or the objects orientation.
+
+Here are the relevant parts of the shader:
+
+```wgsl
+const world_light_direction = normalize(vec3(1.0, -1.0, -1.0));
+
+@vertex
+fn vs_main(vertex: Vertex) -> VSOutput {
+    var vsOut: VSOutput;
+
+    // Compute the vertex position in device coordinates
+    vsOut.position = global.view_projection * entity.world * vertex.position;
+
+    // Orient the normals in world space
+    vsOut.normal = entity.normal * vertex.normal;
+    vsOut.light_direction = normalize((global.view * vec4f(world_light_direction, 0.0)).xyz);
+    // the returned vector will automatically be normalized using w
+    // [x,y,z,w] => [x/w, y/w, z/w, 1]
+    return vsOut;
+}
+
+@fragment
+fn fs_main(vsOut: VSOutput) -> @location(0) vec4<f32> {
+    // All inter-stage variables get interpolated, so they
+    // have to be renormalized if necessary.
+    let normal = normalize(vsOut.normal);
+    let light_direction = vsOut.light_direction;
+
+    let similarity = (dot(-light_direction, normal) + 1.0) / 2.0;
+
+    return vec4(mix(vec3f(0.0, 1.0, 0.0), vec3f(0.0, 0.0, 1.0), similarity), 1.0);
+}
+```
+
+We can see that it is nearly exactly the same as the Godot reference implementation. A few minor differences are observable, for example
+here a "view_projection * world" matrix is used and in Godot a "projection * modelview" combination. These are the exact same thing and will result
+in the combined "model view projection" matrix. So the code is the same, yet still behaves differently.
+Hmm, what can it be. After some experimentation it turned out that if the "light_direction" is simply set as the "world_light_direction", without
+any transformations, the result will stabilize and appear as expected. Curious, curious, because that light was defined to be in "world space",
+so it must be transformed by the "View" matrix. The transformation must be applied to it, otherwise it would not be oriented in the appropriate direction.
+This can be confirmed, by disabling the transformation in the Godot reference. What we will see will be the exact same issue we observe here.
+By the movement of the camera the shader output changes.
+So in Godot, the transformation is necessary, while for us it is actively causing the issue? Marvelous.
+Maybe there is a bug in the "normal matrix"? How could there be? In [Part 1](../part_1), the normal matrix already functioned
+correctly with the camera orbiting around the object. But something is clearly not rotating when it should and bamm it hit me!
+In my normal matrix does not contain the "view matrix", so it does not correct for the movement of the camera!
+If we look at the Godot version, the matrix is called `MODELVIEW_NORMAL_MATRIX`. It contains the "model" and the "view" transformations!
+Mine only contained the "model"! After fixing the issue the shader behaves as expected.
+
+Okay, but then why was it working in [Part 1](../part_1)? Very simple, there the light, camera, vertex positions and the respective directions were
+all calculated in "world" space (just the "model" matrix was applied). In this shader they were calculated in "model view" space.
