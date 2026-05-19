@@ -242,3 +242,103 @@ Mine only contained the "model"! After fixing the issue the shader behaves as ex
 
 Okay, but then why was it working in [Part 1](../part_1)? Very simple, there the light, camera, vertex positions and the respective directions were
 all calculated in "world" space (just the "model" matrix was applied). In this shader they were calculated in "model view" space.
+
+## All objects ready, now course correcting
+
+{{< figure src="scene.png" title="Imported objects">}}
+
+All the target objects are imported and look as expected. After the **display transfer function** the colors too appear the same.
+
+{{< figure src="voxon_vs_godot.png" title="Voxon vs Godot">}}
+
+Let us see what happened with the framerates after adding this circa million polygons to the scene. As a reminder previously
+
+`develop` build
+```text
+Avg. FPS: 2547.60
+1% low: 1929.50
+0.1% low: 1263.82
+```
+
+`release` build
+```text
+Avg. FPS: 10790.21
+1% low: 6418.93
+0.1% low: 2536.53
+```
+
+and now
+
+`develop` build
+```text
+Avg. FPS: 1949.03
+1% low: 1849.82
+0.1% low: 1816.83
+```
+
+`release` build
+```text
+Avg. FPS: 4476.02
+1% low: 1883.10
+0.1% low: 1414.46
+```
+
+That is a rather big hit. In the `debug` build we have lost about **~600** frames per average, in the `release`
+almost **~6000**. Nearly half the frames are gone with the wind after adding only this many polygons. To be honest,
+not sure how many are too many, but nowadays a million, especially on the GPU sounds like an afterthought.
+This should be investigated a bit further, before additional complications are added to the engine. For once, the code wasn't
+kept too clean, secondly there are a few optimization ideas that should be put to the test.
+Thus, instead of adding a wireframe rendering option, first we will break the engine and see how we can fix it.
+
+## To the limits
+
+Currently the code was written in the simplest copy/paste way possible. Completely disregarding any performance considerations.
+Every mesh
+
+Now that we have some meshes, which we can duplicate and position as required, the easiest way to increase the load on the GPU
+is to just simply render more meshes. By adding the same mesh over and over, using the same shader a specific setup is reached.
+One where most objects in the scene use the same mesh and the same shader. Which means that two optimization strategies can be
+tested one after another.
+
+Adding the smooth shaded utah teapot with about 7k polygons, **16x16x16 = 4096** times, using up about **28'672'000** polygons, we still
+hover around **90 FPS** on average in `release` build.
+
+```text
+Avg. FPS: 89.07
+1% low: 38.90
+0.1% low: 35.40
+```
+
+{{< figure src="utah_cube.png" title="Utah cube" >}}
+
+In fact adding more of them after about 16x16x8 didn't seem to affect the FPS any more, even though we have no LOD or any type of
+optimization on our side to speak off.
+Maybe the vertex concentration is simply not high enough?
+
+Replacing with the teapot cube with the smooth shaded stanford dragon using 700k polygons in a **5*5*3 = 75** pattern, using up
+**52'500'000** polygons seems to do the trick. Now in release build we still get about a 100 FPS on average but the 1% lows, especially
+the 0.1% lows start to tank.
+
+```text
+Avg. FPS: 113.56
+1% low: 27.00
+0.1% low: 7.55
+```
+
+{{< figure src="dragon_cubish.png" title="Dragon cubelike">}}
+
+This is getting noticeably choppier. More over, adding just one more layer on the `Y` axis makes it completely unusable.
+A good candidate for observing how basic code restructuring and optimizations may affect performance.
+
+At the moment every single object has it's own mesh instance in memory, its own buffers allocated on the GPU.
+Within each render pipeline, there is a draw call for each individual object.
+
+The stanford dragon is a very good example for the potential costs. Each 700k polygon stanford dragon uses up about
+**66'844'704 bytes** of memory. Having 75 instances of them totals in **5'013'352'800 bytes** or **5 GB** of VRAM used.
+CPU utilization barely reaches 1% which is a bit surprising, because every render cycle all objects get their
+transform matrices recalculated and we have 87 objects to render. Admittedly, not that many, but still with a full
+running operating system and calculating multiple matrix multiplications for 87 objects, even at 4000 times a second
+barely registers a 2 % load.
+On the other hand GPU utilization is obviously at 100% all the times. We render as many frames as it is willing, and
+as we see it, the CPU is not the bottleneck, so at least in this examination, just focusing on our handy dandy
+framerate calculator we can observe how helpful each optimization is.
