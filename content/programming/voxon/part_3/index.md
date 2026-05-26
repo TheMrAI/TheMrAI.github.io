@@ -300,7 +300,7 @@ is to just simply render more meshes. By adding the same mesh over and over, usi
 One where most objects in the scene use the same mesh and the same shader. Which means that two optimization strategies can be
 tested one after another.
 
-Adding the smooth shaded utah teapot with about 7k polygons, **16x16x16 = 4096** times, using up about **28'672'000** polygons, we still
+Adding the smooth shaded utah teapot with about 7k polygons, **`16x16x16` = 4096** times, using up about **28'672'000** polygons, we still
 hover around **90 FPS** on average in `release` build.
 
 ```text
@@ -311,11 +311,11 @@ Avg. FPS: 89.07
 
 {{< figure src="utah_cube.png" title="Utah cube" >}}
 
-In fact adding more of them after about 16x16x8 didn't seem to affect the FPS any more, even though we have no LOD or any type of
+In fact adding more of them after about `16x16x8` didn't seem to affect the FPS any more, even though we have no LOD or any type of
 optimization on our side to speak off.
 Maybe the vertex concentration is simply not high enough?
 
-Replacing with the teapot cube with the smooth shaded stanford dragon using 700k polygons in a **5*5*3 = 75** pattern, using up
+Replacing with the teapot cube with the smooth shaded stanford dragon using 700k polygons in a **`5*5*3` = 75** pattern, using up
 **52'500'000** polygons seems to do the trick. Now in release build we still get about a 100 FPS on average but the 1% lows, especially
 the 0.1% lows start to tank.
 
@@ -337,8 +337,125 @@ The stanford dragon is a very good example for the potential costs. Each 700k po
 **66'844'704 bytes** of memory. Having 75 instances of them totals in **5'013'352'800 bytes** or **5 GB** of VRAM used.
 CPU utilization barely reaches 1% which is a bit surprising, because every render cycle all objects get their
 transform matrices recalculated and we have 87 objects to render. Admittedly, not that many, but still with a full
-running operating system and calculating multiple matrix multiplications for 87 objects, even at 4000 times a second
+running operating system and calculating multiple 4x4 matrix multiplications for 87 objects, even at 4000 times a second
 barely registers a 2 % load.
 On the other hand GPU utilization is obviously at 100% all the times. We render as many frames as it is willing, and
 as we see it, the CPU is not the bottleneck, so at least in this examination, just focusing on our handy dandy
 framerate calculator we can observe how helpful each optimization is.
+
+The first thing we can do is instancing. This is where we tell the GPU to draw.... TODO
+
+After replacing all 700k polygon stanford dragons in the scene with instanced rendering we get the following:
+
+`debug`
+```text
+Avg. FPS: 211.86
+1% low: 89.69
+0.1% low: 70.92
+```
+
+`release`
+```text
+Avg. FPS: 211.86
+1% low: 89.69
+0.1% low: 70.92
+```
+
+VRAM usage is substantially reduced, and performance became much more stable. Average FPS is good to be high, but more
+important is that 1% and 0.1% lows don't drop now below 60. That means no hitching at all.
+
+On the other hand if we simply replace all 700k poly stanford dragons with the 17k version ones we would get:
+
+`debug`
+```text
+Avg. FPS: 1262.98
+1% low: 1214.46
+0.1% low: 1202.26
+```
+
+`relese`
+```text
+Avg. FPS: 5417.23
+1% low: 1818.27
+0.1% low: 1775.12
+```
+
+Replacing **52'500'000** polygons by only **75 * 17'000 =  1'250'000**, a 42x reduction,
+resulted in a worst case performance gain of 25x.
+
+Just out of curiosity how does Godot perform? Using Vulkan 1.4.335, without the 75 extra dragons
+the editor reports **~2000 FPS**. If all 75 dragons are present it still manages to crank out **~670 FPS**. If on the
+other hand we completely turn of **Mesh LOD** optimization, the framerate drops to about **125** FPS.
+Now this is a much fairer comparison to **Voxon**, as we don't have Mesh LOD at all.
+When the project is built, with all its optimizations in debug/release it will run at about **2200/2600 FPS**.
+Pretty impressive to be honest. Didn't expect it to be so performant.
+
+The lesson seems to be very simple. More draw calls is bad. More polygons, even worse.
+
+## Wireframes
+
+Rendering a wireframe representation of a given mesh is both simple and not.
+
+### Using barycentric coordinates
+
+Firstly we could do it using [barycentric coordinates](https://en.wikipedia.org/wiki/Barycentric_coordinate_system).
+This would lead to a very simple implementation where the `vertex shader` generates a vector for each vertex based on its index.
+This vector, the barycentric coordinate will be calculated like so:
+
+```
+vsOut.barycentric_coordinate = vec3f(0);
+vsOut.barycentric_coordinate[vertex.vertex_index % 3] = 1.0;
+```
+
+In other words each vertex will become one of `<1.0, 0.0, 0.0>, <0.0, 1.0, 0.0>, <0.0, 0.0, 1.0>`, which is analogous to the
+unit weights assigned to each vertex in the barycentric coordinate system. Then due to the linear interpolation, by the
+pixel/fragment shader stage we would have the actual barycentric coordinate calculated for each fragment for basically free.
+Then finally we could pick the smallest weight (the smallest distance to an edge), check if it is above or below a threshold
+and set the transparency of the fragment to 0.0 or 1.0. Above the threshold it should be fully transparent, below, fully opaque.
+
+{{< figure src="barycentric_wireframe_no_culling.png" title="Barycentric wireframe">}}
+
+There is a problem though. Chiefly that we can't define the width of the lines in pixels or meters. Nor are they of the same
+width using the same threshold value, in this case 0.03.
+To see a bit easier, the same wireframe, but only the front faces are visible:
+
+{{< figure src="barycentric_wireframe_culled.png" title="Front faces Barycentric wireframe">}}
+
+Take a look at triangle `A` and `B`. Observe that `A` has wider lines than `B`. The reason is simple. Barycentric coordinates
+don't take account for the size of the triangle in screen space. Thus a triangle that takes up more screen space will have
+proportionally wider lines than a smaller one. The effect is initially subtle, but becomes rather annoying after observing it.
+
+There are sources out there where they apply additional transformations to the barycentric coordinates within the fragment shader and
+calculate a so called edge factor:
+
+```text
+fn edge_factor(barycentric_coordinate: vec3f) -> f32 {
+    let d = fwidth(barycentric_coordinate);
+    let aliased = smoothstep(vec3f(0.0), d * line_width, barycentric_coordinate);
+    return min(min(aliased.x, aliased.y), aliased.z);
+}
+```
+
+First of all what are we doing?
+[fwidth](https://webgpufundamentals.org/webgpu/lessons/webgpu-wgsl-function-reference.html#func-fwidth) will calculate the partial derivative 
+of the vertex coordinates in regards to the x and y window coordinates. Quite frankly, not sure what that exactly means and there
+is precious little documentation about it. The [smoothstep](https://webgpufundamentals.org/webgpu/lessons/webgpu-wgsl-function-reference.html#func-smoothstep)
+is simply interpolates between two values in a [non-linear fashion](https://en.wikipedia.org/wiki/Smoothstep). This in practice means
+that there won't be a hard transition between the two values, but a soft one, in other words, antialiasing is applied.
+Last line is just as before, get the closest edge 'distance'.
+This doesn't work either. It alleviates the scaling problem to some extent but it doesn't solve it. Why?
+We are still working within a barycentric system which is disconnected from the screen space. `line_width` is in incomprehensible units, because
+all the other values are in incomprehensible units as well. To demonstrate why this version doesn't work either, here is a comparison between it
+and how the same scene would look in Godot.
+
+{{< figure src="fwidth_bary_comparison.png" title="Wireframe comparison" >}}
+
+On the left our implementation using `edge_factor` to generate antialiased wireframe lines, on the left Godot.
+Notice how in Godot, every line is exactly one pixel wide, regardless it's distance from the camera. While on the left lines even
+close to the camera have differing widths, which is not just the result of the antialiasing step. Worse, lines further away will appear
+even wider. The effect is even more jarring if we navigate the 3D space.
+
+A better approach is needed. One where line widths can be set according to some human compatible metric and aren't affected
+by the size of each triangle or by projection.
+
+### Calculating distance to nearest edge
