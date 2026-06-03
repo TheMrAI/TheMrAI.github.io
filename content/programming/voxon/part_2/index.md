@@ -60,6 +60,9 @@ void fragment() {
 The only "hack" that needed to be added was forcing the sRGB color space. Not entirely sure what that piece of code does, less so why, but seems to produce
 the expected result. Without it, the textures will not appear as they should and would have this washed out appearance to them.
 
+> Note that this little "hack" has been resolved since [Part 3](../part_3). In short the hack is incorrect, but you can ignore it for this
+post.
+
 {{<figure src="few_textures_without_srgb.png" title="Without forced sRGB">}}
 
 This way, hopefully, we can relatively easily reproduce the results.

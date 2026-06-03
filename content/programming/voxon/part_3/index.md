@@ -4,7 +4,7 @@ title: Import them meshes
 date: "2026-04-23"
 summary: "Import meshes using the Wavefront (.obj) format, add option for rendering wireframes and breaking the engine
 by creating too much geometry."
-draft:  true
+draft:  false
 ---
 
 While one can theoretically construct some assets within a game engine itself, apart from the simplest cases
@@ -61,10 +61,11 @@ The teapot is the [2025 - Cem Yuksel](https://graphics.cs.utah.edu/teapot/) vers
 for or another since 1975. The dragon is a 3D scan from the [The Stanford 3D Scanning Repository](https://graphics.stanford.edu/data/3Dscanrep/).
 
 Each mesh is imported multiple times for demonstrating the difference between low/high triangle counts and flat/smooth shading.
+
 Looking down the center and going right:
-Suzanne: flat shading 967 triangles, smooth shading 967 triangles
-Teapot: flat shading 7k triangles, smooth shading 7k triangles, flat shading 116k triangles
-Dragon: flat shading 17k triangles, smooth shading 17k triangles, smooth shading 700k triangles
+- Suzanne: flat shading 967 triangles, smooth shading 967 triangles
+- Teapot: flat shading 7k triangles, smooth shading 7k triangles, flat shading 116k triangles
+- Dragon: flat shading 17k triangles, smooth shading 17k triangles, smooth shading 700k triangles
 
 Additionally Suzanne is included twice more to the left with various normals flipped on the mesh for introducing artifacts as well. Both of these
 models have 967 triangles, one is smooth the other flat shaded. These erroneous normals make them appear incorrect in the reference scene.
@@ -156,6 +157,7 @@ When a texture sampler is constructed, by default it also expects the textures t
 won't apply any transformations to it.
 
 The expected pipeline would have been: `read linear texel data -> calculate color with linear values -> apply sRGB transfer function (Godot)`
+
 What we did: `read sRGB texel data -> calculate color values with sRGB values -> apply the inverse sRGB transfer function -> apply the sRGB transfer function (Godot)`
 
 The last step in both cases is done by Godot automatically. This is why the misused and misnamed function call seemed to solve the problem. The result
@@ -419,7 +421,7 @@ Avg. FPS: 211.86
 VRAM usage is substantially reduced (5 Gb -> ~6 MB) and performance became much more stable. Average FPS is good to be high, but more
 important is that 1% and 0.1% lows don't drop now below 60. That means no hitching at all. Keep in mind, only the number of draw calls
 changed.
-The same number of polygons, the same shaders, but the code was structured in such a way that the GPU had to be asked only once to
+The same number of polygons, the same shaders, just the code was structured in such a way that the GPU had to be asked only once to
 draw the all 75 dragons. Already a massive improvement.
 
 If we also replace all 700k poly stanford dragons with the lower resolution 17k polygon version, we would get:
@@ -444,7 +446,7 @@ The performance gains can be enormous, without much degradation in detail.
 
 Just out of curiosity how does Godot perform? Using Vulkan 1.4.335, without the 75 extra dragons
 the editor reports **~2000 FPS**. If all 75 dragons are present it still manages to crank out **~670 FPS**. If on the
-other hand if we completely turn of **Mesh LOD** optimization, the framerate drops to about **125** FPS.
+other hand we completely turn of **Mesh LOD** optimization, the framerate drops to about **125** FPS.
 Now this is a much fairer comparison to **Voxon**, as we don't have Mesh LOD at all.
 When the project is built, with all its optimizations in debug/release it will run at about **2200/2600 FPS**.
 Pretty impressive to be honest. Didn't expect it to be so performant.
@@ -642,6 +644,12 @@ The only difference is that in Godot the camera is pitched **-45** degrees, whil
 difference is necessary and we can see the setup between the two is not exactly the same, but this was the closest I could get them.
 At -45 degrees with Voxon, the line of dradons in the back would barely be in view.
 
+{{< youtube 4sut_liiQRo >}}
+
+Code available at: [v0.3](https://github.com/TheMrAI/engine/releases/tag/v0.3)
+
+Reference implementation done in Godot: [v0.3](https://github.com/TheMrAI/voxon_reference/releases/tag/v0.3)
+
 ### FPS counter
 
 In the previous chapter we had the following FPS metrics:
@@ -676,4 +684,5 @@ Avg. FPS: 4728.06
 0.1% low: 1539.11
 ```
 
-Even only a million polygons is decent hit to performance.
+Even only a million polygons is a decent hit to performance. In the next chapter we will refactor the structures substantially,
+which is likely to provide us with even **mooarrr** performance!
