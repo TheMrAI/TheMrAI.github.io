@@ -1,0 +1,375 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Import them meshes &#9775; MrAI</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Import meshes using the Wavefront (.obj) format, add option for rendering wireframes and breaking the engine by creating too much geometry."><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"]]},loader:{load:["ui/safe"]}}</script><link rel="shortcut icon" href=https://themrai.github.io/favicon.png type=image/x-icon><link rel=stylesheet href=https://themrai.github.io/pico/css/pico.min.css></head><body class=body><main class=container><nav><ul><li><a href=/>MrAI</a></li></ul><ul><li><a href=/contemplation/>Contemplation</a></li><li><a href=/programming/>Programming</a></li><li><a href=/tinkering/>Tinkering</a></li></ul></nav><article><p>While one can theoretically construct some assets within a game engine itself, apart from the simplest cases
+this is wildly impractical. Managing the additional UV maps, normal maps, texture generation, not to mention
+any animation is just a set of problems that need to be solved. Putting the mesh itself together alone is a complex
+enough problem that whole software families have been written around it.
+It suffices to say, there should be no good reason for adding direct support for these within the engine itself.
+Simply use existing tools, generate some supported formats and import them into the engine and our problems are solved.</p><p>Now what should we support? Ideally something that can handle everything. For reference, what types of
+<a href=https://docs.blender.org/manual/en/latest/files/import_export/index.html>Imports & Exports</a>
+does <a href=https://docs.blender.org/manual/en/latest/index.html>Blender</a> support?</p><ul><li>Alembic - (Open source) Animated meshes stored with baked geometric results. It does not store any rigs or physics related data for
+reproducing the animation, only the resulting animation itself.</li><li>BVH - BioVision Motion Capture data. Hierarchical data and its animation.</li><li>Universal Scene Descriptor - <a href=https://openusd.org/release/index.html>USD</a> is for storing whole hierarchical scenes containing
+cameras, meshes, lights, materials, etc..</li><li>Stanford PLY - <a href=https://paulbourke.net/dataformats/ply/>PLY</a> can store mesh data, some color properties, but does not store any
+transformation or scene related hierarchical data.</li><li>STL - <a href=https://en.wikipedia.org/wiki/STL_(file_format)>STL</a> only seems to contain, triangulated mesh data. No color, no materials,
+just the triangles and their normal.</li><li>FBX - <a href=https://www.autodesk.com/products/fbx/overview>FBX</a> is an Autodesk format that handles complex scene data, with animations.</li><li>glTF - <a href=https://www.khronos.org/gltf/>glTF</a> is a Royalty-free specification by Khronos) for storing meshes, materials, cameras, textures, animations.</li><li>Wavefront - <a href=https://paulbourke.net/dataformats/obj/>Wavefront OBJ</a> files are for storing basic geometric data and basic material properties.</li></ul><p>And surely there are many more formats out there in the wild, but for now this list is detailed enough. As a start, something simple should be
+supported, without any complex machinery like scenes and animation. That narrows it down to PLY, STL and Wavefront OBJ.
+PLY and STL seem to be a bit restrictive. PLY can only contain exactly one object, and STL can only contain mesh data.
+Wavefront OBJ seems to be the winner. It has a decent specification thanks to <a href=https://paulbourke.net/dataformats/obj/>Paul Bourke</a> it is simple,
+supports more then the other two and can also handles basic material properties with the additional <code>.mtl</code> files.</p><p>With all those decisions out of the way, lets see our reference scene.</p><h2 id=the-monkey-dragon-and-the-teapot-walk-into-a-bar>The monkey, dragon and the teapot (walk into a bar)</h2><p>The scene targeted for this chapter</p><figure><img src=/programming/voxon/part_3/reference_scene.png><figcaption><h4>Reference scene</h4></figcaption></figure><p>and rendered using wireframes</p><figure><img src=/programming/voxon/part_3/reference_scene_wireframe.png><figcaption><h4>Wireframe reference scene</h4></figcaption></figure><p>It should be noted that our wireframe scene will be different from the one in Godot. Simply because we will
+not implement any sort of LOD (level of detail) optimization for the meshes. This is a similar idea to mipmaps. The further something
+is, the crappier it can look and nobody will notice it while performance can increase drastically.
+Godot internally generates the different levels of detail from a single mesh as it is being imported. These types of algorithms are not
+in the scope of this post. Like scene handling, and editor gizmos, we will handle these when they become a necessity.
+For this simple scene they shouldn&rsquo;t be, even though collectively this will be about a million triangles on the screen.</p><p>The three models on display are somewhat legendary in the graphics community. Suzanne is the monkey, built into <a href=https://www.blender.org/>Blender</a>.
+The teapot is the <a href=https://graphics.cs.utah.edu/teapot/>2025 - Cem Yuksel</a> version of the Utah Teapot, which has been around in some
+for or another since 1975. The dragon is a 3D scan from the <a href=https://graphics.stanford.edu/data/3Dscanrep/>The Stanford 3D Scanning Repository</a>.</p><p>Each mesh is imported multiple times for demonstrating the difference between low/high triangle counts and flat/smooth shading.</p><p>Looking down the center and going right:</p><ul><li>Suzanne: flat shading 967 triangles, smooth shading 967 triangles</li><li>Teapot: flat shading 7k triangles, smooth shading 7k triangles, flat shading 116k triangles</li><li>Dragon: flat shading 17k triangles, smooth shading 17k triangles, smooth shading 700k triangles</li></ul><p>Additionally Suzanne is included twice more to the left with various normals flipped on the mesh for introducing artifacts as well. Both of these
+models have 967 triangles, one is smooth the other flat shaded. These erroneous normals make them appear incorrect in the reference scene.
+Engines &ldquo;cull&rdquo; (discards) all triangles from rendering that are not visible from their front. A triangle is considered to be viewed
+from the front if their normals are pointing towards the camera.</p><h3 id=precursor-to-a-debug-shader>Precursor to a debug shader</h3><p>As the feature set of the engine grows, it is increasingly more important to have sufficient debugging capabilities. One of them is
+a simple shader that can color the object based on its normals orientation. How this should work, and not be entirely boring or annoying to
+look at is unclear. In Blender and Godot they simply shade the front face of the triangle gray and the backface a darker gray
+(while also providing a myriad of other debug shader options as well). To me this doesn&rsquo;t necessarily highlight any potential issues well enough.
+What would be ideal is to color each triangle with some pleasing tones, that are simple enough to read, but aren&rsquo;t annoying. Furthermore
+we should be able to tell for each face if all its normals are pointing in the same way or not, by highlighting this difference.
+The human perception is most reactive to the red, green and blue color triplet. Red is a bit too harsh, so blue and green will be the base colors.
+Red will be mixed in to highlight other inconsistencies.
+Lastly the shader should track the camera and the angle it is looking at the object and shade appropriately. Hopefully this will lead to some,
+relatively pleasing results that also highlight any errors with the meshes.</p><p>As a first step though, we will do something simpler. Put a simple directional light in world space. Color the faces bluer the closer their normals
+align with the inverse of the light direction, and bluer otherwise.
+This way as a start we don&rsquo;t have to track the camera, the &ldquo;light&rdquo; always stays in the same place allowing us to observe the coloring scheme from all
+angles. In the next chapter then we can finish the desired implementation.</p><pre tabindex=0><code class=language-gdshader data-lang=gdshader>shader_type spatial;
+
+// turn on wireframe by adding &#34;wireframe&#34;
+render_mode unshaded, skip_vertex_transform, wireframe;
+
+const vec3 world_light_direction = normalize(vec3(1.0, -1.0, -1.0));
+
+vec3 srgb_to_linear(vec3 srgb_color) {
+	vec3 above = pow((srgb_color + vec3(0.055)) / vec3(1.055), vec3(2.4));
+	vec3 below = srgb_color / vec3(12.92);
+	return mix(above, below, lessThanEqual(srgb_color, vec3(0.04045)));
+}
+
+vec3 linear_to_srgb(vec3 linear_color) {
+	vec3 above = (vec3(1.055) * pow(linear_color, vec3(1.0 / 2.4))) - vec3(0.055);
+	vec3 below = vec3(12.92) * linear_color;
+	return mix(above, below, lessThanEqual(linear_color, vec3(0.0031308)));
+}
+
+// flat means not to interpolate the value for the fragment shader
+varying flat vec3 light_direction;
+
+void vertex() {
+	vec4 model_vertex_position = vec4(VERTEX, 1.0);
+	NORMAL = MODELVIEW_NORMAL_MATRIX * NORMAL;
+	VERTEX = (PROJECTION_MATRIX * MODELVIEW_MATRIX * model_vertex_position).xyz;
+	// skip_vertex_transform disables Model and View transformations for a vertex, but
+	// by setting POSITION ourselves even projection is disabled.
+	// This is not necessary, but as a learning experience it is helpful to see the whole transformation
+	// pipeline applied to each vertex, without it being obfuscated by some internal behavior.
+	POSITION = PROJECTION_MATRIX * MODELVIEW_MATRIX * model_vertex_position;
+	// The light direction only needs to transformed by the View matrix and since it it only a direction
+	// only rotation is applied to it.
+	light_direction = normalize((VIEW_MATRIX * vec4(world_light_direction, 0.0)).xyz);
+}
+
+void fragment() {
+	vec3 normal = normalize(NORMAL);
+	
+	float similarity = (dot(-light_direction, normal) + 1.0) / 2.0;
+	vec3 color = mix(vec3(0.0, 1.0, 0.0), vec3(0.0, 0.0, 1.0), similarity);
+	// We are using linear values to define the green and blue colors and Godot
+	// renders using linear color space, so no transformation is needed.
+	ALBEDO = color;
+	// In case you would like to experiment with incorrect values.
+	//ALBEDO = linear_to_srgb(color);
+	//ALBEDO = srgb_to_linear(color);
+}
+</code></pre><p>Before we continue a little sidestep.</p><h4 id=linear-vs-srgb-color-space>Linear vs sRGB color space</h4><p>In the previous chapter we encountered that the textures just didn&rsquo;t seem to have the same color/saturation/brightness in Voxon as they did in Godot.
+To mitigate this we used a conversion function:</p><pre tabindex=0><code class=language-gdshader data-lang=gdshader>// force SRGB color &lt;- by the way this was incorrect too. This is converting from sRGB to linear color space.
+	ALBEDO = mix(pow((sample + vec3(0.055)) * (1.0 / (1.0 + 0.055)), vec3(2.4)), sample * (1.0 / 12.92), lessThan(sample,vec3(0.04045)));
+</code></pre><p>The issue was that Godot expects shaders to calculate within the linear color space. Then it will apply the necessary transfer functions (in this case sRGB)
+before rendering the final image.
+When a texture sampler is constructed, by default it also expects the textures to be in linear color space. In other words when sampling the texture it
+won&rsquo;t apply any transformations to it.</p><p>The expected pipeline would have been: <code>read linear texel data -> calculate color with linear values -> apply sRGB transfer function (Godot)</code></p><p>What we did: <code>read sRGB texel data -> calculate color values with sRGB values -> apply the inverse sRGB transfer function -> apply the sRGB transfer function (Godot)</code></p><p>The last step in both cases is done by Godot automatically. This is why the misused and misnamed function call seemed to solve the problem. The result
+was still incorrect and it would never have been correct until the calculations were moved into linear space as well.
+From Godot, it only needs us to either tell the sampler that it is reading an sRGB texture or supply it a texture using linear colors.</p><blockquote><p>This is one of the reasons why it is usually very bad to copy code from online. The copied code does the opposite what it claimed and it didn&rsquo;t
+even solve the problem.</p></blockquote><p>Why the difference? Simply put the linear color space is used for calculations, blending, sampling etc., the color values range between 0-255.
+On the other hand the sRGB space is for the monitors. The legend says that CRT monitors used the sRGB transfer function given that experiments
+shoved that the produced colors will be perceived by the users to be close to what they represented numerically. Monitors evolved and they use
+different transfer functions now. Non the less, most of them, by default expect the incoming colors to be in sRGB color space, which then they
+internally convert using their own transfer functions. Ahhhh, the historical reasons are the best. At least it makes sense and gives backward
+compatibility. (By the way I have heard other legends that good quality CRT monitors now produce better quality images than most high-end monitors.
+Maybe this is one of the reasons why.)</p><p>Anyways the shaders now contain the <code>linear &lt;-> sRGB</code> transfer functions allowing you to play around with them as well.</p><h2 id=importing-the-first-obj>Importing the first .obj</h2><p>As decided before the <a href=https://paulbourke.net/dataformats/obj/>Wavefront OBJ</a> will be used as the file format of choice. The format is ancient and
+many extensions have been added to it throughout the years. This complexity and the lack or original specifications, reference implementations makes
+it error prone in practice. The issue can be sidestepped though, if we only focus on its most basic features and ignore all the rest.
+In this case we only need it to be able to describe a <strong>triangulated mesh</strong> using positional/normal/uv vectors for each vertex.
+That is it. Everything else we can ignore. With these restrictions a &lsquo;.obj&rsquo; file looks like this for a simple plane:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span># Blender 5.1.1
+</span></span><span style=display:flex><span># www.blender.org
+</span></span><span style=display:flex><span>o Plane
+</span></span><span style=display:flex><span>v -1.000000 0.000000 1.000000
+</span></span><span style=display:flex><span>v 1.000000 0.000000 1.000000
+</span></span><span style=display:flex><span>v -1.000000 0.000000 -1.000000
+</span></span><span style=display:flex><span>v 1.000000 0.000000 -1.000000
+</span></span><span style=display:flex><span>vn -0.0000 1.0000 -0.0000
+</span></span><span style=display:flex><span>vt 1.000000 0.000000
+</span></span><span style=display:flex><span>vt 0.000000 1.000000
+</span></span><span style=display:flex><span>vt 0.000000 0.000000
+</span></span><span style=display:flex><span>vt 1.000000 1.000000
+</span></span><span style=display:flex><span>s 0
+</span></span><span style=display:flex><span>f 2/1/1 3/2/1 1/3/1
+</span></span><span style=display:flex><span>f 2/1/1 4/4/1 3/2/1
+</span></span></code></pre></div><p>Components:</p><ul><li>&lsquo;#&rsquo; comment</li><li>&lsquo;o&rsquo; group name</li><li>&lsquo;v&rsquo; positional vector</li><li>&lsquo;vn&rsquo; normal vector</li><li>&lsquo;vt&rsquo; uv coordinate vector</li><li>&lsquo;f&rsquo; faces</li><li>&rsquo;s&rsquo; smoothing group (we can ignore this)</li></ul><p>That is all. First, all the data is specified and put into their respective buffers, then the faces index these buffers using the format <strong>vertex index/uv coordinate index/normal index</strong>.
+For some reason the indexes are counted from 1 instead of 0, but apart from that, this is it. (We ignore here of course that some vectors have optional components, that faces don&rsquo;t have
+to specify everything only the position, that you can use negative indexes, that it isn&rsquo;t strictly specified that every vertex has to be defined at the beginning etc..)</p><p>When we implement the parser and import <strong>Suzanne</strong>, we get this</p><figure><img src=/programming/voxon/part_3/suzanne_first_import.png><figcaption><h4>Suzanne</h4></figcaption></figure><p>What we see is <strong>Suzanne</strong> textured as the plane. This is not what we want but it is good demonstration of another problem. That of complexity. To render the plane, we needed
+buffers to write the vertex positions/normals/texture coordinates into. Another buffer to index these buffers. A texture, that we had to mipmap, for which we had to allocate
+another buffer. Then to access that texture we needed a sampler. A similar problem for rendering the cube, which also uses a different kind of texturing pattern.
+The skybox is completely different as well. Now we want to render without textures by using some simple shaders instead. Managing all this is rather difficult. More difficult
+it will get still when later on we want to actually add materials, lights, shadows etc.. Based on the combinations of the required features for rendering a given object
+different pipelines, shaders and configurations must be set up.</p><p>In some engines this means that they have billions of shader pipelines. All tailored for a given permutation of features. In others they have a few &ldquo;ubershaders&rdquo; which handle
+most of the possible configurations. In the earlier days the first approach was more prevalent, because the GPU was a very limited resource, it didn&rsquo;t like branches too much and the
+register pressure was too high. To squeeze out all the performance it was more economical to generate custom setups for each task (the graphics weren&rsquo;t on today&rsquo;s complexity we might add).
+This way one could avoid writing branches, as it was known exactly what will happen, before the code was even written.
+Since then the GPUs have evolved a bit and are much better at branching. The graphics pipelines also got much more complex, to the point that the aforementioned possibly billions of
+combinations are more of a detriment than a handy optimization. With so many possibilities and switching between different executions it is extremely difficult to retain any decent
+cache coherency. This is truly a huge engineering problem and it is already causing problems for me. Never the less we must soldier on for a good while longer, while incrementally
+refactoring sections if they become very troublesome.</p><h3 id=implementing-the-normal-debug-shader-precursor>Implementing the &ldquo;normal debug&rdquo; shader precursor</h3><p>After refactoring the main scene, separating out the plane and cube as the textured objects and building out a whole new pipeline for the &ldquo;debug shader&rdquo;, finally Suzanne should
+be shaded properly!</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading=eager referrerpolicy=strict-origin-when-cross-origin src="https://www.youtube.com/embed/fZZsfGmxSR0?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 title="YouTube video"></iframe></div><p>Oh no, that isn&rsquo;t quite right. When the camera orbits Suzanne blue sections turn green and green sections turn blue. How can this be? Deliberately restricted the implementation of
+the shader to always produce the same result regardless of the cameras or the objects orientation.</p><p>Here are the relevant parts of the shader:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>const</span> world_light_direction <span style=color:#f92672>=</span> normalize(vec3(<span style=color:#ae81ff>1.0</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>1.0</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>1.0</span>));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@vertex</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fn</span> vs_main(vertex: Vertex) -&gt; VSOutput {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> vsOut: VSOutput;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Compute the vertex position in device coordinates
+</span></span></span><span style=display:flex><span>    vsOut.position <span style=color:#f92672>=</span> global.view_projection <span style=color:#f92672>*</span> entity.world <span style=color:#f92672>*</span> vertex.position;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Orient the normals in world space
+</span></span></span><span style=display:flex><span>    vsOut.normal <span style=color:#f92672>=</span> entity.normal <span style=color:#f92672>*</span> vertex.normal;
+</span></span><span style=display:flex><span>    vsOut.light_direction <span style=color:#f92672>=</span> normalize((global.view <span style=color:#f92672>*</span> vec4f(world_light_direction, <span style=color:#ae81ff>0.0</span>)).xyz);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// the returned vector will automatically be normalized using w
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// [x,y,z,w] =&gt; [x/w, y/w, z/w, 1]
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> vsOut;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@fragment</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fn</span> fs_main(vsOut: VSOutput) -&gt; <span style=color:#a6e22e>@location</span>(<span style=color:#ae81ff>0</span>) vec4<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span> {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// All inter-stage variables get interpolated, so they
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// have to be renormalized if necessary.
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> normal <span style=color:#f92672>=</span> normalize(vsOut.normal);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> light_direction <span style=color:#f92672>=</span> vsOut.light_direction;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> similarity <span style=color:#f92672>=</span> (dot(<span style=color:#f92672>-</span>light_direction, normal) <span style=color:#f92672>+</span> <span style=color:#ae81ff>1.0</span>) <span style=color:#f92672>/</span> <span style=color:#ae81ff>2.0</span>;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> vec4(mix(vec3f(<span style=color:#ae81ff>0.0</span>, <span style=color:#ae81ff>1.0</span>, <span style=color:#ae81ff>0.0</span>), vec3f(<span style=color:#ae81ff>0.0</span>, <span style=color:#ae81ff>0.0</span>, <span style=color:#ae81ff>1.0</span>), similarity), <span style=color:#ae81ff>1.0</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>We can see that it is nearly exactly the same as the Godot reference implementation. A few minor differences are observable, for example
+here a <code>view_projection * world</code> matrix is used and in Godot a <code>projection * modelview</code> combination. These are the exact same thing and will result
+in the combined <code>model view projection</code> matrix. So the code is the same, yet still behaves differently.
+Hmm, what can it be. After some experimentation it turned out that if the <code>light_direction</code> is simply set as the <code>world_light_direction</code>, without
+any transformations, the result will stabilize and appear as expected. Curious, curious, because that light was defined to be in <code>world space</code>,
+so it must be transformed by the <code>View</code> matrix. The transformation must be applied to it, otherwise it would not be oriented in the appropriate direction.
+This can be confirmed, by disabling the transformation in the Godot reference. What we will see will be the exact same issue we observe here.
+By the movement of the camera the shader output changes.
+So in Godot, the transformation is necessary, while for us it is actively causing the issue? Marvelous!
+Maybe there is a bug in the <code>normal matrix</code>? How could there be? In <a href=../part_1>Part 1</a>, the normal matrix already functioned
+correctly with the camera orbiting around the object. But something is clearly not rotating when it should and bamm it hit me!
+My normal matrix does not contain the <code>view matrix</code>, so it does not correct for the movement of the camera!
+If we look at the Godot version, the matrix is called <code>MODELVIEW_NORMAL_MATRIX</code>. It contains the <code>model</code> and the <code>view</code> transformations!
+Mine only contained the <code>model</code>! After fixing the issue the shader behaves as expected.</p><p>Okay, but then why was it working in <a href=../part_1>Part 1</a>? Very simple, there the light, camera, vertex positions and the respective directions were
+all calculated in <code>world</code> space (just the <code>model</code> matrix was applied). In this shader they were calculated in <code>model view</code> space.</p><h2 id=all-objects-ready>All objects ready</h2><figure><img src=/programming/voxon/part_3/scene.png><figcaption><h4>Imported objects</h4></figcaption></figure><p>All the target objects are imported and look as expected. After the <strong>color transfer function</strong> fixes, the colors too appear the same.</p><figure><img src=/programming/voxon/part_3/voxon_vs_godot.png><figcaption><h4>Voxon vs Godot</h4></figcaption></figure><p>Let us see what happened with the framerates after adding this circa million polygons to the scene. As a reminder previously</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 2547.60
+</span></span><span style=display:flex><span>1% low: 1929.50
+</span></span><span style=display:flex><span>0.1% low: 1263.82
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 10790.21
+</span></span><span style=display:flex><span>1% low: 6418.93
+</span></span><span style=display:flex><span>0.1% low: 2536.53
+</span></span></code></pre></div><p>and now</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 1949.03
+</span></span><span style=display:flex><span>1% low: 1849.82
+</span></span><span style=display:flex><span>0.1% low: 1816.83
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 4476.02
+</span></span><span style=display:flex><span>1% low: 1883.10
+</span></span><span style=display:flex><span>0.1% low: 1414.46
+</span></span></code></pre></div><p>That is a rather big hit. In the <code>debug</code> build we have lost about <strong>~600</strong> frames on average, in the <code>release</code>
+almost <strong>~6000</strong>. Nearly half the frames are gone with the wind after adding only this many polygons. To be honest,
+not sure how many are too many, but nowadays a million, especially on the GPU sounds like an afterthought.
+This should be investigated a bit further, before additional complications are added to the engine. For once, the code wasn&rsquo;t
+kept too clean, secondly there are a few optimization ideas that should be put to the test.
+Thus, instead of adding a wireframe rendering option, first we will break the engine and see how we can fix it.</p><h2 id=to-the-limits>To the limits</h2><p>Currently the code was written in the simplest copy/paste way possible. Completely disregarding any performance considerations.
+Every mesh is loaded/uploaded to the GPU for every pipeline, all of them use separate draw calls as well.</p><p>Now that we have some meshes, which we can duplicate and position as required, the easiest way to increase the load on the GPU
+is to just simply render more meshes. By adding the same mesh over and over, using the same shader a specific setup is reached.
+One where most objects in the scene use the same mesh and the same shader. Which means that two optimization strategies can be
+tested one after another. Reducing the number of draw calls and then the number of polygons.</p><p>Adding the smooth shaded utah teapot with about 7k polygons, <strong><code>16x16x16</code> = 4096</strong> times, using up about <strong>28'672'000</strong> polygons, we still
+hover around <strong>90 FPS</strong> on average in <code>release</code> build.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 89.07
+</span></span><span style=display:flex><span>1% low: 38.90
+</span></span><span style=display:flex><span>0.1% low: 35.40
+</span></span></code></pre></div><figure><img src=/programming/voxon/part_3/utah_cube.png><figcaption><h4>Utah cube</h4></figcaption></figure><p>In fact adding more of them after about <code>16x16x8</code> didn&rsquo;t seem to affect the FPS any more, even though we have no LOD or any type of
+optimization on our side to speak off.
+Maybe the vertex concentration is simply not high enough?</p><p>Replacing the teapot cube with the smooth shaded stanford dragon using 700k polygons in a <strong><code>5*5*3</code> = 75</strong> pattern, using up
+<strong>52'500'000</strong> polygons seems to do the trick. Now in release build we still get about a 100 FPS on average but the 1% lows, especially
+the 0.1% lows start to tank.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 113.56
+</span></span><span style=display:flex><span>1% low: 27.00
+</span></span><span style=display:flex><span>0.1% low: 7.55
+</span></span></code></pre></div><figure><img src=/programming/voxon/part_3/dragon_cubish.png><figcaption><h4>Dragon cubelike</h4></figcaption></figure><p>This is getting noticeably choppier. Moreover, adding just one more layer on the <code>Y</code> axis makes it completely unusable.
+A good candidate for observing how basic code restructuring and optimizations may affect performance.</p><p>At the moment every single object has it&rsquo;s own mesh instance in memory, its own buffers allocated on the GPU.
+Within each render pipeline, there is a draw call for each individual object.</p><p>The stanford dragon is a very good example for the potential costs. Each 700k polygon stanford dragon uses up about
+<strong>66'844'704 bytes</strong> of memory. Having 75 instances of them totals in <strong>5'013'352'800 bytes</strong> or <strong>5 GB</strong> of VRAM used.
+CPU utilization barely reaches 1% which is a bit surprising, because every render cycle all objects get their
+transform matrices recalculated and we have 87 objects to render. Admittedly, not that many, but still with a full
+running operating system and calculating multiple 4x4 matrix multiplications for 87 objects, even at 4000 FPS
+barely registers a 2 % load.
+On the other hand GPU utilization is obviously at 100% all the times. We render as many frames as it is willing, and
+as we see it, the CPU is not the bottleneck, so at least in this examination, just focusing on our handy dandy
+framerate calculator we can observe how helpful each optimization is.</p><p>The first thing we can do is instancing. From the GPUs perspective this doesn&rsquo;t really mean anything. Just that
+we want to execute a given draw call <code>instance</code> number of times. What we do with those indexes is up to us.
+In this case though, the more common definition of instancing is used, which means the same mesh is drawn
+<code>instance</code> number of times using different transformation matrices.</p><p>After replacing all 700k polygon stanford dragons in the scene with instanced rendering we get the following:</p><p><code>debug</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 211.86
+</span></span><span style=display:flex><span>1% low: 89.69
+</span></span><span style=display:flex><span>0.1% low: 70.92
+</span></span></code></pre></div><p><code>release</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 211.86
+</span></span><span style=display:flex><span>1% low: 89.69
+</span></span><span style=display:flex><span>0.1% low: 70.92
+</span></span></code></pre></div><p>VRAM usage is substantially reduced (5 Gb -> ~6 MB) and performance became much more stable. Average FPS is good to be high, but more
+important is that 1% and 0.1% lows don&rsquo;t drop now below 60. That means no hitching at all. Keep in mind, only the number of draw calls
+changed.
+The same number of polygons, the same shaders, just the code was structured in such a way that the GPU had to be asked only once to
+draw the all 75 dragons. Already a massive improvement.</p><p>If we also replace all 700k poly stanford dragons with the lower resolution 17k polygon version, we would get:</p><p><code>debug</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 1262.98
+</span></span><span style=display:flex><span>1% low: 1214.46
+</span></span><span style=display:flex><span>0.1% low: 1202.26
+</span></span></code></pre></div><p><code>relese</code></p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 5417.23
+</span></span><span style=display:flex><span>1% low: 1818.27
+</span></span><span style=display:flex><span>0.1% low: 1775.12
+</span></span></code></pre></div><p>Replacing <strong>52'500'000</strong> polygons with only <strong>75 * 17'000 = 1'250'000</strong>, a 42x reduction,
+resulted in a worst case performance gain of 25x. This is why Godot immediately generates LOD levels for each mesh.
+The performance gains can be enormous, without much degradation in detail.</p><p>Just out of curiosity how does Godot perform? Using Vulkan 1.4.335, without the 75 extra dragons
+the editor reports <strong>~2000 FPS</strong>. If all 75 dragons are present it still manages to crank out <strong>~670 FPS</strong>. If on the
+other hand we completely turn of <strong>Mesh LOD</strong> optimization, the framerate drops to about <strong>125</strong> FPS.
+Now this is a much fairer comparison to <strong>Voxon</strong>, as we don&rsquo;t have Mesh LOD at all.
+When the project is built, with all its optimizations in debug/release it will run at about <strong>2200/2600 FPS</strong>.
+Pretty impressive to be honest. Didn&rsquo;t expect it to be so performant.</p><p>The lesson seems to be very simple. More draw calls is bad. More polygons, even worse.</p><h2 id=wireframes>Wireframes</h2><p>Back to wireframes.
+Rendering a wireframe representation of a given mesh is both simple and surprisingly difficult.</p><h3 id=using-barycentric-coordinates>Using barycentric coordinates</h3><p>Firstly we could do it using <a href=https://en.wikipedia.org/wiki/Barycentric_coordinate_system>barycentric coordinates</a>.
+This would lead to a very simple implementation where the <code>vertex shader</code> generates a vector for each vertex based on its index.
+This vector, the barycentric coordinate, will be calculated like so:</p><pre tabindex=0><code>vsOut.barycentric_coordinate = vec3f(0);
+vsOut.barycentric_coordinate[vertex.vertex_index % 3] = 1.0;
+</code></pre><p>In other words each vertex will become one of <code>&lt;1.0, 0.0, 0.0>, &lt;0.0, 1.0, 0.0>, &lt;0.0, 0.0, 1.0></code>, which is analogous to the
+unit weights assigned to each vertex in the barycentric coordinate system. Then due to the linear interpolation by the
+pixel/fragment shader stage we would have the actual barycentric coordinate calculated for each fragment for basically free.
+Then finally we could pick the smallest weight (the smallest distance to an edge), check if it is above or below a threshold
+and set the transparency of the fragment to 0.0 or 1.0. Above the threshold it should be fully transparent, below, fully opaque.</p><figure><img src=/programming/voxon/part_3/barycentric_wireframe_no_culling.png><figcaption><h4>Barycentric wireframe</h4></figcaption></figure><p>There is a problem though. Chiefly that we can&rsquo;t define the width of the lines in pixels or meters. Nor are they of the same
+width using the same threshold value, in this case 0.03.
+To see a bit easier, the same wireframe, but only the front faces are visible:</p><figure><img src=/programming/voxon/part_3/barycentric_wireframe_culled.png><figcaption><h4>Front faces Barycentric wireframe</h4></figcaption></figure><p>Take a look at triangle <code>A</code> and <code>B</code>. Observe that <code>A</code> has wider outlines than <code>B</code>. The reason is simple. Barycentric coordinates
+don&rsquo;t take account for the size of the triangle in screen space. Thus a triangle that takes up more screen space will have
+proportionally wider lines than a smaller one. The effect is initially subtle, but becomes rather annoying after observing it.</p><p>There are sources out there where they apply additional transformations to the barycentric coordinates within the fragment shader and
+calculate a so called edge factor:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>fn edge_factor(barycentric_coordinate: vec3f) -&gt; f32 {
+</span></span><span style=display:flex><span>    let d = fwidth(barycentric_coordinate);
+</span></span><span style=display:flex><span>    let aliased = smoothstep(vec3f(0.0), d * line_width, barycentric_coordinate);
+</span></span><span style=display:flex><span>    return min(min(aliased.x, aliased.y), aliased.z);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>First of all what are we doing?
+<a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-wgsl-function-reference.html#func-fwidth>fwidth</a> will calculate the partial derivative
+of the vertex coordinates in regards to the x and y window coordinates. Quite frankly, not sure what that exactly means and there
+is precious little documentation about it. The <a href=https://webgpufundamentals.org/webgpu/lessons/webgpu-wgsl-function-reference.html#func-smoothstep>smoothstep</a>
+is simply interpolates between two values in a <a href=https://en.wikipedia.org/wiki/Smoothstep>non-linear fashion</a>. This in practice means
+that there won&rsquo;t be a hard transition between the two values, but a soft one, in other words, antialiasing is applied.
+Last line is just as before, get the closest edge &lsquo;distance&rsquo;.
+This doesn&rsquo;t work either. It alleviates the scaling problem to some extent but it doesn&rsquo;t solve it. Why?
+We are still working within a barycentric system which is disconnected from the screen space. <code>line_width</code> is in incomprehensible units, because
+all the other values are in incomprehensible units as well. To demonstrate why this version doesn&rsquo;t work either, here is a comparison between it
+and how the same scene would look in Godot.</p><figure><img src=/programming/voxon/part_3/fwidth_bary_comparison.png><figcaption><h4>Wireframe comparison</h4></figcaption></figure><p>On the left our implementation using <code>edge_factor</code> to generate antialiased wireframe lines, on the left Godot.
+Notice how in Godot, every line is exactly one pixel wide, regardless it&rsquo;s distance from the camera. While on the left lines even
+close to the camera have differing widths, which is not just the result of the antialiasing step. Worse, lines further away will appear
+even wider. The effect is even more jarring if we navigate the 3D space.</p><p>A better approach is needed. One where line widths can be set according to some human compatible metric and aren&rsquo;t affected
+by the size of each triangle or by projection.</p><h3 id=calculating-distance-to-nearest-edge>Calculating distance to nearest edge</h3><p>Thankfully, like with many things in life, this problem has been solved already.
+It is called <a href=https://www2.imm.dtu.dk/pubdb/edoc/imm4884.pdf>Single-pass Wireframe Rendering</a>, with some
+more detailed description in <a href=https://developer.download.nvidia.com/SDK/10.5/direct3d/Source/SolidWireframe/Doc/SolidWireframe.pdf>Solid Wireframe</a>.
+The idea is really simple. To render a wireframe with a configurable line width that stays stable across the whole screen we simply
+have to calculate the line width in screen space.</p><p>In the vertex shader transform every vertex as you normally would, then in the geometry shader (when you are working with whole polygons), calculate
+the triangle&rsquo;s altitudes for each polygon vertex in screen space. Emit these, with linear interpolation and by the fragment shader this vector will contain
+the fragments distance from all polygon edges in screen space. At this point a simple comparison is the only thing necessary to know if we are
+within <code>x pixels</code> of any edge. A beautiful solution!</p><p>Had a little problem though. WebGPU lacks a geometry shader stage. No easy calculations for me. Nevertheless, with a little calculation wastage it can
+be done within the vertex shader itself.</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>struct</span> VSOutput {
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// The pixel position on the screen.
+</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>@builtin</span>(position) position: vec4f,
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Will be interpolated and have to renormalized.
+</span></span></span><span style=display:flex><span>    <span style=color:#a6e22e>@location</span>(<span style=color:#ae81ff>0</span>) normal: vec3f,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@location</span>(<span style=color:#ae81ff>1</span>) <span style=color:#a6e22e>@interpolate</span>(flat) light_direction: vec3f,
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>@location</span>(<span style=color:#ae81ff>2</span>) <span style=color:#a6e22e>@interpolate</span>(linear, center) altitude: vec3f,
+</span></span><span style=display:flex><span>};
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> world_light_direction <span style=color:#f92672>=</span> normalize(vec3(<span style=color:#ae81ff>1.0</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>1.0</span>, <span style=color:#f92672>-</span><span style=color:#ae81ff>1.0</span>));
+</span></span><span style=display:flex><span><span style=color:#75715e>// hard coding it for now
+</span></span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> WIDTH <span style=color:#f92672>=</span> f32(<span style=color:#ae81ff>1024</span>);
+</span></span><span style=display:flex><span><span style=color:#66d9ef>const</span> HEIGHT <span style=color:#f92672>=</span> f32(<span style=color:#ae81ff>768</span>);
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@vertex</span>
+</span></span><span style=display:flex><span><span style=color:#66d9ef>fn</span> vs_main(vertex_input: VertexInput) -&gt; VSOutput {
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> vsOut: VSOutput;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> face_start_index <span style=color:#f92672>=</span> entity.vertex_index_offset <span style=color:#f92672>+</span> ((vertex_input.vertex_index <span style=color:#f92672>/</span> <span style=color:#ae81ff>3</span>) <span style=color:#f92672>*</span> <span style=color:#ae81ff>3</span>);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> vertices: array<span style=color:#f92672>&lt;</span>vec4<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>, <span style=color:#ae81ff>3</span><span style=color:#f92672>&gt;</span>;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// transform all vertices into clip space
+</span></span></span><span style=display:flex><span>    vertices[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> global.view_projection <span style=color:#f92672>*</span> entity.world <span style=color:#f92672>*</span> vertex_data[face_start_index].position;
+</span></span><span style=display:flex><span>    vertices[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> global.view_projection <span style=color:#f92672>*</span> entity.world <span style=color:#f92672>*</span> vertex_data[face_start_index <span style=color:#f92672>+</span> <span style=color:#ae81ff>1</span>].position;
+</span></span><span style=display:flex><span>    vertices[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> global.view_projection <span style=color:#f92672>*</span> entity.world <span style=color:#f92672>*</span> vertex_data[face_start_index <span style=color:#f92672>+</span> <span style=color:#ae81ff>2</span>].position;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// transform all vertices into NDC
+</span></span></span><span style=display:flex><span>    vertices[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> vertices[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>/</span> vertices[<span style=color:#ae81ff>0</span>].w;
+</span></span><span style=display:flex><span>    vertices[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> vertices[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>/</span> vertices[<span style=color:#ae81ff>1</span>].w;
+</span></span><span style=display:flex><span>    vertices[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> vertices[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>/</span> vertices[<span style=color:#ae81ff>2</span>].w;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// transform all vertices into screen space
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> screen_space_vertices: array<span style=color:#f92672>&lt;</span>vec2<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>, <span style=color:#ae81ff>3</span><span style=color:#f92672>&gt;</span>;
+</span></span><span style=display:flex><span>    screen_space_vertices[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> (vertices[<span style=color:#ae81ff>0</span>].xy <span style=color:#f92672>+</span> vec2f(<span style=color:#ae81ff>1.0</span>)) <span style=color:#f92672>*</span> vec2f(<span style=color:#ae81ff>0.5</span> <span style=color:#f92672>*</span> WIDTH, <span style=color:#f92672>-</span><span style=color:#ae81ff>0.5</span> <span style=color:#f92672>*</span> HEIGHT);
+</span></span><span style=display:flex><span>    screen_space_vertices[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> (vertices[<span style=color:#ae81ff>1</span>].xy <span style=color:#f92672>+</span> vec2f(<span style=color:#ae81ff>1.0</span>)) <span style=color:#f92672>*</span> vec2f(<span style=color:#ae81ff>0.5</span> <span style=color:#f92672>*</span> WIDTH, <span style=color:#f92672>-</span><span style=color:#ae81ff>0.5</span> <span style=color:#f92672>*</span> HEIGHT);
+</span></span><span style=display:flex><span>    screen_space_vertices[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> (vertices[<span style=color:#ae81ff>2</span>].xy <span style=color:#f92672>+</span> vec2f(<span style=color:#ae81ff>1.0</span>)) <span style=color:#f92672>*</span> vec2f(<span style=color:#ae81ff>0.5</span> <span style=color:#f92672>*</span> WIDTH, <span style=color:#f92672>-</span><span style=color:#ae81ff>0.5</span> <span style=color:#f92672>*</span> HEIGHT);
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> a <span style=color:#f92672>=</span> screen_space_vertices[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>-</span> screen_space_vertices[<span style=color:#ae81ff>1</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> b <span style=color:#f92672>=</span> screen_space_vertices[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>-</span> screen_space_vertices[<span style=color:#ae81ff>0</span>];
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> c <span style=color:#f92672>=</span> screen_space_vertices[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>-</span> screen_space_vertices[<span style=color:#ae81ff>0</span>];
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// calculate triangle area using https://en.wikipedia.org/wiki/Exterior_algebra
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// we omit the division by two, because we would have to multiply by 2 when
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// calculating the altitudes
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> face_area: f32 <span style=color:#f92672>=</span> abs(b.x<span style=color:#f92672>*</span>c.y <span style=color:#f92672>-</span> b.y<span style=color:#f92672>*</span>c.x);
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// calculate screen space altitude for the triangle sides
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>var</span> screen_space_altitudes: array<span style=color:#f92672>&lt;</span>vec3<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>, <span style=color:#ae81ff>3</span><span style=color:#f92672>&gt;</span>;
+</span></span><span style=display:flex><span>    screen_space_altitudes[<span style=color:#ae81ff>0</span>] <span style=color:#f92672>=</span> vec3<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>(face_area <span style=color:#f92672>/</span> length(a), <span style=color:#ae81ff>0.0</span>, <span style=color:#ae81ff>0.0</span>);
+</span></span><span style=display:flex><span>    screen_space_altitudes[<span style=color:#ae81ff>1</span>] <span style=color:#f92672>=</span> vec3<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>(<span style=color:#ae81ff>0.0</span>, face_area <span style=color:#f92672>/</span> length(b), <span style=color:#ae81ff>0.0</span>);
+</span></span><span style=display:flex><span>    screen_space_altitudes[<span style=color:#ae81ff>2</span>] <span style=color:#f92672>=</span> vec3<span style=color:#f92672>&lt;</span>f32<span style=color:#f92672>&gt;</span>(<span style=color:#ae81ff>0.0</span>, <span style=color:#ae81ff>0.0</span>, face_area <span style=color:#f92672>/</span> length(c));
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#66d9ef>let</span> vertex <span style=color:#f92672>=</span> vertex_data[entity.vertex_index_offset <span style=color:#f92672>+</span> vertex_input.vertex_index];
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Compute the vertex position in device coordinates
+</span></span></span><span style=display:flex><span>    vsOut.position <span style=color:#f92672>=</span> global.view_projection <span style=color:#f92672>*</span> entity.world <span style=color:#f92672>*</span> vertex.position;
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// Orient the normals in world space
+</span></span></span><span style=display:flex><span>    vsOut.normal <span style=color:#f92672>=</span> entity.normal <span style=color:#f92672>*</span> vertex.normal;
+</span></span><span style=display:flex><span>    vsOut.light_direction <span style=color:#f92672>=</span> normalize((global.view <span style=color:#f92672>*</span> vec4f(world_light_direction, <span style=color:#ae81ff>0.0</span>)).xyz);
+</span></span><span style=display:flex><span>    vsOut.altitude <span style=color:#f92672>=</span> screen_space_altitudes[vertex_input.vertex_index <span style=color:#f92672>%</span> <span style=color:#ae81ff>3</span>];
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// the returned vector will automatically be normalized using w
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// [x,y,z,w] =&gt; [x/w, y/w, z/w, 1]
+</span></span></span><span style=display:flex><span>    <span style=color:#66d9ef>return</span> vsOut;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>As it can be seen for every single vertex we recalculate the values for every other vertex within the triangle.
+Could have created another set of buffers and precalculated this with a compute shader, but the additional complexity
+was deemed undesirable while just trying out this algorithm.</p><p>All that said, this is how it looks:</p><figure><img src=/programming/voxon/part_3/solid_wireframe.png><figcaption><h4>Solid wireframe</h4></figcaption></figure><p>I know I know, it is not transparent as set out in the original goals. The reason is that it seems to be rather difficult
+to render transparency properly. Especially if you have multiple transparent object in the scene through which you could
+see the others. It requires rendering the objects from furthest to closest, after everything non transparent has already
+been rendered. Too much hassle for too little gain. As it can be seen the stanford dragons already have so many polygons, that
+at this distance they almost look completely solid. If they were transparent, even from close up it is rather difficult to
+see what is happening.</p><p>Regardless, the point of this image is to show that we have fixed the issue of relative line widths and now both smaller and
+larger triangles have lines of the same width.
+Two problems remained. For some reason my lines have some antialiasing on them even though no MSAA or prefiltering is used.
+Could not figure out where this smoothing is coming from. It has to be the window manager or some other default setting
+from WebGPU.</p><p>The other problem is that I haven&rsquo;t finished implementing the whole <a href=https://developer.download.nvidia.com/SDK/10.5/direct3d/Source/SolidWireframe/Doc/SolidWireframe.pdf>Solid Wireframe</a>.
+The rest of it gets a bit more involved and didn&rsquo;t seem necessary at this time, given the issue only rears its head if a polygon
+is not entirely in frame, and one of its vertices is close to the camera or right behind it.
+In these instance screen space projection falls apart and distance measurements become irrelevant.</p><figure><img src=/programming/voxon/part_3/solid_wireframe_bug.png><figcaption><h4>Solid wireframe bug</h4></figcaption></figure><p>The bug appears as the sudden full coloring of an affected triangle.
+Once again, this is just my laziness, the algorithm outlined in the paper handles this as well.</p><h2 id=engine-state>Engine state</h2><p>After all that trouble, let&rsquo;s compare with the reference scene. First the Voxon output, then the reference.</p><figure><img src=/programming/voxon/part_3/voxon_scene.png><figcaption><h4>Voxon scene</h4></figcaption></figure><figure><img src=/programming/voxon/part_3/reference_scene.png><figcaption><h4>Reference scene</h4></figcaption></figure><figure><img src=/programming/voxon/part_3/voxon_scene_wireframe.png><figcaption><h4>Voxon wireframe scene</h4></figcaption></figure><figure><img src=/programming/voxon/part_3/reference_scene_wireframe.png><figcaption><h4>Wireframe reference scene</h4></figcaption></figure><p>Every object location, transformation is using the exact same parameters as in Godot. The camera location is the same, same FOV of 75 degrees as well.
+The only difference is that in Godot the camera is pitched <strong>-45</strong> degrees, while in Voxon only <strong>-44.759</strong>. Not entirely sure why this
+difference is necessary and we can see the setup between the two is not exactly the same, but this was the closest I could get them.
+At -45 degrees with Voxon, the line of dradons in the back would barely be in view.</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading=eager referrerpolicy=strict-origin-when-cross-origin src="https://www.youtube.com/embed/4sut_liiQRo?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 title="YouTube video"></iframe></div><p>Code available at: <a href=https://github.com/TheMrAI/engine/releases/tag/v0.3>v0.3</a></p><p>Reference implementation done in Godot: <a href=https://github.com/TheMrAI/voxon_reference/releases/tag/v0.3>v0.3</a></p><h3 id=fps-counter>FPS counter</h3><p>In the previous chapter we had the following FPS metrics:</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 2547.60
+</span></span><span style=display:flex><span>1% low: 1929.50
+</span></span><span style=display:flex><span>0.1% low: 1263.82
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 10790.21
+</span></span><span style=display:flex><span>1% low: 6418.93
+</span></span><span style=display:flex><span>0.1% low: 2536.53
+</span></span></code></pre></div><p>Now we have:</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 1957.49
+</span></span><span style=display:flex><span>1% low: 1850.92
+</span></span><span style=display:flex><span>0.1% low: 1785.03
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 4728.06
+</span></span><span style=display:flex><span>1% low: 1564.94
+</span></span><span style=display:flex><span>0.1% low: 1539.11
+</span></span></code></pre></div><p>Even only a million polygons is a decent hit to performance. In the next chapter we will refactor the structures substantially,
+which is likely to provide us with even <strong>mooarrr</strong> performance!</p></article><footer><nav aria-label=breadcrumb><ul><li><a href=/>Home</a></li><li><a href=/programming>Programming</a></li><li><a href=/programming/voxon>Voxon</a></li><li><a href=/programming/voxon/part_3>Part 3</a></li></ul></nav></footer></main></body></html>
