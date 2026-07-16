@@ -4,7 +4,6 @@ title: Import them meshes
 date: "2026-04-23"
 summary: "Import meshes using the Wavefront (.obj) format, add option for rendering wireframes and breaking the engine
 by creating too much geometry."
-draft:  false
 ---
 
 While one can theoretically construct some assets within a game engine itself, apart from the simplest cases
