@@ -148,4 +148,132 @@ In the next chapter the goal will be to start and arrive at something described 
 ## What has been done
 
 Funnily enough the only part that I could make progress on isn't really addressed by the previous sections.
-How to detach a rendering API, how to feed the data to the GPU and why.
+How to detach a rendering API, how to feed the data to the GPU and how to think about rendering pipelines.
+
+From the previous escapades it was understood that `fewer polygons => faster`, `fewer draw calls => even faster`.
+So my goal was to try and find a pattern for writing the rendering pipelines that could allow me for supporting LOD (level of detail) with instancing.
+Before that though, it was imperative to understand the nature of a rendering pipeline and what it means. Or how to think about it in such an abstract
+way that it is helpful, but not overcomplicated.
+
+### Rendering pipeline
+
+This is not a formal definition of a rendering pipeline. Don't know if one exists, this is just how I started to think about it, after refactoring the
+code 3-4 times and finally realizing what was before me.
+
+There are 3 main components to a rendering pipeline:
+- shader codes
+- resources
+- bindings
+
+**Shader code** - is simply the program you may write to be used within the configurable stages of the GPU's rendering execution. In our case only "vertex" and
+"fragment" shaders, but there can be more. These shaders define an interface for the resources they need through bindings.
+
+**Resources** - Most resources can simply be thought of as simple regions of memory on the GPU side. Any type that the GPU has built in support for like
+floats, integers, vectors, matrices, arrays and structs can be combined together in any way. The GPU won't care. From it's perspective these will be nothing
+more but a chunk of memory. As long as this chunk of memory follows the GPU's memory alignment requirements according to the defined types, the GPU will
+happily consume the data.
+There are some other resources though for which some stricter requirements are set. Textures and Samplers behave as completely black box resources. The programmer
+does not know how they look like in GPU memory, cannot create them, only configure them (and in case of textures also upload the data, but you won't know
+how it will actually look like in memory on the GPU side). These resources have to stand alone, with their individual bindings and cannot
+be aggregated into arrays. Not sure why exactly this is, or if this is the case for all APIs, for WebGPU it seems to be the case.
+
+**Binding** - There are two sides of a binding. One on the shader side and one the pipeline side. The shader side can be imagined as the socket and the pipeline side the
+key. As long as they match everybody is happy.
+
+{{< figure src="pipeline_pieces.png" title="Pipeline" >}}
+
+From the CPU side a blob of data (can be anything, structs, arrays, can be at one place or coming from multiple) is taken, serialized according to the format of the bindings
+it is made for, then uploaded to the GPU. At this point we got a handle to a GPU resource, in the example a `Buffer`.
+
+Then a `Rendering pipeline` is nothing more than the collection of `shaders` and a collection of `Bind groups`. How one `Bind group` looks like is defined by the given group's
+layout. How `Bind groups` are grouped together is defined by the `Pipeline's layout`. To then execute the `Rendering pipeline` we only need to create a `Bind group` that
+is compatible with the required layout, slot it in, then request the pipelines execution.
+
+Went to the trouble of showing this to highlight some key observations. After a `Pipeline` is constructed, it can simply be stashed away. Nothing needs to change on it as long
+as it is in use. It describes exactly what should happen with the data, where should it look for it, where should it put the output. It is complete.
+
+The only thing that may change between rendering cycles are the `Buffer`s, `Texture`s, `Sampler`s, simply the resources. In my case, only the content of the `Buffer`s change between
+each cycle.  Even if the number of elements change,
+as long as it is known how many elements are needed now and how much capacity is available, we still may not have to reallocate the `Buffer`. If more is needed we could perhaps,
+double the capacity like in any vector implementation.
+
+Rebuilding a `Bind group` seems to be relatively cheap. Creating new `Buffers` and serializing/uploading to the GPU seems to be the most costly
+part of the operation.
+
+### Instances, meshes, groups
+
+One question that remained was how should shaders look like? Should they receive data as `uniform buffers`, `storage buffers`, get mesh data from `vertex/index buffers`?
+It really wasn't clear to me what was the sensible approach, so a number of combination have been tried out (in previous chapters), but ultimately if we want to have **instancing**,
+there seems to be only one pattern that made sense.
+
+#### Put all data that should be the same within a given rendering cycle as a global uniform buffer. This then can be as big as necessary and contain all the data that may be required by **any**
+of the pipelines
+
+```wgsl
+struct Globals {
+    view_m: mat4x4f,
+    view_projection_m: mat4x4f,
+    view_world_position: vec3f,
+    // This inverse must not contain the transition
+    // from view matrix, only the rotation and scaling. The projection
+    // should be left untouched.
+    translation_free_inverse_view_projection: mat4x4f,
+};
+```
+
+Any being the operative word here. Currently 5 shaders are in use (normal_debug, normal_debug_wireframe, cube_map, textured_draw, skybox), neither uses all 4 of these values. **normal_debug** and **normal_debug_wireframe** use `view_m` and `view_projection_m`,
+**cube_map** and **textured_draw** only uses `view_projection_m`, and **skybox** only uses `translation_free_inverse_view_projection`. This means that instead of maintaining and updating a uniform buffer for (view_m, view_projection_m),
+(view_projection_m) and one for (translation_free_inverse_view_projection), only one needs to be updated and only once per rendering cycle. (Haha just noticed `view_world_position` isn't used any more, enjoy.)
+
+Instead of 3 uploads to the GPU we get away with only one. While this means that the size of this combined uniform buffer will never be optimal but the reduction of total memory transfer is likely worth the tradeoff.
+
+#### Put all the mesh data with LOD levels for a given geometry into its own buffer
+
+[TODO example]
+
+```wgsl
+struct VertexData {
+    position: vec4f,
+    normal: vec3f,
+    uv: vec2f,
+}
+
+@group(0)
+@binding(2)
+var<storage, read> vertex_data: array<VertexData>;
+```
+
+This works whether or not a given geometry has multiple levels of detail or not. Simply have the most detailed layout at the front of the buffer and the decreasing resolutions to the back. Likely there will be no need to generate levels of detail
+on the fly or modify the base geometry. So we can probably assume that as long as a given mesh is needed, likely its corresponding levels of details will be needed too.
+While currently we don't have this implemented, it does not seem to be a far fetched idea. The player/camera moves around the scene a lot, causing constant changes in the required LOD. The only problem with this assumption may come when there is simply
+not enough GPU memory left. That optimization requirement is far enough, that it is not of concern as of now. 
+
+The benefit in this is that similarly to the global uniform values, this information has to be uploaded to the GPU once per scene. Then it can be kept solely in GPU memory, freeing RAM for other tasks. It could even be reused between scenes if it
+persists. A `storage` buffer has a maximum size of at least 128 MiB, but higher sizes can be requested based on the GPU. The current `VertexData` takes up 48 B, so we will have space for approximately 2.8 million vertices. Mayhaps not enough for
+`AAA` high definition models and all their LODs, but likely more than enough for everything else.
+
+#### Put every instance specific value into another storage buffer
+
+```wgsl
+struct Instance {
+    model_m: mat4x4f,
+    normal_m: mat3x3f,
+}
+
+@group(0)
+@binding(1)
+var<storage, read> instances: array<Instance>;
+````
+
+A similar 
+
+```text
+start rendering
+update uniform buffer
+for each pipeline:
+  update instance buffers
+  set pipeline
+  set bind group
+  draw
+end rendering
+```
