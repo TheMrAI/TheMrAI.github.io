@@ -22,21 +22,23 @@ There seems to be two major approaches in taming the complexity spirit demon res
 game engine. Furthermore it seems it doesn't matter which one you choose, suffering is guaranteed, just in
 different ways.
 
-First of we have ECM - Entity component model, Entity system (ES), **Game-object component model**. Many names for the
-same thing, confusing all non initiates. This is basically the object oriented approach.
+First off we have ECM - Entity component model, Entity system (ES), **Game-object component model**. Many names for the
+same thing, confusing all initiates. This is basically the object oriented approach.
 [Game Programming Patterns](https://gameprogrammingpatterns.com/) by **Robert Nystrom** is a very good read in this regard.
-Presents the patterns in a fun, understandable manner.
+Presents the patterns in a fun, understandable manner. While it fails to show the big picture it demonstrates the pieces very well.
 If you are as unfamiliar with the topics as I was, for this discussion it is recommended to read:
 - [Game Loop](https://gameprogrammingpatterns.com/game-loop.html)
 - [Component](https://gameprogrammingpatterns.com/component.html)
 - [Event Queue](https://gameprogrammingpatterns.com/event-queue.html)
 - [Data Locality](https://gameprogrammingpatterns.com/data-locality.html)
 - [Spatial Partition](https://gameprogrammingpatterns.com/spatial-partition.html)
+
 It isn't necessary to fully understand them, but at least observe what type of problems have to be solved.
 
 Second is ECS, which has only one name that I could stumble upon, **Entity component system**.
 This is the data oriented approach. A lot of good information can be found here: 
 [Entity Component System FAQ](https://github.com/SanderMertens/ecs-faq#how-is-ecs-different-from-entity-component-frameworks)
+
 To me the most helpful ones were:
 - [Building an ECS #1](https://ajmmertens.medium.com/building-an-ecs-1-where-are-my-entities-and-components-63d07c7da742)
 - [Building an ECS #2](https://ajmmertens.medium.com/building-an-ecs-2-archetypes-and-vectorization-fe21690805f9)
@@ -45,8 +47,10 @@ To me the most helpful ones were:
 - [Building Games in ECS with Entity Relationships](https://ajmmertens.medium.com/building-games-in-ecs-with-entity-relationships-657275ba2c6c)
 - [Making the most of ECS identifiers](https://ajmmertens.medium.com/doing-a-lot-with-a-little-ecs-identifiers-25a72bd2647)
 - [Why Storing State Machines in ECS is a bad idea](https://ajmmertens.medium.com/why-storing-state-machines-in-ecs-is-a-bad-idea-742de7a18e59)
+
 All of them written by [Sander Mertens](https://ajmmertens.medium.com/).
-[Events in Entity Component Systems](https://medium.com/@casual.evil52/events-in-entity-component-systems-22dc5107ed81) and
+
+Furthermore, [Events in Entity Component Systems](https://medium.com/@casual.evil52/events-in-entity-component-systems-22dc5107ed81) and
 [What is an Entity Component System architecture for game development?](https://www.richardlord.net/blog/ecs/what-is-an-entity-framework)
 are also very good articles.
 
@@ -54,35 +58,47 @@ The video [Game Engine Entity/Object Models](https://youtu.be/jjEsB611kxs) demon
 and their main differences. **Bobby Anguelov** explains beautifully why in practice there are serious issues with both
 approaches.
 
-To summarize the pros and cons of each
+To summarize the pros and cons of each:
 
 ### Game-object component model (EC)
 
 In a Game-object component model nearly everything in the game world is modeled by a GameObject (also referred to as an Entity).
 These game objects are then also ordered into spatial hierarchies, basically a tree.
-
-[TODO example tree]
-
 This is done so that dependent transformations can be easily managed. The easiest example to imagine is scene composition.
-Lets say our character has two arms, two legs and a torso and a weapon (but no head!). To make moving the character with all its parts easier
-we define each components transformations in their local space. The local space defines how to transform the object as if its parent was the
-center of the universe. The right hand rotates, the weapon rotates also rotates because it is under the right hand. The character moves, every
+Lets say our character has two arms, two legs and a torso and a weapon (but no head!). Then you could have a Game-object
+hierarchy like so:
+
+```text
+Character
+  LeftArm
+  RightArm
+    Weapon
+  LeftLeg
+  RightLeg
+```
+
+Each object can have its own components, in this case some Mesh and some Transform (scaling, rotation and translation) data.
+To make moving the character with all its parts easier we define each components transformations in their local space. 
+The local space defines how to transform the object as if its parent was the center of the universe. 
+The right hand rotates, the weapon also rotates because it is under the right hand.The character moves, every
 part of it moves.
 
-[TODO example]
+{{< figure src="spatial_hierarchy.png" >}}
 
 Then to know where every game object is, we simply have to walk through the tree and multiply all the matrix transformations together and it is done.
 Simple. On the other hand if you had to define and maintain every objects transformation in world space that would be a nightmare.
-This gives the developers a simple mental model to work with. Unfortunately this where all the positives end as well.
+This gives the developers a simple mental model to work with, which is also very flexible and extensible. Basically everything in a scene
+can be defined as a hierarchy of game-objects, put together from the required number of components.
+Unfortunately this where all the positives end as well.
 
 The idea is only simple as long as there is nothing more complicated then strictly hierarchical updates, where everything is only affected by the
 changes to its immediate parent. In practice this is never the case.
 Just imagine an enemy trying to find a target. What should it do? Walk the whole tree up and down and see if it can see some adversary? Perhaps ask
-some higher level service to find it a target? Oh oh, but then the logic is no longer encapsulated in it. In either case it had to have access to
-a bigger scope than itself, i.e. it has escaped its encapsulation again. This introduces implicit dependencies between objects and components.
+some higher level service to find it a target? Oh oh, but then the logic is no longer encapsulated within the component.
+In either case it had to have access to a bigger scope than itself, i.e. it has escaped its encapsulation again. This introduces implicit dependencies between objects and components.
 Or how about the physics/ai simulation? The logic cannot be encapsulated within a component, because they have to be global simulations.
 Just imagine the AI is moving units around to attack. If each unit makes a decision individually then they will likely rush the closest target or
-they engage into a some complicated song and dance where they discuss who does what (which either introduces dependencies between the two or another
+they engage into some complicated song and dance where they discuss who does what (which either introduces dependencies between the two or another
 higher level object). If instead a global AI makes the decisions then it can internally decide what to do, but only if it knows about every unit it
 controls. Is that unit still there though? Who triggers its processing? A unit? Either way you can easily see that no matter how you approach it
 there are aspects which cannot be encapsulated within a component.
@@ -100,7 +116,7 @@ The Entity component system flips everything on its head and seems to seemingly 
 A fascinating idea with data oriented design at its center. In this model this is what we will have: **World**, **Entity**, **Component**, **System**.
 An **Entity** turns into nothing more than an ID. **Component**s only hold raw data, no behavior at all. A component doesn't even know which entity it
 belongs to. All entities are grouped into **Archetype**s, which are managed by the **World**.
-In monkey terms this means that the World holds access to Archetypes which simply are table for all entities that have the exact same set of components.
+In monkey terms this means that the World holds access to Archetypes which simply are tables for all entities that have the exact same set of components.
 
 [TODO example]
 
@@ -116,11 +132,11 @@ In terms of data locality and cache friendliness you could hardly wish for bette
 Parallelizing system evaluation looks simple, just run the inner for loop distributed between threads and done.
 
 At least this is what the idea is. It looks like a good idea and for a number of days I was convinced it is a good approach for a game engine.
-What else could you want? This is where research pays of. Often people tend to hype up the benefits of a given approach while minimizing the
+What else could you want? This is where research pays off. Often people tend to hype up the benefits of a given approach while minimizing the
 shortcomings.
 
-In a purely ECS every property of an entity has to be encoded within the data. This may be just a zero size type, which by its presence conveys
-some meaning but it has to be there. When an entity either gets a component added or removed it has to move between archetypes. The whole row
+In a purely ECS approach every property of an entity has to be encoded within the data. This may be just a zero size type, which by its presence conveys
+some meaning but it has to be managed. When an entity either gets a component added or removed it has to move between archetypes. The whole row
 in the table has to be moved into another table, which can take time and requires additional indirections for performant execution.
 The model struggles with the handling of events. Again the event somehow has to turn into data, added to an entity, which shuffles it around.
 For similar reasons state machines are problematic as well.
@@ -134,9 +150,9 @@ scenarios.
 
 As mentioned before I have zero practical experience with either model. Making it very difficult to make a choice. What we know for sure is that
 the **Game-object component model** works. It has been around for a long time and most games used it through Unreal, Unity or other engines.
-The **Entity component system** is a newish approach. It has been around while now. Without pretending to be a historian we can assume that it has
+The **Entity component system** is a newish approach. It has been around for a while now though. Without pretending to be a historian we can assume that it has
 been used, the very minimum, at least five years. [Games have been made](https://github.com/SanderMertens/ecs-faq#who-is-using-ecs) using the pattern.
-How accurate these reports are or they mean they exclusively used the pattern, I cannot say.
+How accurate these reports are, did they exclusively used the pattern, I cannot say.
 
 As an inexperienced observer I tended to agree with the points made in [Game Engine Entity/Object Models](https://youtu.be/jjEsB611kxs). Most likely
 we should not attempt to do either this or that, but strive to use the best of both words. The ideas outlined in the video seem reasonable to me.
@@ -200,13 +216,15 @@ double the capacity like in any vector implementation.
 Rebuilding a `Bind group` seems to be relatively cheap. Creating new `Buffers` and serializing/uploading to the GPU seems to be the most costly
 part of the operation.
 
-### Instances, meshes, groups
+### Instances, meshes, globals
 
 One question that remained was how should shaders look like? Should they receive data as `uniform buffers`, `storage buffers`, get mesh data from `vertex/index buffers`?
 It really wasn't clear to me what was the sensible approach, so a number of combination have been tried out (in previous chapters), but ultimately if we want to have **instancing**,
 there seems to be only one pattern that made sense.
 
-#### Put all data that should be the same within a given rendering cycle as a global uniform buffer. This then can be as big as necessary and contain all the data that may be required by **any**
+#### Put all data that should be the same within a given rendering cycle as a global uniform buffer
+
+This then can be as big as necessary and contain all the data that may be required by **any**
 of the pipelines
 
 ```wgsl
@@ -225,7 +243,7 @@ Any being the operative word here. Currently 5 shaders are in use (normal_debug,
 **cube_map** and **textured_draw** only uses `view_projection_m`, and **skybox** only uses `translation_free_inverse_view_projection`. This means that instead of maintaining and updating a uniform buffer for (view_m, view_projection_m),
 (view_projection_m) and one for (translation_free_inverse_view_projection), only one needs to be updated and only once per rendering cycle. (Haha just noticed `view_world_position` isn't used any more, enjoy.)
 
-Instead of 3 uploads to the GPU we get away with only one. While this means that the size of this combined uniform buffer will never be optimal but the reduction of total memory transfer is likely worth the tradeoff.
+Instead of 3 uploads to the GPU we get away with only one. While this means that the size of this combined uniform buffer will never be optimal for a given pipeline, the reduction of total memory transfer is likely worth the tradeoff.
 
 #### Put all the mesh data with LOD levels for a given geometry into its own buffer
 
@@ -248,7 +266,7 @@ on the fly or modify the base geometry. So we can probably assume that as long a
 While currently we don't have this implemented, it does not seem to be a far fetched idea. The player/camera moves around the scene a lot, causing constant changes in the required LOD. The only problem with this assumption may come when there is simply
 not enough GPU memory left. That optimization requirement is far enough, that it is not of concern as of now. 
 
-The benefit in this is that similarly to the global uniform values, this information has to be uploaded to the GPU once per scene. Then it can be kept solely in GPU memory, freeing RAM for other tasks. It could even be reused between scenes if it
+The benefit is that this information has to be uploaded to the GPU only once per scene. Then it can be kept solely in GPU memory, freeing RAM for other tasks. It could even be reused between scenes if it
 persists. A `storage` buffer has a maximum size of at least 128 MiB, but higher sizes can be requested based on the GPU. The current `VertexData` takes up 48 B, so we will have space for approximately 2.8 million vertices. Mayhaps not enough for
 `AAA` high definition models and all their LODs, but likely more than enough for everything else.
 
@@ -265,11 +283,12 @@ struct Instance {
 var<storage, read> instances: array<Instance>;
 ````
 
-A similar 
+This allows us to group all instances together and update only the values that change between rendering cycles. With all three patterns put together,
+the whole rendering pipeline collapses into:
 
 ```text
 start rendering
-update uniform buffer
+update global uniform buffer
 for each pipeline:
   update instance buffers
   set pipeline
@@ -277,3 +296,27 @@ for each pipeline:
   draw
 end rendering
 ```
+
+In other words only as many draw calls have to be made as pipelines are in use.
+
+#### Groups
+
+Lastly how do you group draw requests for efficient instancing? We have to remember the GPU has to be told at the `draw` command how many
+vertices does it need to draw, and how many times repeat the whole process (instances).
+
+That meant that instances have to be grouped on the mesh, the LOD of the mesh and then every resource that cannot be serialized into arrays
+on the GPU side. As you may remember, these were the Textures and Samplers (ones that I am aware off, may be more).
+
+A simple demonstration:
+
+| MeshID | LOD | TextureID | Pipeline | Group |
+| ------ | --- | --------- | -------- | ----- |
+| 0      | 0   | 0         | 0        | 0     |
+| 0      | 1   | 0         | 0        | 1     |
+| 0      | 2   | 0         | 0        | 2     |
+| 0      | 0   | 1         | 0        | 0     |
+
+
+### Conclusion
+
+The above pattern seems to be able to optimize the rendering pipeline by minimizing the amount of memory transfer between CPU-GPU and the amount of draw calls.
