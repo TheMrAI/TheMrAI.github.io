@@ -1,8 +1,8 @@
 ---
 layout: page
-title: Cleanup
+title: Auto pipelining
 date: "2026-06-09"
-summary: "Plans for the future and some refactoring"
+summary: "Some refactoring and automatic pipelining"
 draft:  true
 ---
 
@@ -258,6 +258,9 @@ Any being the operative word here. Currently 5 shaders are in use (normal_debug,
 
 Instead of 3 uploads to the GPU we get away with only one. While this means that the size of this combined uniform buffer will never be optimal for a given pipeline, the reduction of total memory transfer is likely worth the tradeoff.
 
+> If you check the code, you won't see this pattern used yet, because the Skybox shader and the Camera are tricky. The camera is needed for the whole rendering cycle and the skybox is related to it, but otherwise
+uses no meshes at all. Instead of trying to force it in, it was left separately. When we have a better design for Entities, this should be cleaned up.
+
 #### Put all the mesh data with LOD levels for a given geometry into its own buffer
 
 {{< figure src="lod.png" title="LOD levels" >}}
@@ -371,11 +374,24 @@ All this means that apart from the default grouping requirements (mesh, lod, pip
 
 ## Engine state
 
-[TODO]
+A number of refactors have been attempted in this iteration. A basic configuration system was added, which isn't used apart from reading the desired
+resolution.
 
-[TODO youtube]
+An attempt was made do handle nodes and the camera as some uniform entity, but this has failed given the complexity regarding entities.
+Nevertheless the rest of the nodes were extracted from the pipelines and are now stored in an array. The idea was to simulate a scene tree in
+the simplest way possible, where there are no hierarchies. This way we could test out what it would look like to feed every object that needs to
+be rendered, every cycle to the rendering pipeline. To facilitate this pipelines now automatically group and instance all render commands.
+Which enables us to dynamically change rendering related parameters for any entity with very little performance impact.
+This was the only success. In hindsight we are not entirely sure how beneficial this feature really is, at least we have explored it.
 
-Code available at: [TODO code]
+The takeaway is that game engines are very complicated and even well established approaches aren't bulletproof. Regardless, we managed to get a bit
+closer to the desired outcome.
+
+(Increased the rendering resolution from 1024X768 to 1920x1080, this barely affects the FPS.)
+
+{{< youtube 4hGfZbY_I80 >}}
+
+Code available at: [v0.4](https://github.com/TheMrAI/engine/releases/tag/v0.4)
 
 ### FPS counter
 
@@ -396,18 +412,27 @@ Avg. FPS: 4728.06
 ```
 
 Now we have:
-[TODO update]
 
 `develop` build
 ```text
-Avg. FPS: 1957.49
-1% low: 1850.92
-0.1% low: 1785.03
+Avg. FPS: 905.07
+1% low: 709.60
+0.1% low: 603.94
 ```
 
 `release` build
 ```text
-Avg. FPS: 4728.06
-1% low: 1564.94
-0.1% low: 1539.11
+Avg. FPS: 3027.90
+1% low: 1190.20
+0.1% low: 1003.72
 ```
+
+As it can be seen we have lost a lot of FPS. This may be okay, given that we have now gained the minimum flexibility required in rendering
+anything on demand. Furthermore the prior implementation had no chance at being parallelized. Now that may not be so far out of reach, in
+which case we may get back all the lost processing power and perhaps more.
+
+### Blooper
+
+During refactoring obviously we messed up some buffer offsets. Here is one of the results.
+
+{{< figure src="refact_blooper_1.png" >}}
