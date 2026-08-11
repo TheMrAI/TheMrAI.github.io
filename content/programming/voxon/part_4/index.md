@@ -3,7 +3,7 @@ layout: page
 title: Auto pipelining
 date: "2026-06-09"
 summary: "Some refactoring and automatic pipelining"
-draft:  true
+draft:  false
 ---
 
 Prior to this project I had close to zero experience (ehh call it an even zero) with game engine programming.
@@ -11,7 +11,7 @@ As a learning exercise a lot of mess was made. That is fine. Bumbling through th
 something inevitably leads to a mess. We learn from this mess and fix it in due time.
 
 Had no misconceptions about game engines being simple in the slightest,
-but nothing prepared me so far to the amount of sheer complexity and considerations that need to be made from the start.
+but nothing prepared me so far to the amount of sheer complexity and considerations that need to be made right from the start.
 
 Believed that it had to be similar to other engineering tasks. Even if you don't know what you are doing, small incremental
 changes should lead you to a semi optimal outcome. As an exercise spent about 2 weeks just refactoring the code to make it
@@ -80,7 +80,7 @@ Character
 Each object can have its own components, in this case some Mesh and some Transform (scaling, rotation and translation) data.
 To make moving the character with all its parts easier we define each components transformations in their local space. 
 The local space defines how to transform the object as if its parent was the center of the universe. 
-The right hand rotates, the weapon also rotates because it is under the right hand.The character moves, every
+The right hand rotates, the weapon also rotates because it is under the right hand. The character moves, every
 part of it moves.
 
 {{< figure src="spatial_hierarchy.png" >}}
@@ -166,7 +166,7 @@ been used, the very minimum, at least five years. [Games have been made](https:/
 How accurate these reports are, did they exclusively use the pattern, I cannot say though.
 
 As an inexperienced observer I tended to agree with the points made in [Game Engine Entity/Object Models](https://youtu.be/jjEsB611kxs). Most likely
-we should not attempt to do either this or that, but strive to use the best of both words. The ideas outlined in the video seem reasonable to me.
+we should not attempt to do either this or that, but strive to use the best of both worlds. The ideas outlined in the video seem reasonable to me.
 
 Not this time though! While I have put all this at the beginning of the post, the research was the last thing I have done. Highlighting this as the
 issues addressed in the previous sections were the ones that seemed to be beyond my capabilities.
@@ -254,7 +254,7 @@ struct Globals {
 
 Any being the operative word here. Currently 5 shaders are in use (normal_debug, normal_debug_wireframe, cube_map, textured_draw, skybox), neither uses all 4 of these values. **normal_debug** and **normal_debug_wireframe** use `view_m` and `view_projection_m`,
 **cube_map** and **textured_draw** only uses `view_projection_m`, and **skybox** only uses `translation_free_inverse_view_projection`. This means that instead of maintaining and updating a uniform buffer for (view_m, view_projection_m),
-(view_projection_m) and one for (translation_free_inverse_view_projection) individually, only one needs to be updated and only once per rendering cycle. (Haha just noticed `view_world_position` isn't used any more, enjoy.)
+(view_projection_m) and one for (translation_free_inverse_view_projection) individually, only one needs to be updated and only once per rendering cycle. (Haha just noticed `view_world_position` isn't used anymore, enjoy.)
 
 Instead of 3 uploads to the GPU we get away with only one. While this means that the size of this combined uniform buffer will never be optimal for a given pipeline, the reduction of total memory transfer is likely worth the tradeoff.
 
@@ -326,7 +326,7 @@ This will be universally that same restriction for each (pipeline, mesh, LOD) co
 on such triplets.
 
 Then, depending on the pipeline and the used resources, the grouping criteria must be extended.
-Remember this is necessary, because some resources, like Textures and Samplers cannot be put into arrays/`Buffers`. They always have to
+Remember this is necessary, because some resources, like Textures and Samplers cannot be put into arrays/buffers. They always have to
 stand as their own resource. Which means that if between two entities a different Texture is used, while everything else being the same,
 they cannot be instanced together.
 
@@ -380,7 +380,7 @@ resolution.
 An attempt was made do handle nodes and the camera as some uniform entity, but this has failed given the complexity regarding entities.
 Nevertheless the rest of the nodes were extracted from the pipelines and are now stored in an array. The idea was to simulate a scene tree in
 the simplest way possible, where there are no hierarchies. This way we could test out what it would look like to feed every object that needs to
-be rendered, every cycle to the rendering pipeline. To facilitate this pipelines now automatically group and instance all render commands.
+be rendered, every cycle to the rendering pipeline. To facilitate these pipelines now automatically group and instance all render commands.
 Which enables us to dynamically change rendering related parameters for any entity with very little performance impact.
 This was the only success. In hindsight we are not entirely sure how beneficial this feature really is, at least we have explored it.
 
