@@ -1,0 +1,204 @@
+<!doctype html><html lang=en-us><head><meta charset=utf-8><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1"><title>Auto pipelining &#9775; MrAI</title><meta name=viewport content="width=device-width,initial-scale=1"><meta name=description content="Some refactoring and automatic pipelining"><script id=MathJax-script async src=https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js></script><script>MathJax={tex:{displayMath:[["\\[","\\]"],["$$","$$"]],inlineMath:[["\\(","\\)"]]},loader:{load:["ui/safe"]}}</script><link rel="shortcut icon" href=https://themrai.github.io/favicon.png type=image/x-icon><link rel=stylesheet href=https://themrai.github.io/pico/css/pico.min.css></head><body class=body><main class=container><nav><ul><li><a href=/>MrAI</a></li></ul><ul><li><a href=/contemplation/>Contemplation</a></li><li><a href=/programming/>Programming</a></li><li><a href=/tinkering/>Tinkering</a></li></ul></nav><article><p>Prior to this project I had close to zero experience (ehh call it an even zero) with game engine programming.
+As a learning exercise a lot of mess was made. That is fine. Bumbling through the dark without knowing how to do
+something inevitably leads to a mess. We learn from this mess and fix it in due time.</p><p>Had no misconceptions about game engines being simple in the slightest,
+but nothing prepared me so far to the amount of sheer complexity and considerations that need to be made right from the start.</p><p>Believed that it had to be similar to other engineering tasks. Even if you don&rsquo;t know what you are doing, small incremental
+changes should lead you to a semi optimal outcome. As an exercise spent about 2 weeks just refactoring the code to make it
+simpler in the hopes of observing some patterns that can be later used to build on. In some parts this was a success, in others
+an abject failure. Let me show you why.</p><h2 id=ecm-or-ecs>ECM or ECS</h2><p>There seems to be two major approaches in taming the complexity spirit demon residing in every
+game engine. Furthermore it seems it doesn&rsquo;t matter which one you choose, suffering is guaranteed, just in
+different ways.</p><p>First off, we have ECM - Entity component model, Entity system (ES), <strong>Game-object component model</strong>. Many names for the
+same thing, confusing all initiates. This is basically the object oriented approach.
+<a href=https://gameprogrammingpatterns.com/>Game Programming Patterns</a> by <strong>Robert Nystrom</strong> is a very good read in this regard.
+Presents the patterns in a fun, understandable manner. While it fails to show the big picture it demonstrates the pieces very well.
+If you are as unfamiliar with the topics as I was, for this discussion it is recommended to read:</p><ul><li><a href=https://gameprogrammingpatterns.com/game-loop.html>Game Loop</a></li><li><a href=https://gameprogrammingpatterns.com/component.html>Component</a> &lt;- the key to this pattern</li><li><a href=https://gameprogrammingpatterns.com/event-queue.html>Event Queue</a></li><li><a href=https://gameprogrammingpatterns.com/data-locality.html>Data Locality</a></li><li><a href=https://gameprogrammingpatterns.com/spatial-partition.html>Spatial Partition</a></li></ul><p>It isn&rsquo;t necessary to fully understand them, but at least observe what type of problems have to be solved.</p><p>Second is ECS, which has only one name that I could stumble upon, <strong>Entity component system</strong>.
+This is the data oriented approach. A lot of good information can be found here:
+<a href=https://github.com/SanderMertens/ecs-faq#how-is-ecs-different-from-entity-component-frameworks>Entity Component System FAQ</a></p><p>To me the most helpful ones were (all written by <a href=https://ajmmertens.medium.com/>Sander Mertens</a>):</p><ul><li><a href=https://ajmmertens.medium.com/building-an-ecs-1-where-are-my-entities-and-components-63d07c7da742>Building an ECS #1</a></li><li><a href=https://ajmmertens.medium.com/building-an-ecs-2-archetypes-and-vectorization-fe21690805f9>Building an ECS #2</a></li><li><a href=https://ajmmertens.medium.com/building-an-ecs-storage-in-pictures-642b8bfd6e04>Building an ECS #3</a></li><li><a href=https://ajmmertens.medium.com/why-vanilla-ecs-is-not-enough-d7ed4e3bebe5>Why Vanilla ECS Is Not Enough</a></li><li><a href=https://ajmmertens.medium.com/building-games-in-ecs-with-entity-relationships-657275ba2c6c>Building Games in ECS with Entity Relationships</a></li><li><a href=https://ajmmertens.medium.com/doing-a-lot-with-a-little-ecs-identifiers-25a72bd2647>Making the most of ECS identifiers</a></li><li><a href=https://ajmmertens.medium.com/why-storing-state-machines-in-ecs-is-a-bad-idea-742de7a18e59>Why Storing State Machines in ECS is a bad idea</a></li></ul><p>Furthermore, <a href=https://medium.com/@casual.evil52/events-in-entity-component-systems-22dc5107ed81>Events in Entity Component Systems</a> and
+<a href=https://www.richardlord.net/blog/ecs/what-is-an-entity-framework>What is an Entity Component System architecture for game development?</a>
+are also very good articles.</p><p>The video <a href=https://youtu.be/jjEsB611kxs>Game Engine Entity/Object Models</a> demonstrates both approaches
+and their main differences. <strong>Bobby Anguelov</strong> explains beautifully why in practice there are serious issues with both
+approaches.</p><p>To summarize the pros and cons of each:</p><h3 id=game-object-component-model-ec>Game-object component model (EC)</h3><p>In a Game-object component model nearly everything in the game world is modeled by a GameObject (also referred to as an Entity).
+These game objects are then also ordered into spatial hierarchies, basically trees.
+This is done so that dependent transformations can be easily managed. The easiest example to imagine is scene composition.
+Lets say our character has two arms, two legs and a torso and a weapon (but no head!). Then you could have a Game-object
+hierarchy like so:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Character
+</span></span><span style=display:flex><span>  LeftArm
+</span></span><span style=display:flex><span>  RightArm
+</span></span><span style=display:flex><span>    Weapon
+</span></span><span style=display:flex><span>  LeftLeg
+</span></span><span style=display:flex><span>  RightLeg
+</span></span></code></pre></div><p>Each object can have its own components, in this case some Mesh and some Transform (scaling, rotation and translation) data.
+To make moving the character with all its parts easier we define each components transformations in their local space.
+The local space defines how to transform the object as if its parent was the center of the universe.
+The right hand rotates, the weapon also rotates because it is under the right hand. The character moves, every
+part of it moves.</p><figure><img src=/programming/voxon/part_4/spatial_hierarchy.png></figure><p>Then to know where every game object is, we simply have to walk through the tree and multiply all the matrix transformations together and it is done.
+Simple. On the other hand if you had to define and maintain every objects transformation in world space that would be a nightmare.
+This gives the developers a simple mental model to work with, which is also very flexible and extensible. Basically everything in a scene
+can be defined as a hierarchy of game-objects, put together from the required number of components.</p><p>Unfortunately this where all the positives end as well.</p><p>The idea is only simple as long as there is nothing more complicated then strictly hierarchical updates, where everything is only affected by the
+changes to its immediate parent. In practice this is never the case.
+Just imagine an enemy trying to find a target. What should it do? Walk the whole tree up and down and see if it can see some adversary? Perhaps ask
+some higher level service to find it a target? Oh oh, but then the logic is no longer encapsulated within the component.
+In either case it had to have access to a bigger scope than itself, i.e. it has escaped its encapsulation again. This introduces implicit dependencies between objects and components.
+Or how about the physics/ai simulation? The logic cannot be encapsulated within a component, because they have to be global simulations.
+Just imagine the AI is moving units around to attack. If each unit makes a decision individually then they will likely rush the closest target or
+they engage into some complicated song and dance where they discuss who does what (which either introduces dependencies between the two or another
+higher level object). If instead a global AI makes the decisions then it can internally decide what to do, but only if it knows about every unit it
+controls. Is that unit still there though? Who triggers its processing? A unit? Either way you can easily see that no matter how you approach it
+there are aspects which cannot be encapsulated within a component.</p><p>It also seems that with this pattern there is no solution to the problems. Encapsulation has to escape the objects/components if their
+logic wants to do anything useful.
+In practice a spaghetti, dependency/reference hell ensues and hell comes to Earth.</p><p>Moreover it is nearly impossible to reasonably parallelize any of this. There is no way to tell who isn&rsquo;t affected by what if the dependencies are implicit.
+The moment the objects start accessing the world, walking the tree, anything can happen.</p><h3 id=entity-component-system-ecs>Entity component system (ECS)</h3><p>The Entity component system flips everything on its head and seems to seemingly say &ldquo;What if we completely detached data from its behavior?&rdquo;.
+A fascinating idea with data oriented design at its center. In this model this is what we will have: <strong>World</strong>, <strong>Entity</strong>, <strong>Component</strong>, <strong>System</strong>.
+An <strong>Entity</strong> turns into nothing more than an ID. <strong>Components</strong> only hold raw data, no behavior at all. A component doesn&rsquo;t even know which entity it
+belongs to. All entities are grouped into <strong>Archetypes</strong>, which are managed by the <strong>World</strong>.
+In monkey terms this means that the World holds access to Archetypes which are simply tables for all entities that have the exact same set of components.
+A sorta pseudo DB if you will.</p><figure><img src=/programming/voxon/part_4/ecs.png><figcaption><h4>ECS components</h4></figcaption></figure><p>The core idea is that all components (<code>ComponentA</code>, <code>ComponentB</code>) are held in continuous arrays tightly packed in memory. The Archetypes are nothing
+more than groups of components. They don&rsquo;t really have a name, only tagged them for easier identification. Then an entity is just a given row across
+components in an archetype.</p><p>Entities travel between archetypes when new components are added or removed from them. An entity will only be part of one archetype, with all its
+components.</p><p>Then all behavior is defined by <strong>Systems</strong>. Systems are not concerned with what they are working on. Only that the appropriate components are present.
+In this case lets say a System needs everything with <code>ComponentA</code> and <code>ComponentB</code>. It queries the World for these parameters and it will receive
+entities with ids: 1, 3, 11, 9, &mldr;, 6, 4, 2, &mldr; Notice that it receives all entities that contained the required components. Some had more?
+That is of no concern. Looks like a duck? It is a duck, it doesn&rsquo;t need to quack.</p><p>A marvelous idea! Divide the data into the smallest sensible units, put them into arrays, then let systems access these arrays and process them.
+In terms of data locality and cache friendliness you could hardly wish for better.</p><p>Parallelizing system evaluation looks simple, just run the inner for loop distributed between threads and done.</p><p>At least this is what the idea is. It looks like a good idea and for a number of days I was convinced it is a good approach for a game engine.
+What else could you want? This is where research pays off. Often people tend to hype up the benefits of a given approach while minimizing the
+shortcomings.</p><p>In a purely ECS approach every property of an entity has to be encoded within the data. This may be just a zero size type, which by its presence conveys
+some meaning but it has to be managed. When an entity either gets a component added or removed it has to move between archetypes. The whole row
+in the table has to be moved into another table, which can take time and requires additional indirections for performant execution.</p><p>The model struggles with the handling of events. Again the event somehow has to turn into data, added to an entity, which shuffles it around.
+For similar reasons state machines are problematic as well.</p><p>Then you also loose the spatial hierarchy that is the cornerstone benefit of the Game-object component model. Modeling parent, child relationships
+becomes difficult in code and vastly more difficult for developers to reason about.</p><p><a href=https://ajmmertens.medium.com/>Sander Mertens</a> proposes solutions to these shortcomings (like relations, entities as components), but after being presented
+with all the information it seems that perhaps they are a bit forced. Too many support structures and indirections have to be introduced to be able to handle all
+of these common scenarios.</p><h2 id=which-way>Which way?</h2><p>As mentioned before I have zero practical experience with either model. Making it very difficult to make a choice. What we know for sure is that
+the <strong>Game-object component model</strong> works. It has been around for a long time and most games used it through Unreal, Unity or other engines.
+The <strong>Entity component system</strong> is a newish approach. It has been around for a while now though. Without pretending to be a historian we can assume that it has
+been used, the very minimum, at least five years. <a href=https://github.com/SanderMertens/ecs-faq#who-is-using-ecs>Games have been made</a> using the pattern.
+How accurate these reports are, did they exclusively use the pattern, I cannot say though.</p><p>As an inexperienced observer I tended to agree with the points made in <a href=https://youtu.be/jjEsB611kxs>Game Engine Entity/Object Models</a>. Most likely
+we should not attempt to do either this or that, but strive to use the best of both worlds. The ideas outlined in the video seem reasonable to me.</p><p>Not this time though! While I have put all this at the beginning of the post, the research was the last thing I have done. Highlighting this as the
+issues addressed in the previous sections were the ones that seemed to be beyond my capabilities.
+No matter from which angle did I try to attack the design problem it always quickly fell apart. It never occurred to me that to even start the design
+it was necessary to think so outside the box, that we can see a neighbouring one as well.</p><p>In the next chapter the goal will be to start and arrive at something described by <strong>Bobby Anguelov</strong>.</p><h2 id=what-has-been-done>What has been done</h2><p>Funnily enough the only part that I could make progress on isn&rsquo;t really addressed by the previous sections.
+How to detach a rendering API, how to feed the data to the GPU and how to think about rendering pipelines.</p><p>From the previous escapades it was understood that <code>fewer polygons => faster</code>, <code>fewer draw calls => even faster</code>.
+So my goal was to try and find a pattern for writing the rendering pipelines that could allow me for supporting LOD (level of detail) with instancing.
+Before that though, it was imperative to understand the nature of a rendering pipeline and what it means. Or how to think about it in such an abstract
+way that it is helpful, but not overcomplicated.</p><h3 id=rendering-pipeline>Rendering pipeline</h3><p>This is not a formal definition of a rendering pipeline. Don&rsquo;t know if one exists, this is just how I started to think about it, after refactoring the
+code 3-4 times and finally realizing what was before me.</p><p>There are 3 main components to a rendering pipeline:</p><ul><li>shader codes</li><li>resources</li><li>bindings</li></ul><p><strong>Shader code</strong> - is simply the program you may write to be used within the configurable stages of the GPU&rsquo;s rendering execution. In our case only &ldquo;vertex&rdquo; and
+&ldquo;fragment&rdquo; shaders, but there can be more. These shaders define an interface for the resources they need through their bindings.</p><p><strong>Resources</strong> - Most resources can simply be thought of as simple regions of memory on the GPU side. Any type that the GPU has built in support for like
+floats, integers, vectors, matrices, arrays and structs can be combined together in any way. The GPU won&rsquo;t care. From it&rsquo;s perspective these will be nothing
+more but a chunk of memory. As long as this chunk of memory follows the GPU&rsquo;s memory alignment requirements according to the defined types, the GPU will
+happily consume the data.
+There are some other resources though for which some stricter requirements are set. Textures and Samplers behave as completely black box resources. The programmer
+does not know how they look like in GPU memory, cannot create them, only configure them (and in case of textures also upload the data, but you won&rsquo;t know
+how it will actually look like in memory on the GPU side). These resources have to stand alone, with their individual bindings and cannot
+be aggregated into arrays. Not sure why exactly this is, or if this is the case for all APIs, for WebGPU it seems to be the case.</p><p><strong>Binding</strong> - There are two sides of a binding. One on the shader side and one the pipeline side. The shader side can be imagined as the socket and the pipeline side the
+key. As long as they match everybody is happy.</p><figure><img src=/programming/voxon/part_4/pipeline_pieces.png><figcaption><h4>Pipeline</h4></figcaption></figure><p>From the CPU side a blob of data (can be anything, structs, arrays, can be at one place or coming from multiple) is taken, serialized according to the format of the bindings
+it is made for, then uploaded to the GPU. At this point we got a handle to a GPU resource, in the example a <code>Buffer</code>.</p><p>Then a <code>Rendering pipeline</code> is nothing more than the collection of <code>shaders</code> and a collection of <code>Bind groups</code>. How one <code>Bind group</code> looks like is defined by the given group&rsquo;s
+layout. How <code>Bind groups</code> are grouped together is defined by the <code>Pipeline's layout</code>. To then execute the <code>Rendering pipeline</code> we only need to create a <code>Bind group</code> that
+is compatible with the required layout, slot it in, then request the pipeline&rsquo;s execution.</p><p>Went to the trouble of showing this to highlight some key observations. After a <code>Pipeline</code> is constructed, it can simply be stashed away. Nothing needs to change on it as long
+as it is in use. It describes exactly what should happen with the data, where should it look for it, where should it put the output. It is complete.</p><p>The only thing that may change between rendering cycles are the <code>Buffers</code>, <code>Textures</code>, <code>Samplers</code>, simply the resources. In my case, only the content of the <code>Buffers</code> change between
+each cycle. To update a <code>Buffer</code>, the appropriate data has to be serialized and uploaded again. In case the allocated <code>Buffer</code> has enough space, it does not even need to be
+reallocated, just overwritten. In case more elements are needed, we can reallocate the <code>Buffer</code>, in which case the <code>Bind group</code> has to be updated as well.</p><p>Rebuilding a <code>Bind group</code> seems to be relatively cheap. Creating new <code>Buffers</code> and serializing/uploading to the GPU seems to be the most costly
+part of the operation.</p><h3 id=instances-meshes-globals>Instances, meshes, globals</h3><p>One question that remained was how should shaders look like? Should they receive data as <code>uniform buffers</code>, <code>storage buffers</code>, get mesh data from <code>vertex/index buffers</code>?
+It really wasn&rsquo;t clear to me what was the sensible approach, so a number of combinations have been tried out (in previous chapters), but ultimately if we want to have <strong>instancing</strong>,
+there seems to be only one pattern that made sense.</p><h4 id=put-all-data-that-should-be-the-same-within-a-given-rendering-cycle-as-a-global-uniform-buffer>Put all data that should be the same within a given rendering cycle as a global uniform buffer</h4><p>This then can be as big as necessary and contain all the data that may be required by <strong>any</strong>
+of the pipelines</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>struct</span> Globals {
+</span></span><span style=display:flex><span>    view_m: mat4x4f,
+</span></span><span style=display:flex><span>    view_projection_m: mat4x4f,
+</span></span><span style=display:flex><span>    view_world_position: vec3f,
+</span></span><span style=display:flex><span>    <span style=color:#75715e>// This inverse must not contain the transition
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// from view matrix, only the rotation and scaling. The projection
+</span></span></span><span style=display:flex><span>    <span style=color:#75715e>// should be left untouched.
+</span></span></span><span style=display:flex><span>    translation_free_inverse_view_projection: mat4x4f,
+</span></span><span style=display:flex><span>};
+</span></span></code></pre></div><p>Any being the operative word here. Currently 5 shaders are in use (normal_debug, normal_debug_wireframe, cube_map, textured_draw, skybox), neither uses all 4 of these values. <strong>normal_debug</strong> and <strong>normal_debug_wireframe</strong> use <code>view_m</code> and <code>view_projection_m</code>,
+<strong>cube_map</strong> and <strong>textured_draw</strong> only uses <code>view_projection_m</code>, and <strong>skybox</strong> only uses <code>translation_free_inverse_view_projection</code>. This means that instead of maintaining and updating a uniform buffer for (view_m, view_projection_m),
+(view_projection_m) and one for (translation_free_inverse_view_projection) individually, only one needs to be updated and only once per rendering cycle. (Haha just noticed <code>view_world_position</code> isn&rsquo;t used anymore, enjoy.)</p><p>Instead of 3 uploads to the GPU we get away with only one. While this means that the size of this combined uniform buffer will never be optimal for a given pipeline, the reduction of total memory transfer is likely worth the tradeoff.</p><blockquote><p>If you check the code, you won&rsquo;t see this pattern used yet, because the Skybox shader and the Camera are tricky. The camera is needed for the whole rendering cycle and the skybox is related to it, but otherwise
+uses no meshes at all. Instead of trying to force it in, it was left separately. When we have a better design for Entities, this should be cleaned up.</p></blockquote><h4 id=put-all-the-mesh-data-with-lod-levels-for-a-given-geometry-into-its-own-buffer>Put all the mesh data with LOD levels for a given geometry into its own buffer</h4><figure><img src=/programming/voxon/part_4/lod.png><figcaption><h4>LOD levels</h4></figcaption></figure><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>struct</span> VertexData {
+</span></span><span style=display:flex><span>    position: vec4f,
+</span></span><span style=display:flex><span>    normal: vec3f,
+</span></span><span style=display:flex><span>    uv: vec2f,
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@group</span>(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@binding</span>(<span style=color:#ae81ff>2</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span><span style=color:#f92672>&lt;</span>storage, read<span style=color:#f92672>&gt;</span> vertex_data: array<span style=color:#f92672>&lt;</span>VertexData<span style=color:#f92672>&gt;</span>;
+</span></span></code></pre></div><p>This works whether or not a given geometry has multiple levels of detail. Simply have the most detailed layout at the front of the buffer and the decreasing resolutions to the back. Likely there will be no need to generate levels of detail
+on the fly or modify the base geometry. So we can probably assume that as long as a given mesh is needed, likely its corresponding levels of details will be needed too.
+While currently we don&rsquo;t have this implemented, it does not seem to be a far fetched idea. The player/camera moves around the scene a lot, causing constant changes in the required LOD. The only problem with this assumption may come when there is simply
+not enough GPU memory left. That optimization requirement though is far enough that it is not of concern as of now.</p><p>The benefit is that this information has to be uploaded to the GPU only once per scene. Then it can be kept solely in GPU memory, freeing RAM for other tasks. It could even be reused between scenes if it
+persists. A <code>storage</code> buffer has a maximum size of at least 128 MiB, but higher sizes can be requested based on the GPU. The current <code>VertexData</code> takes up 48 B, so we will have space for approximately 2.8 million vertices. Mayhaps not enough for
+<code>AAA</code> high definition models and all their LODs, but likely more than enough for everything else.</p><h4 id=put-every-instance-specific-value-into-another-storage-buffer>Put every instance specific value into another storage buffer</h4><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-wgsl data-lang=wgsl><span style=display:flex><span><span style=color:#66d9ef>struct</span> Instance {
+</span></span><span style=display:flex><span>    model_m: mat4x4f,
+</span></span><span style=display:flex><span>    normal_m: mat3x3f,
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@group</span>(<span style=color:#ae81ff>0</span>)
+</span></span><span style=display:flex><span><span style=color:#a6e22e>@binding</span>(<span style=color:#ae81ff>1</span>)
+</span></span><span style=display:flex><span><span style=color:#66d9ef>var</span><span style=color:#f92672>&lt;</span>storage, read<span style=color:#f92672>&gt;</span> instances: array<span style=color:#f92672>&lt;</span>Instance<span style=color:#f92672>&gt;</span>;
+</span></span></code></pre></div><p>This allows us to group all instances together and update only the values that change between rendering cycles. With all three patterns put together,
+the whole rendering pipeline collapses into:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>start rendering
+</span></span><span style=display:flex><span>update global uniform buffer
+</span></span><span style=display:flex><span>for each pipeline:
+</span></span><span style=display:flex><span>  for each group:
+</span></span><span style=display:flex><span>    update instance buffers
+</span></span><span style=display:flex><span>    set pipeline
+</span></span><span style=display:flex><span>    set bind group
+</span></span><span style=display:flex><span>    draw
+</span></span><span style=display:flex><span>end rendering
+</span></span></code></pre></div><p>In other words only as many draw calls have to be made as pipeline and groups are in use/necessary.</p><h4 id=groups>Groups</h4><p>How do you group draw requests for efficient instancing? We have to remember the GPU has to be told at the <code>draw</code> command how many
+vertices does it need to draw and how many times to repeat the whole process (instances).</p><p>Differently, at the draw call, we must know, which mesh, with which LOD is being drawn, to know exactly how many vertices to be drawn.
+This will be universally that same restriction for each (pipeline, mesh, LOD) combination. So our minimum grouping criteria is a match
+on such triplets.</p><p>Then, depending on the pipeline and the used resources, the grouping criteria must be extended.
+Remember this is necessary, because some resources, like Textures and Samplers cannot be put into arrays/buffers. They always have to
+stand as their own resource. Which means that if between two entities a different Texture is used, while everything else being the same,
+they cannot be instanced together.</p><p>No special resources:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Pipeline A doesn&#39;t require special resource to be bound.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span># Instanced group 0
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline A, Instance{}
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline A, Instance{}
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline A, Instance{}
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span># Instanced group 1
+</span></span><span style=display:flex><span>mesh 1, lod 0, Pipeline A, Instance{}
+</span></span><span style=display:flex><span>mesh 1, lod 0, Pipeline A, Instance{}
+</span></span><span style=display:flex><span>mesh 1, lod 0, Pipeline A, Instance{}
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>With special resources:</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Pipeline B uses a Texture for rendering too, which cannot be serialized into a Buffer, necessitating another group.
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span># Instanced group 0
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline A, Texture 0, Instance{}
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline A, Texture 0, Instance{}
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline A, Texture 0, Instance{}
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span># Instanced group 1 
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline B, Texture 1, Instance{}
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline B, Texture 1, Instance{}
+</span></span><span style=display:flex><span>mesh 0, lod 0, Pipeline B, Texture 1, Instance{}
+</span></span><span style=display:flex><span>...
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span># Instanced group 2
+</span></span><span style=display:flex><span>mesh 2, lod 0, Pipeline B, Texture 0, Instance{}
+</span></span><span style=display:flex><span>mesh 2, lod 0, Pipeline B, Texture 0, Instance{}
+</span></span><span style=display:flex><span>mesh 2, lod 0, Pipeline B, Texture 0, Instance{}
+</span></span><span style=display:flex><span>...
+</span></span></code></pre></div><p>All this means that apart from the default grouping requirements (mesh, lod, pipeline), the pipeline itself may enforce additional grouping criteria.</p><h2 id=engine-state>Engine state</h2><p>A number of refactors have been attempted in this iteration. A basic configuration system was added, which isn&rsquo;t used apart from reading the desired
+resolution.</p><p>An attempt was made do handle nodes and the camera as some uniform entity, but this has failed given the complexity regarding entities.
+Nevertheless the rest of the nodes were extracted from the pipelines and are now stored in an array. The idea was to simulate a scene tree in
+the simplest way possible, where there are no hierarchies. This way we could test out what it would look like to feed every object that needs to
+be rendered, every cycle to the rendering pipeline. To facilitate these pipelines now automatically group and instance all render commands.
+Which enables us to dynamically change rendering related parameters for any entity with very little performance impact.
+This was the only success. In hindsight we are not entirely sure how beneficial this feature really is, at least we have explored it.</p><p>The takeaway is that game engines are very complicated and even well established approaches aren&rsquo;t bulletproof. Regardless, we managed to get a bit
+closer to the desired outcome.</p><p>(Increased the rendering resolution from 1024X768 to 1920x1080, this barely affects the FPS.)</p><div style=position:relative;padding-bottom:56.25%;height:0;overflow:hidden><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share; fullscreen" loading=eager referrerpolicy=strict-origin-when-cross-origin src="https://www.youtube.com/embed/4hGfZbY_I80?autoplay=0&amp;controls=1&amp;end=0&amp;loop=0&amp;mute=0&amp;start=0" style=position:absolute;top:0;left:0;width:100%;height:100%;border:0 title="YouTube video"></iframe></div><p>Code available at: <a href=https://github.com/TheMrAI/engine/releases/tag/v0.4>v0.4</a></p><h3 id=fps-counter>FPS counter</h3><p>In the previous chapter we had the following FPS metrics:</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 1957.49
+</span></span><span style=display:flex><span>1% low: 1850.92
+</span></span><span style=display:flex><span>0.1% low: 1785.03
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 4728.06
+</span></span><span style=display:flex><span>1% low: 1564.94
+</span></span><span style=display:flex><span>0.1% low: 1539.11
+</span></span></code></pre></div><p>Now we have:</p><p><code>develop</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 905.07
+</span></span><span style=display:flex><span>1% low: 709.60
+</span></span><span style=display:flex><span>0.1% low: 603.94
+</span></span></code></pre></div><p><code>release</code> build</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-text-size-adjust:none><code class=language-text data-lang=text><span style=display:flex><span>Avg. FPS: 3027.90
+</span></span><span style=display:flex><span>1% low: 1190.20
+</span></span><span style=display:flex><span>0.1% low: 1003.72
+</span></span></code></pre></div><p>As it can be seen we have lost a lot of FPS. This may be okay, given that we have now gained the minimum flexibility required in rendering
+anything on demand. Furthermore the prior implementation had no chance at being parallelized. Now that may not be so far out of reach, in
+which case we may get back all the lost processing power and perhaps more.</p><h3 id=blooper>Blooper</h3><p>During refactoring obviously we messed up some buffer offsets. Here is one of the results.</p><figure><img src=/programming/voxon/part_4/refact_blooper_1.png></figure></article><footer><nav aria-label=breadcrumb><ul><li><a href=/>Home</a></li><li><a href=/programming>Programming</a></li><li><a href=/programming/voxon>Voxon</a></li><li><a href=/programming/voxon/part_4>Part 4</a></li></ul></nav></footer></main></body></html>
